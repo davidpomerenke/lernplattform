@@ -1,4 +1,4 @@
-# Deutschland Lernt Selbst. <img align="right" src="hackathon.png">
+# Deutschland Lernt Selbst. <a href="https://wirvsvirushackathon.org"><img align="right" src="hackathon.png"></a>
 Übersicht über Selbstlern-Angebote für die Lehrpläne aller Bundesländer.
 
 ## Hackathon-Info
@@ -10,8 +10,8 @@
 - `ID`: 1952
 
 ## Mitmachen
-- [Projekt-Kanban auf Github](https://github.com/davidpomerenke/deutschland-lernt-selbst/projects/2)
-- Diskussionen am besten über Issues in Github, einen eigenen Slack-Channel gibt es bisher nicht.
+- [Projekt-Kanban](https://github.com/davidpomerenke/deutschland-lernt-selbst/projects/2)
+- Diskussionen am besten über Issues in Github, einen eigenen Slack-Channel gibt es bisher nicht, da ich das Projekt bisher alleine angehe. Wir können aber gerne einen aufmachen.
 
 ## Die Idee
 Ziel ist es, für Schüler und Lehrer deutschlandweit eine Plattform bereitzustellen, auf der sie Links zu Selbstlern-Materialien miteinander austauschen können, die im Netz frei verfügbar sind:
@@ -27,6 +27,8 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 ## Struktur
 
 ## Technologie
+- Da es für neue Daten einen Review-Prozess geben soll, bietet es sich an, Github zu nutzen, insbesondere auch weil dort eine engagierte Community zu finden ist (vermutlich nehmen mehr Leute über Github am Reviewen teil, als über eine eigene Review-Lösung auf der Projekt-Website.) Die Daten können am einfachsten als JSON gespeichert werden und per Javascript lokal im Browser geladen werden. Github Pages ist eine sehr einfache und transparente und auch bei viel Traffic zuverlässige Lösung. Da es für die meisten Benutzer zu aufwendig sein wird, Github zu benutzen, sollte es ein einfaches Formular auf der Website geben, das dann per Github API eine Pull Request mit den neuen Daten erstellt. Die Website sollte mobile-friendly oder mobile-first und für junge Schüler ansprechend sein.
+- Um Up- und Downvotes zu speichern macht Github eher weniger Sinn. Hier sollte es eine separate Lösung geben, die später implementiert werden kann.
 
 ## Verwandte Projekte
 - _awesome-lists_ (Github): 
@@ -35,4 +37,5 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
   - `→` Insbesondere für die Oberstufe wird es Sinn machen, diese zunächst als ganze Listen zu verlinken, später dann zu den einzelnen Modulen aufzuschlüsseln und die einzelnen Links zu übernehmen.
 - Landesbildungsserver: 
   - `+` Sind auf deutsch, auf die Lehrpläne zugeschnitten und von Lehrern kuratiert, daher sehr qualitativ. 
-  - `-` Sind nicht bundesweit vereinheitlicht und nicht direkt kollaborativ (meistens verwalten einige wenige Lehrer den Inhalt), auch gibt es keine Bewertungsmöglichkeit. Auf den Servern gibt es teilweise schon Listen mit Links zum Selbstlernen. Langfristig wäre es sinnvoll, wenn es ein HTML-Snippet gäbe, mit dem auf einfache Weise auf den Landesbildungsservern modulweise die bundesweiten Listen von diesem Projekt angezeigt werden könnten.
+  - `-` Sind nicht bundesweit vereinheitlicht und nicht direkt kollaborativ (meistens verwalten einige wenige Lehrer den Inhalt), auch gibt es keine Bewertungsmöglichkeit. Auf den Servern gibt es teilweise schon Listen mit Links zum Selbstlernen. 
+  - `→` Langfristig wäre es sinnvoll, wenn es ein HTML-Snippet gäbe, mit dem auf einfache Weise auf den Landesbildungsservern modulweise die bundesweiten Listen von diesem Projekt angezeigt werden könnten.
