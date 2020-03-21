@@ -30,83 +30,27 @@ graph LR
 ```mermaid
 classDiagram
 
-Tile <|-- TileGo
-Tile <|-- TileStreet
-Tile <|-- TileDraw
-Tile <|-- TileFreeParking
-Tile <|-- TilePrison
-
-Game --* Player
-Game --* Card
-Game --* Tile
-
-Tile --> Player
-TileStreet --o Player
-TileDraw --> Card
-
-class Game {
-  +Tile[] board
-  +Card[] pile1
-  +Card[] pile2
-  +Player[] players
-  +int timeSinceLastStep
-  +start() void
-  +update() void
-  +end() void
+class Kurs {
+	+Bundesland
+	+Fach
+	+Klassenstufe
+	+Liste von Modulnamen
 }
 
-class Player {
-  +int id
-  +move(Tile[] board, repetition=0) void
-  -int position
-  -int balance
-  -int prisonDuration
-  +getPosition() int
-  +setPosition(int position) void
-  +getAnimatedPosition() void
-  +setAnimatedPosition(int animatedPosition) void
-  +getXZ(int position, Tile[] board) double[]
-  +crossGo() void
-  +isActive() bool
+class SelbstlernRessourceGithub {
+	+Modulname
+	+Link
+	+Beschreibung
 }
 
-class Tile {
-  <<abstract>>
-  +int id
-  +Player owner
-  +landingAction(Player current, Player next) abstract void
+class SelbstlernRessourceDatenbank {
+	+Modulname
+	+Upvotes
+	+Downvotes
 }
 
-class TileGo {
-  +landingAction()
-}
-
-class TileStreet {
-  +int price
-  +Player owner
-  +int nHouses
-  +bool mortgaged
-  +landingAction()
-  +buy() void
-  +upgrade() void
-  +mortgage() void
-}
-
-class TileDraw {
-  +landingAction()
-}
-
-class TileFreeParking {
-  +landingAction()
-}
-
-class TilePrison {
-  +landingAction()
-}
-
-class Card {
-  +draw() void
-}
+Kurs --> SelbstlernRessourceGithub
+Kurs --> SelbstlernRessourceDatenbank
 ```
 
 ## Beispiel-Daten
