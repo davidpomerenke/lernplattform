@@ -17,6 +17,7 @@
 Ziel ist es, für Schüler und Lehrer deutschlandweit eine Plattform bereitzustellen, auf der sie Links zu Selbstlern-Materialien miteinander austauschen können, die im Netz frei verfügbar sind:
 - Jede Person soll für ihr Bundesland, ihr Fach, und ihre Klassenstufe die passenden Materialien angezeigt bekommen. 
 - Jede Person soll auch selbst Materialien hinzufügen können, sowie bestehende Materialien bewerten können. Wichtig ist, dass die Materialien und Bewertungen immer für alle Bundesländer verfügbar gemacht werden. Das heißt, eine Mathelehrerin aus Berlin trägt z. B. eine interaktive Website zum Binomialgleichungen ein, die in Berlin in der siebten Klasse behandelt werden (fiktives Beispiel!). In Bayern werden diese aber schon in der sechsten Klasse behandelt. Dann wird die Website sowohl Siebtklässlern in Berlin, als auch Sechstklässlern in Bayern angezeigt, mit denselben Bewertungen.
+- Es sollen alle Fächer und alle Schularten unterstützt werden (inklusive Grundschule), als Prototyp wird aber erst einmal nur Physik der Jahrgangsstufe 
 
 Das Projekt strebt an, eine Datenbank zu erstellen, die aus zwei Teilen besteht:
 1. Eine Zuordnung `Bundesland + Fach + Klassenstufe` → `Liste von Modulen`. Diese Zuordnung soll einmal aus den Lehrplänen extrahiert werden und dann gegebenenfalls jährlich aktualisiert werden.
@@ -40,7 +41,7 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 #### Client-Server-Kommunikation
 Zunächst wird ein Ansatz verfolgt, bei dem alle Daten auf einmal übertragen werden:
 
-![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cdENsaWVudC0-PlNlcnZlcjogU2VpdGVuYXVmcnVmXG5cdFNlcnZlci0tPj5DbGllbnQ6IFRhYmVsbGUgbWl0IEJ1bmRlc2zDpG5kZXJuLCBLbGFzc2Vuc3R1ZmVuLCBGw6RjaGVybiwgTW9kdWxlbiArIFRhYmVsbGUgbWl0IFNlbGJzdGxlcm4tUmVzc291cmNlbiBwcm8gTW9kdWwiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)]
+![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cdENsaWVudC0-PlNlcnZlcjogU2VpdGVuYXVmcnVmXG5cdFNlcnZlci0tPj5DbGllbnQ6IFRhYmVsbGUgbWl0IEJ1bmRlc2zDpG5kZXJuLCBLbGFzc2Vuc3R1ZmVuLCBGw6RjaGVybiwgTW9kdWxlbiArIFRhYmVsbGUgbWl0IFNlbGJzdGxlcm4tUmVzc291cmNlbiBwcm8gTW9kdWwiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 Wenn es einmal zigtausende Module gibt, sollten JSON-Tabellen pro Bundesland oder pro Bundesland+Klassenstufe oder pro Bundesland+Klassenstufe oder pro Bundesland+Klassenstufe+Fach vorkompiliert werden. (Etwa als Github-Action, die beim Annehmen einer Pull-Request ausgelöst wird; der Aufwand für das Kompilieren ist minimal.) Das Schema wäre dann im Extremfall, d. h. wenn es für jedes Bundesland+Klassenstufe+Fach:
 
