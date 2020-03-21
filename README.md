@@ -26,6 +26,9 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 
 ## Struktur
 
+### Entity-Relationship-Diagramm
+![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcblx0bGVybnR7bGVybnR9XG5cdGhhdHtoYXQgTWF0ZXJpYWxpZW59XG5cdFxuXHRCdW5kZXNsYW5kIC0tLXxufCBsZXJudFxuXHRGYWNoIC0tLXxufCBsZXJudFxuXHRLbGFzc2Vuc3R1ZmUgLS0tfG58IGxlcm50XG5cdGxlcm50IC0tLXxufCBNb2R1bFxuXHRNb2R1bCAtLS18bnwgaGF0XG5cdGhhdCAtLS18bnwgU2VsYnN0bGVybi1SZXNzb3VyY2Vcblx0U2VsYnN0bGVybi1SZXNzb3VyY2UgLS0tIExpbmtcblx0U2VsYnN0bGVybi1SZXNzb3VyY2UgLS0tIEJlc2NocmVpYnVuZ1xuXHRTZWxic3RsZXJuLVJlc3NvdXJjZSAtLS0gVXB2b3Rlc1xuXHRTZWxic3RsZXJuLVJlc3NvdXJjZSAtLS0gRG93bnZvdGVzIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
+
 ## Technologie
 - Da es für neue Daten einen Review-Prozess geben soll, bietet es sich an, Github zu nutzen, insbesondere auch weil dort eine engagierte Community zu finden ist (vermutlich nehmen mehr Leute über Github am Reviewen teil, als über eine eigene Review-Lösung auf der Projekt-Website.) Die Daten können am einfachsten als JSON gespeichert werden und per Javascript lokal im Browser geladen werden. Github Pages ist eine sehr einfache und transparente und auch bei viel Traffic zuverlässige Lösung. Da es für die meisten Benutzer zu aufwendig sein wird, Github zu benutzen, sollte es ein einfaches Formular auf der Website geben, das dann per Github API eine Pull Request mit den neuen Daten erstellt. Die Website sollte mobile-friendly oder mobile-first und für junge Schüler ansprechend sein.
 - Um Up- und Downvotes zu speichern macht Github eher weniger Sinn. Hier sollte es eine separate Lösung geben, die später implementiert werden kann.
