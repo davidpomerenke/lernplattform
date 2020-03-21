@@ -57,3 +57,29 @@ Kurs --> SelbstlernRessourceDatenbank
 
 ## Ablauf-Diagramm
 
+```mermaid
+sequenceDiagram
+	Client->>Server: Seitenaufruf
+	Server-->>Client: Liste der Bundesländer
+	Client->>Server: Bundesland
+	Server-->>Client: Liste der Klassenstufen
+	Client->>Server: Klassenstufe
+	Server-->>Client: Liste der Fächer
+	Client->>Server: Auswahl der Kern- und Nebenfächer
+	Server-->>Client: Liste der Selbstlern-Ressourcen pro Fach
+```
+
+```mermaid
+sequenceDiagram
+	Client->>Server: Seitenaufruf
+	Server-->>Client: Tabelle mit Bundesländern, Klassenstufen, Fächern
+	Client->>Server: Bundesland, Klassenstufe, Fächer
+	Server-->>Client: Liste der Selbstlern-Ressourcen pro Fach
+```
+
+```mermaid
+sequenceDiagram
+	Client->>Server: Seitenaufruf
+	Server-->>Client: Tabelle mit Bundesländern, Klassenstufen, Fächern, Modulen + Tabelle mit Selbstlern-Ressourcen pro Modul
+```
+
