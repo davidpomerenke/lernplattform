@@ -33,7 +33,10 @@ select.onclick = () => {
           ${moduleLinks}
           <small class="d-block text-right mt-3">
             <a href="#">Alle Links</a>
-          </small>`
+          </small>
+          <input type="text" value="Beschreibung"><input type="text" value="Link"><input type="text" value="Themen">
+          <button id="submit" class="btn" type="submit">Hinzufügen!</button>
+          `
         target.innerHTML += html
         target.style.visibility = "visible"
       })
