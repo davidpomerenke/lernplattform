@@ -249,6 +249,14 @@
       "beschreibung": "LEIFIphysik",
       "link": "https://www.leifiphysik.de/",
       "themen": ["Allgemein"]
+    },
+    {
+      "typ": "Aufgaben",
+      "beschreibung": "Erstelle einen Schaltplan",
+      "link": "https://wiki.zum.de/wiki/Der_hei%C3%9Fe_Draht",
+      "themen": [
+        "Elektrik"
+      ]
     }
   ]
 }
