@@ -18,18 +18,26 @@
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Meine Ressourcen<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#meine-ressourcen" id="link-meine-ressourcen" onclick="callPage()">Meine
+            Ressourcen</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Beliebte Ressourcen</a>
+          <a class="nav-link" href="#beliebte-ressourcen" id="link-beliebte-ressourcen" onclick="callPage()">Beliebte
+            Ressourcen</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Neue Ressourcen</a>
+          <a class="nav-link" href="#neue-ressourcen" id="link-neue-ressourcen" onclick="callPage()">Neue Ressourcen</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Mitmachen</a>
+          <a class="nav-link" href="#mitmachen" id="link-mitmachen" onclick="callPage()">Mitmachen</a>
         </li>
       </ul>
+      <script>
+        function callPage() {
+          var url = window.location.href, idx = url.indexOf("#");
+          var hash = idx != -1 ? url.substring(idx + 1) : "";
+        }
+      </script>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -84,8 +92,10 @@
     </div>
     <hr class="mb-4">
 
-    <button class="btn btn-primary btn-lg btn-block" type="submit">Meine Kurse lokal im Browser speichern & Ressourcen anzeigen!</button>
+    <button id="submit" class="btn btn-primary btn-lg btn-block" type="submit">Meine Kurse lokal im Browser speichern &
+      Ressourcen anzeigen!</button>
 
+    <div id="target"></div>
 
     <div class="my-3 p-3 bg-white rounded shadow-sm">
       <h6 class="border-bottom border-gray pb-2 mb-0">Physik</h6>
@@ -133,6 +143,8 @@
   </main>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="bundle.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>

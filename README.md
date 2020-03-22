@@ -2,6 +2,7 @@
 Übersicht über Selbstlern-Angebote für die Lehrpläne aller Bundesländer.
 
 ## Hackathon-Info
+- `Kategorie`: Nichtkommerzielle Neuentwicklung
 - `TITEL`: Self-Learning Angebote für Schüler*innen
 - `PROBLEME`: Errichtung einer Plattform für kuratierte Self-Learning Angebote für Schüler*innen
 - `BETROFFENENGRUPPE`: Schüler*innen und Lehrer*innen in Zeiten des Corona-Virus und darüber hinaus
@@ -24,6 +25,18 @@ Das Projekt strebt an, eine Datenbank zu erstellen, die aus zwei Teilen besteht:
 2. Eine Zuordnung `Modul` → `Liste mit Selbstlern-Ressourcen`. Diese Daten sollen im Wesentlichen von der Community aus Schülern und Lehrern selbst eingetragen und bewertet werden.
 
 Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs einmal Bundesland, Klassenstufe, Kern- und Nebenfächer abfragen und lokal speichern. Daraufhin werden die verfügbaren Ressourcen pro Fach und nach Bewertungen sortiert angezeigt. Es soll auf der Website unkompliziert möglich sein, neue Einträge hinzuzufügen und bestehende Einträge zu bewerten.
+
+### Gesellschaftlicher Mehrwert
+_Mehrwert, den die Lösung der Gesellschaft bringt wenn sie umgesetzt wird. Hierzu zählt auch, ob die Lösung Open Source veröffentlicht wurde, sodass andere darauf aufbauen und sie nachnutzen können. Wie vielen Menschen hilft die Lösung und wie sehr? Wie sehr baut die Lösung auf und trägt zur Open-Source-Community bei?_
+
+### Innovationsgrad
+_Innovationsgrad und Kreativität der Lösungsidee sowie des beabsichtigten Ansatzes oder der Technologie, mit der die Lösung implementiert wird. Gibt es bestehende oder ähnliche Lösungen? Wie unterscheiden sie sich von dieser?_
+
+### Skalierbarkeit
+_Skalierbarkeit der Lösung, wenn sie implementiert und realisiert wird. Was ist der erwartete Bedarf? Wie viele Menschen sind betroffen und profitieren von der Lösung? Wie viele können es benutzen oder sind bereit, dafür zu zahlen._
+
+### Fortschritt
+_Fortschritt, der im Rahmen des Hackathons erzielt wurde. Dabei gilt: gute dokumentierte Zwischenstände, auf die aufgebaut werden kann, sind besser als möglichst viel geschriebener Code. Was habt ihr in den letzten 48 Stunden geschafft? Wie gut lässt sich darauf aufbauen?_
 
 ## Verwandte Projekte
 - [Awesome Lists](https://github.com/topics/awesome-list) (Github): 
