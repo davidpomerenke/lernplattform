@@ -68,6 +68,12 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
+	User->>Website: Suchbegriff
+	Website-->>User: Ergebnisse
+```
+
+```mermaid
+sequenceDiagram
 	Client->>Server: Seitenaufruf
 	Server-->>Client: Tabelle mit Bundesländern, Klassenstufen, Fächern
 	Client->>Server: Bundesland, Klassenstufe, Fächer
