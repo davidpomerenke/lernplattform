@@ -257,6 +257,14 @@
       "themen": [
         "Elektrik"
       ]
+    },
+    {
+      "typ": "Tutorial",
+      "beschreibung": "Diagramm erstellen mit Excel",
+      "link": "https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/unterrichtsmaterialien/allgemein/diagramm_mit_excel.htm",
+      "themen": [
+        "Allgemein"
+      ]
     }
   ]
 }
