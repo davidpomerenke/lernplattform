@@ -25,18 +25,43 @@ Das Projekt strebt an, eine Datenbank zu erstellen, die aus zwei Teilen besteht:
 
 Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs einmal Bundesland, Klassenstufe, Kern- und Nebenfächer abfragen und lokal speichern. Daraufhin werden die verfügbaren Ressourcen pro Fach und nach Bewertungen sortiert angezeigt. Es soll auf der Website unkompliziert möglich sein, neue Einträge hinzuzufügen und bestehende Einträge zu bewerten.
 
+## Verwandte Projekte
+- [Awesome Lists](https://github.com/topics/awesome-list) (Github): 
+  - `+` Sind kollaborativ. 
+  - `-` Sind auf Englisch und nicht auf Schüler zugeschnitten. Es gibt es keine Bewertungen. Der Github-Workflow ist zu kompliziert für die meisten Lehrer und Schüler.
+  - `→` Insbesondere für die Oberstufe wird es Sinn machen, diese zunächst als ganze Listen zu verlinken, später dann zu den einzelnen Modulen aufzuschlüsseln und die einzelnen Links zu übernehmen.
+- [Landesbildungsserver](https://www.bildungsserver.de/Die-Landesbildungsserver-450-de.html):
+  - `+` Sind auf deutsch, auf die Lehrpläne zugeschnitten und von Lehrern kuratiert, daher sehr qualitativ. 
+  - `-` Sind nicht bundesweit vereinheitlicht und nicht direkt kollaborativ (meistens verwalten einige wenige Lehrer den Inhalt), auch gibt es keine Bewertungsmöglichkeit. Auf den Servern gibt es teilweise schon Listen mit Links zum Selbstlernen. 
+  - `→` Langfristig wäre es sinnvoll, wenn es ein HTML-Snippet gäbe, mit dem auf einfache Weise auf den Landesbildungsservern modulweise die bundesweiten Listen von diesem Projekt angezeigt werden könnten.
+- [Deutscher Bildungsserver](https://www.bildungsserver.de/Sekundarbereich-Unterrichtsmaterial-702-de.html):
+  - `+` Hat selbst eine Sammlung von eigenen Materialien, und gute Linklisten zu weiteren Seiten mit Materialien. Ist landesübergreifend und deutsch. Die Community ist insofern eingebunden, als sie defekte Links melden kann.
+  - `-` Wer ein Thema sucht, muss sich (abgesehen von den eigenen Materialien des Bildungsservers) durch alle verlinkten Materialseiten durchklicken; es liegt keine Datenbank der eigentlichen Materialien vor. Ist nicht kollaborativ.
+  - `→` Die Linklisten sind ein guter Ausgangspunkt, um die eigentlichen Materialien zur Datenbank dieses Projekts hinzuzufügen, wo sie dann durchsuchbar und bewertbar sind. Sinnvoll wäre ein Hinweis darauf auf der Website, so dass die Community dann langsam die Linklisten abarbeitet und die Materialien hinzufügt.
+- [LEIFIphysik](https://www.leifiphysik.de/)
+  - `+` Sehr schöne und qualitative Website, mit der Möglichkeit, nach Bundesland und Klassenstufe zu filtern. Auch mit Linklisten, sowie der Möglichkeit, eigene Links einzureichen. (Hätte ich das am Anfang gewusst, hätte ich nicht Physik als Beispiel für diesen Prototypen gewählt.)
+  - `-` Fokus auf eigenen Inhalten. Nur für Physik.
+  - `→` Langfristig wäre eine Kooperation dergestalt sinnvoll, dass auf einen gemeinsamen Pool von Links zugegriffen wird.
+- [Übersicht der Lehrpläne](https://www.bildungsserver.de/Lehrplaene-400-de.html)
+
 ## Struktur
 
 ### Entity-Relationship-Diagramm
 ![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcblx0bGVybnR7bGVybnR9XG5cdGhhdHtoYXQgTWF0ZXJpYWxpZW59XG5cdFxuXHRCdW5kZXNsYW5kIC0tLXxufCBsZXJudFxuXHRGYWNoIC0tLXxufCBsZXJudFxuXHRLbGFzc2Vuc3R1ZmUgLS0tfG58IGxlcm50XG5cdGxlcm50IC0tLXxufCBNb2R1bFxuXHRNb2R1bCAtLS18bnwgaGF0XG5cdGhhdCAtLS18bnwgU2VsYnN0bGVybi1SZXNzb3VyY2Vcblx0U2VsYnN0bGVybi1SZXNzb3VyY2UgLS0tIExpbmtcblx0U2VsYnN0bGVybi1SZXNzb3VyY2UgLS0tIEJlc2NocmVpYnVuZ1xuXHRTZWxic3RsZXJuLVJlc3NvdXJjZSAtLS0gVXB2b3Rlc1xuXHRTZWxic3RsZXJuLVJlc3NvdXJjZSAtLS0gRG93bnZvdGVzIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
 
+Typen: Lerneinheit, Unterrichtseinheit, Experiment, vExperiment, Nachschlageseite, Wettbewerb, Sammlung, ... 
+
+Einträge vom Typ `Sammlung` sollten langfristig ein einzelne Einträge überführt werden.
+
+
 ### Klassen-Diagramm
-![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG5cbmNsYXNzIEt1cnMge1xuXHQrQnVuZGVzbGFuZFxuXHQrRmFjaFxuXHQrS2xhc3NlbnN0dWZlXG5cdCtMaXN0ZSB2b24gTW9kdWxuYW1lblxufVxuXG5jbGFzcyBTZWxic3RsZXJuUmVzc291cmNlR2l0aHViIHtcblx0K01vZHVsbmFtZVxuXHQrTGlua1xuXHQrQmVzY2hyZWlidW5nXG59XG5cbmNsYXNzIFNlbGJzdGxlcm5SZXNzb3VyY2VEYXRlbmJhbmsge1xuXHQrTW9kdWxuYW1lXG5cdCtVcHZvdGVzXG5cdCtEb3dudm90ZXNcbn1cblxuS3VycyAtLT4gU2VsYnN0bGVyblJlc3NvdXJjZUdpdGh1YlxuS3VycyAtLT4gU2VsYnN0bGVyblJlc3NvdXJjZURhdGVuYmFuayIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG5cbmNsYXNzIEt1cnMge1xuXHQrQnVuZGVzbGFuZFxuXHQrRmFjaFxuXHQrS2xhc3NlbnN0dWZlXG5cdCtMaXN0ZSB2b24gTW9kdWxuYW1lblxufVxuXG5jbGFzcyBTZWxic3RsZXJuUmVzc291cmNlR2l0aHViIHtcblx0K0xpbmtcblx0K0Jlc2NocmVpYnVuZ1xuXHQrTGlzdGUgdm9uIE1vZHVsbmFtZW5cbn1cblxuY2xhc3MgU2VsYnN0bGVyblJlc3NvdXJjZURhdGVuYmFuayB7XG5cdCtMaW5rXG5cdCtVcHZvdGVzXG5cdCtEb3dudm90ZXNcbn1cblxuS3VycyAtLT4gU2VsYnN0bGVyblJlc3NvdXJjZUdpdGh1YlxuU2VsYnN0bGVyblJlc3NvdXJjZUdpdGh1YiAtLT4gU2VsYnN0bGVyblJlc3NvdXJjZURhdGVuYmFuayIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
 
 ### Ablauf-Diagramm
 
 #### User-Interface
-![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cdENsaWVudC0-PlNlcnZlcjogU2VpdGVuYXVmcnVmXG5cdFNlcnZlci0tPj5DbGllbnQ6IExpc3RlIGRlciBCdW5kZXNsw6RuZGVyXG5cdENsaWVudC0-PlNlcnZlcjogQnVuZGVzbGFuZFxuXHRTZXJ2ZXItLT4-Q2xpZW50OiBMaXN0ZSBkZXIgS2xhc3NlbnN0dWZlblxuXHRDbGllbnQtPj5TZXJ2ZXI6IEtsYXNzZW5zdHVmZVxuXHRTZXJ2ZXItLT4-Q2xpZW50OiBMaXN0ZSBkZXIgRsOkY2hlclxuXHRDbGllbnQtPj5TZXJ2ZXI6IEF1c3dhaGwgZGVyIEtlcm4tIHVuZCBOZWJlbmbDpGNoZXJcblx0U2VydmVyLS0-PkNsaWVudDogTGlzdGUgZGVyIFNlbGJzdGxlcm4tUmVzc291cmNlbiBwcm8gRmFjaCIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+1. ![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cdFVzZXItPj5XZWJzaXRlOiBTZWl0ZW5hdWZydWZcblx0V2Vic2l0ZS0tPj5Vc2VyOiBMaXN0ZSBkZXIgQnVuZGVzbMOkbmRlclxuXHRVc2VyLT4-V2Vic2l0ZTogQnVuZGVzbGFuZFxuXHRXZWJzaXRlLS0-PlVzZXI6IExpc3RlIGRlciBLbGFzc2Vuc3R1ZmVuXG5cdFVzZXItPj5XZWJzaXRlOiBLbGFzc2Vuc3R1ZmVcblx0V2Vic2l0ZS0tPj5Vc2VyOiBMaXN0ZSBkZXIgRsOkY2hlclxuXHRVc2VyLT4-V2Vic2l0ZTogQXVzd2FobCBkZXIgS2Vybi0gdW5kIE5lYmVuZsOkY2hlclxuXHRXZWJzaXRlLS0-PlVzZXI6IExpc3RlIGRlciBTZWxic3RsZXJuLVJlc3NvdXJjZW4gcHJvIEZhY2giLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+2. ![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cdFVzZXItPj5XZWJzaXRlOiBTdWNoYmVncmlmZlxuXHRXZWJzaXRlLS0-PlVzZXI6IEVyZ2Vibmlzc2UiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 #### Client-Server-Kommunikation
 Zunächst wird ein Ansatz verfolgt, bei dem alle Daten auf einmal übertragen werden:
@@ -52,12 +77,5 @@ Wenn es einmal zigtausende Module gibt, sollten JSON-Tabellen pro Bundesland ode
 - Da es für neue Daten einen Review-Prozess geben soll, bietet es sich an, Github zu nutzen, insbesondere auch weil dort eine engagierte Community zu finden ist (vermutlich nehmen mehr Leute über Github am Reviewen teil, als über eine eigene Review-Lösung auf der Projekt-Website.) Die Daten können am einfachsten als JSON gespeichert werden und per Javascript lokal im Browser geladen werden. Github Pages ist eine sehr einfache und transparente und auch bei viel Traffic zuverlässige Lösung. Da es für die meisten Benutzer zu aufwendig sein wird, Github zu benutzen, sollte es ein einfaches Formular auf der Website geben, das dann per Github API eine Pull Request mit den neuen Daten erstellt. Die Website sollte mobile-friendly oder mobile-first und für junge Schüler ansprechend sein.
 - Um Up- und Downvotes zu speichern macht Github eher weniger Sinn. Hier sollte es eine separate Lösung geben, die später implementiert werden kann.
 
-## Verwandte Projekte
-- [Awesome Lists](https://github.com/topics/awesome-list) (Github): 
-  - `+` Sind kollaborativ. 
-  - `-` Sind auf Englisch und nicht auf Schüler zugeschnitten. Es gibt es keine Bewertungen. Der Github-Workflow ist zu kompliziert für die meisten Lehrer und Schüler.
-  - `→` Insbesondere für die Oberstufe wird es Sinn machen, diese zunächst als ganze Listen zu verlinken, später dann zu den einzelnen Modulen aufzuschlüsseln und die einzelnen Links zu übernehmen.
-- [Landesbildungsserver](https://www.bildungsserver.de/Die-Landesbildungsserver-450-de.html):
-  - `+` Sind auf deutsch, auf die Lehrpläne zugeschnitten und von Lehrern kuratiert, daher sehr qualitativ. 
-  - `-` Sind nicht bundesweit vereinheitlicht und nicht direkt kollaborativ (meistens verwalten einige wenige Lehrer den Inhalt), auch gibt es keine Bewertungsmöglichkeit. Auf den Servern gibt es teilweise schon Listen mit Links zum Selbstlernen. 
-  - `→` Langfristig wäre es sinnvoll, wenn es ein HTML-Snippet gäbe, mit dem auf einfache Weise auf den Landesbildungsservern modulweise die bundesweiten Listen von diesem Projekt angezeigt werden könnten.
+## Prototyp
+- Der Prototyp ist derzeit in Arbeit.

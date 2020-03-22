@@ -17,15 +17,12 @@ graph LR
 	hat ---|n| Selbstlern-Ressource
 	Selbstlern-Ressource --- Link
 	Selbstlern-Ressource --- Beschreibung
+	Selbstlern-Ressource --- Typ
 	Selbstlern-Ressource --- Upvotes
 	Selbstlern-Ressource --- Downvotes
 ```
 
-
-
 ## Klassen-Diagramm
-
-
 
 ```mermaid
 classDiagram
@@ -38,19 +35,19 @@ class Kurs {
 }
 
 class SelbstlernRessourceGithub {
-	+Modulname
 	+Link
 	+Beschreibung
+	+Liste von Modulnamen
 }
 
 class SelbstlernRessourceDatenbank {
-	+Modulname
+	+Link
 	+Upvotes
 	+Downvotes
 }
 
 Kurs --> SelbstlernRessourceGithub
-Kurs --> SelbstlernRessourceDatenbank
+SelbstlernRessourceGithub --> SelbstlernRessourceDatenbank
 ```
 
 ## Beispiel-Daten
@@ -59,14 +56,14 @@ Kurs --> SelbstlernRessourceDatenbank
 
 ```mermaid
 sequenceDiagram
-	Client->>Server: Seitenaufruf
-	Server-->>Client: Liste der Bundesländer
-	Client->>Server: Bundesland
-	Server-->>Client: Liste der Klassenstufen
-	Client->>Server: Klassenstufe
-	Server-->>Client: Liste der Fächer
-	Client->>Server: Auswahl der Kern- und Nebenfächer
-	Server-->>Client: Liste der Selbstlern-Ressourcen pro Fach
+	User->>Website: Seitenaufruf
+	Website-->>User: Liste der Bundesländer
+	User->>Website: Bundesland
+	Website-->>User: Liste der Klassenstufen
+	User->>Website: Klassenstufe
+	Website-->>User: Liste der Fächer
+	User->>Website: Auswahl der Kern- und Nebenfächer
+	Website-->>User: Liste der Selbstlern-Ressourcen pro Fach
 ```
 
 ```mermaid
@@ -82,4 +79,3 @@ sequenceDiagram
 	Client->>Server: Seitenaufruf
 	Server-->>Client: Tabelle mit Bundesländern, Klassenstufen, Fächern, Modulen + Tabelle mit Selbstlern-Ressourcen pro Modul
 ```
-

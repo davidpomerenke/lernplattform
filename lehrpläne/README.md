@@ -1,1 +1,0 @@
-[Übersicht der Lehrpläne](https://www.bildungsserver.de/Lehrplaene-400-de.html)
