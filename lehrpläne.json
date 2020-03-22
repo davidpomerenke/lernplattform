@@ -1,8 +1,8 @@
 {
   "Physik": {
-    "Baden-Württemberg": {
-      "Gymnasium": {
-        "7-8": [
+    "Gymnasium": {
+      "7-8": {
+        "Baden-Württemberg": [
           "Denk- und Arbeitsweisen der Physik 1",
           "Optik",
           "Akustik",
@@ -12,8 +12,18 @@
           "Grundgrößen der Elektrizitätslehre",
           "Kinematik 1",
           "Dynamik 1"
-        ],
-        "9-10": [
+        ]
+      },
+      "8": {
+        "Bayern": [
+          "Energieerhaltung",
+          "Struktur der Materie",
+          "Wärme",
+          "elektrische Energie"
+        ]
+      },
+      "9-10": {
+        "Baden-Württemberg": [
           "Denk- und Arbeitsweisen der Physik 2",
           "Elektromagnetismus 2",
           "Wärme",
@@ -21,8 +31,26 @@
           "Kinematik 2",
           "Dynamik 2",
           "Erhaltungssätze"
-        ],
-        "11-12": {
+        ]
+      },
+      "9": {
+        "Bayern": [
+          "Elektrik",
+          "Atome",
+          "Kinematik 1",
+          "Dynamik 1"
+        ]
+      },
+      "10": {
+        "Bayern": [
+          "astronomische Weltbilder",
+          "Newton'sche Mechanik",
+          "Wellen",
+          "Einblick in die Quantenphysik"
+        ]
+      },
+      "11-12": {
+        "Baden-Württemberg": {
           "Basisfach mit Schwerpunkt Quantenphysik": [
             "Denk- und Arbeitsweisen der Physik 3",
             "elektrisches Feld",
@@ -61,29 +89,9 @@
             "1 Wahlthemen"
           ]
         }
-      }
-    },
-    "Bayern": {
-      "Gymnasium": {
-        "8": [
-          "Energieerhaltung",
-          "Struktur der Materie",
-          "Wärme",
-          "elektrische Energie"
-        ],
-        "9": [
-          "Elektrik",
-          "Atome",
-          "Kinematik 1",
-          "Dynamik 1"
-        ],
-        "10": [
-          "astronomische Weltbilder",
-          "Newton'sche Mechanik",
-          "Wellen",
-          "Einblick in die Quantenphysik"
-        ],
-        "11": {
+      },
+      "11": {
+        "Bayern": {
           "default": [
             "elektrisches Feld",
             "magnetisches Feld",
@@ -103,7 +111,19 @@
             "Biomechanik"
           ]
         },
-        "12": {
+        "Berlin-Brandenburg": [
+          "Kinematik 1",
+          "Dynamik 1",
+          "Mechanische Energie und Arbeit",
+          "Kreisbewegung",
+          "Impuls",
+          "Schwingungen",
+          "Wellen",
+          "Wellenoptik"
+        ]
+      },
+      "12": {
+        "Bayern": {
           "default": [
             "Quantenobjekte",
             "Atommodell",
@@ -119,22 +139,8 @@
             "Sterne",
             "Großstrukturen im Weltall"
           ]
-        }
-      }
-    },
-    "Berlin-Brandenburg": {
-      "Gymnasiale Oberstufe": {
-        "11": [
-          "Kinematik 1",
-          "Dynamik 1",
-          "Mechanische Energie und Arbeit",
-          "Kreisbewegung",
-          "Impuls",
-          "Schwingungen",
-          "Wellen",
-          "Wellenoptik"
-        ],
-        "12": {
+        },
+        "Berlin-Brandenburg": {
           "Grundkurs": [
             "Gravitation",
             "elektrisches Feld",
@@ -155,8 +161,10 @@
             "Wellen",
             "3 Wahlthemen"
           ]
-        },
-        "13": {
+        }
+      },
+      "13": {
+        "Berlin-Brandenburg": {
           "Grundkurs": [
             "Elektromagnetismus",
             "Quantenobjekte",
