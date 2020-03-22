@@ -27,16 +27,27 @@ Das Projekt strebt an, eine Datenbank zu erstellen, die aus zwei Teilen besteht:
 Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs einmal Bundesland, Klassenstufe, Kern- und Nebenfächer abfragen und lokal speichern. Daraufhin werden die verfügbaren Ressourcen pro Fach und nach Bewertungen sortiert angezeigt. Es soll auf der Website unkompliziert möglich sein, neue Einträge hinzuzufügen und bestehende Einträge zu bewerten.
 
 ### Gesellschaftlicher Mehrwert
-_Mehrwert, den die Lösung der Gesellschaft bringt wenn sie umgesetzt wird. Hierzu zählt auch, ob die Lösung Open Source veröffentlicht wurde, sodass andere darauf aufbauen und sie nachnutzen können. Wie vielen Menschen hilft die Lösung und wie sehr? Wie sehr baut die Lösung auf und trägt zur Open-Source-Community bei?_
+- Open Source, komplett auf Github gehostet dank Github Pages und der Github API
+- spricht alle LehrerInnen und SchülerInnen in Deutschland an
 
 ### Innovationsgrad
-_Innovationsgrad und Kreativität der Lösungsidee sowie des beabsichtigten Ansatzes oder der Technologie, mit der die Lösung implementiert wird. Gibt es bestehende oder ähnliche Lösungen? Wie unterscheiden sie sich von dieser?_
+- Vergleich zu bestehenden Projekten siehe Abschnitt `Verwandte Projekte`
 
 ### Skalierbarkeit
-_Skalierbarkeit der Lösung, wenn sie implementiert und realisiert wird. Was ist der erwartete Bedarf? Wie viele Menschen sind betroffen und profitieren von der Lösung? Wie viele können es benutzen oder sind bereit, dafür zu zahlen._
+- >2.5m Schüler, >750k Lehrer
+- Netzwerkeffekte
+- technisch leicht skalierbar dank statischem Hosting
+- neue Inhalte sind effizient über das Github-System zu bewältigen
 
 ### Fortschritt
-_Fortschritt, der im Rahmen des Hackathons erzielt wurde. Dabei gilt: gute dokumentierte Zwischenstände, auf die aufgebaut werden kann, sind besser als möglichst viel geschriebener Code. Was habt ihr in den letzten 48 Stunden geschafft? Wie gut lässt sich darauf aufbauen?_
+Geschafft:
+- Beispiel-Lehrpläne für Physik in Gymnasien in Bayern, Baden-Württemberg und Berlin-Brandenburg in JSON
+- Beispiel-Content in JSON
+- Website-Prototyp mit Suchmaske und rudimentärem Anzeigen der Daten verdeutlicht das Prinzip
+Noch ToDo:
+- richtiges Auslesen und Anzeigen der Daten
+- einfache Möglichkeit für User, Links auf der Website hinzuzufügen (Github API)
+- mehr Lehrpläne in JSON übertragen
 
 ## Verwandte Projekte
 - [Awesome Lists](https://github.com/topics/awesome-list) (Github): 
@@ -89,6 +100,3 @@ Wenn es einmal zigtausende Module gibt, sollten JSON-Tabellen pro Bundesland ode
 ## Technologie
 - Da es für neue Daten einen Review-Prozess geben soll, bietet es sich an, Github zu nutzen, insbesondere auch weil dort eine engagierte Community zu finden ist (vermutlich nehmen mehr Leute über Github am Reviewen teil, als über eine eigene Review-Lösung auf der Projekt-Website.) Die Daten können am einfachsten als JSON gespeichert werden und per Javascript lokal im Browser geladen werden. Github Pages ist eine sehr einfache und transparente und auch bei viel Traffic zuverlässige Lösung. Da es für die meisten Benutzer zu aufwendig sein wird, Github zu benutzen, sollte es ein einfaches Formular auf der Website geben, das dann per Github API eine Pull Request mit den neuen Daten erstellt. Die Website sollte mobile-friendly oder mobile-first und für junge Schüler ansprechend sein.
 - Um Up- und Downvotes zu speichern macht Github eher weniger Sinn. Hier sollte es eine separate Lösung geben, die später implementiert werden kann.
-
-## Prototyp
-- Der Prototyp ist derzeit in Arbeit.
