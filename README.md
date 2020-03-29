@@ -98,4 +98,5 @@ Wenn es einmal zigtausende Module gibt, sollten JSON-Tabellen pro Bundesland ode
 
 
 ## Technologie
+- Da es für neue Daten einen Review-Prozess geben soll, bietet es sich an, Github zu nutzen, insbesondere auch weil dort eine engagierte Community zu finden ist (vermutlich nehmen mehr Leute über Github am Reviewen teil, als über eine eigene Review-Lösung auf der Projekt-Website.) Die Daten können am einfachsten als JSON gespeichert werden und per Javascript lokal im Browser geladen werden. Github Pages ist eine sehr einfache und transparente und auch bei viel Traffic zuverlässige Lösung. Da es für die meisten Benutzer zu aufwendig sein wird, Github zu benutzen, sollte es ein einfaches Formular auf der Website geben, das dann per Github API eine Pull Request mit den neuen Daten erstellt. Die Website sollte mobile-friendly oder mobile-first und für junge Schüler ansprechend sein.
 - Um Up- und Downvotes zu speichern macht Github eher weniger Sinn. Hier sollte es eine separate Lösung geben, die später implementiert werden kann.
