@@ -34,7 +34,7 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 - Vergleich zu bestehenden Projekten siehe Abschnitt `Verwandte Projekte`
 
 ### Skalierbarkeit
-- >2.5m Schüler, >750k Lehrer
+- \>2.5m Schüler, >750k Lehrer
 - Netzwerkeffekte
 - technisch leicht skalierbar dank statischem Hosting
 - neue Inhalte sind effizient über das Github-System zu bewältigen
@@ -44,6 +44,7 @@ Geschafft:
 - Beispiel-Lehrpläne für Physik in Gymnasien in Bayern, Baden-Württemberg und Berlin-Brandenburg in JSON
 - Beispiel-Content in JSON
 - Website-Prototyp mit Suchmaske und rudimentärem Anzeigen der Daten verdeutlicht das Prinzip
+
 Noch ToDo:
 - richtiges Auslesen und Anzeigen der Daten
 - einfache Möglichkeit für User, Links auf der Website hinzuzufügen (Github API)
