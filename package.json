@@ -1,6 +1,7 @@
 {
   "name": "deutschland-lernt-selbst",
   "version": "0.1.0",
+  "private": true,
   "author": "David Pomerenke",
   "license": "GPL-3.0-or-later",
   "description": "Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer.",
@@ -21,13 +22,46 @@
   "homepage": "",
   "main": "lib/index.mjs",
   "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "test": "test/index.mjs",
     "diagramm": "npx mermaid-cli projekt/er-diagramm -o bilder",
     "pg": "heroku pg:psql -a deutschland-lernt-selbst",
     "pg:credentials": "heroku pg:credentials:url DATABASE_URL -a deutschland-lernt-selbst"
   },
+  "dependencies": {
+    "core-js": "^3.6.4",
+    "vue": "^2.6.11"
+  },
   "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.3.0",
+    "@vue/cli-plugin-eslint": "~4.3.0",
+    "@vue/cli-service": "~4.3.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
     "heroku": "^7.39.2",
-    "mermaid-cli": "^0.2.4"
-  }
+    "mermaid-cli": "^0.2.4",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
