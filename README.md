@@ -23,7 +23,7 @@ Die Website wird mit [Vue.js](https://vuejs.org/v2/guide/) konzipiert und mit [H
 
 ![Entity-Relationship Diagramm in Chen-Notation.](bilder/er-diagramm.png)
 
-Siehe [db/init.sql](db/init.sql).
+Siehe [database/init.sql](database/init.sql).
 
 ## Mitmachen
 
