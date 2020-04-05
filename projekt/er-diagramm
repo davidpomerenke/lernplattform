@@ -1,0 +1,27 @@
+graph TD
+
+	lernt{lernt}
+	erklärt{ist erklärt in}
+	übergeordnet{ist Teil von}
+
+  Bundesland ---|n| lernt
+	Fach ---|n| lernt
+	Klassenstufe ---|n| lernt
+	lernt ---|n| Modul
+  lernt --- a(  LehrplanTitel )
+  lernt --- b( LehrplanBeschreibung )
+  lernt --- c( LehrplanLehrziel )
+  lernt --- d( LehrplanQuelle )
+  lernt --- e( EintragsDatum )
+
+	Modul ---|n| übergeordnet
+	übergeordnet ---|n| Modul
+
+	Modul ---|n| erklärt
+	erklärt ---|n| SelbstlernRessource
+
+	SelbstlernRessource --- f( Link )
+	SelbstlernRessource --- g( Beschreibung )
+	SelbstlernRessource --- h( Typ )
+	SelbstlernRessource --- i( Upvotes )
+	SelbstlernRessource --- j( Downvotes )

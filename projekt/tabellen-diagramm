@@ -1,0 +1,34 @@
+classDiagram
+
+	Zuordnung --> SelbstlernRessource
+	Zuordnung --> Module
+	Lehrplan --> Module
+	ModulHierarchie --> Module
+
+	class Module {
+		Modulname
+	}
+
+	class Lehrplan {
+		Bundesland
+		Fach
+		Klassenstufe
+		Modulname: foreign key
+	}
+
+	class SelbstlernRessource {
+		Link
+		Beschreibung
+		Upvotes
+		Downvotes
+	}
+
+	class Zuordnung {
+		Modulname: foreign key
+		Link: foreign key
+	}
+
+	class ModulHierarchie {
+		Modul
+		übergeordnetes Modul
+	}

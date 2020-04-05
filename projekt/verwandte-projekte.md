@@ -1,0 +1,18 @@
+## Verwandte Projekte
+- [Awesome Lists](https://github.com/topics/awesome-list) (Github): 
+  - `+` Sind kollaborativ. 
+  - `-` Sind auf Englisch und nicht auf Schüler zugeschnitten. Es gibt es keine Bewertungen. Der Github-Workflow ist zu kompliziert für die meisten Lehrer und Schüler.
+  - `→` Insbesondere für die Oberstufe wird es Sinn machen, diese zunächst als ganze Listen zu verlinken, später dann zu den einzelnen Modulen aufzuschlüsseln und die einzelnen Links zu übernehmen.
+- [Landesbildungsserver](https://www.bildungsserver.de/Die-Landesbildungsserver-450-de.html):
+  - `+` Sind auf deutsch, auf die Lehrpläne zugeschnitten und von Lehrern kuratiert, daher sehr qualitativ. 
+  - `-` Sind nicht bundesweit vereinheitlicht und nicht direkt kollaborativ (meistens verwalten einige wenige Lehrer den Inhalt), auch gibt es keine Bewertungsmöglichkeit. Auf den Servern gibt es teilweise schon Listen mit Links zum Selbstlernen. 
+  - `→` Langfristig wäre es sinnvoll, wenn es ein HTML-Snippet gäbe, mit dem auf einfache Weise auf den Landesbildungsservern modulweise die bundesweiten Listen von diesem Projekt angezeigt werden könnten.
+- [Deutscher Bildungsserver](https://www.bildungsserver.de/Sekundarbereich-Unterrichtsmaterial-702-de.html):
+  - `+` Hat selbst eine Sammlung von eigenen Materialien, und gute Linklisten zu weiteren Seiten mit Materialien. Ist landesübergreifend und deutsch. Die Community ist insofern eingebunden, als sie defekte Links melden kann.
+  - `-` Wer ein Thema sucht, muss sich (abgesehen von den eigenen Materialien des Bildungsservers) durch alle verlinkten Materialseiten durchklicken; es liegt keine Datenbank der eigentlichen Materialien vor. Ist nicht kollaborativ.
+  - `→` Die Linklisten sind ein guter Ausgangspunkt, um die eigentlichen Materialien zur Datenbank dieses Projekts hinzuzufügen, wo sie dann durchsuchbar und bewertbar sind. Sinnvoll wäre ein Hinweis darauf auf der Website, so dass die Community dann langsam die Linklisten abarbeitet und die Materialien hinzufügt.
+- [LEIFIphysik](https://www.leifiphysik.de/)
+  - `+` Sehr schöne und qualitative Website, mit der Möglichkeit, nach Bundesland und Klassenstufe zu filtern. Auch mit Linklisten, sowie der Möglichkeit, eigene Links einzureichen. (Hätte ich das am Anfang gewusst, hätte ich nicht Physik als Beispiel für diesen Prototypen gewählt.)
+  - `-` Fokus auf eigenen Inhalten. Nur für Physik.
+  - `→` Langfristig wäre eine Kooperation dergestalt sinnvoll, dass auf einen gemeinsamen Pool von Links zugegriffen wird.
+- [Übersicht der Lehrpläne](https://www.bildungsserver.de/Lehrplaene-400-de.html)

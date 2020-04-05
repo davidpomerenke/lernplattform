@@ -1,17 +1,33 @@
 {
   "name": "deutschland-lernt-selbst",
   "version": "0.1.0",
-  "main": "index.mjs",
+  "author": "David Pomerenke",
+  "license": "GPL-3.0-or-later",
+  "description": "Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer.",
+  "keywords": [
+    "education",
+    "self-learning",
+    "platform",
+    "germany",
+    "bildung",
+    "selbstlernen",
+    "plattform",
+    "deutschland"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidpomerenke/deutschland-lernt-selbst-proto.git"
+  },
+  "homepage": "",
+  "main": "lib/index.mjs",
   "scripts": {
-    "bundle": "webpack --config webpack.config.js"
+    "test": "test/index.mjs",
+    "diagramm": "npx mermaid-cli projekt/er-diagramm -o bilder",
+    "pg": "heroku pg:psql -a deutschland-lernt-selbst",
+    "pg:credentials": "heroku pg:credentials:url DATABASE_URL -a deutschland-lernt-selbst"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
-    "@babel/preset-env": "^7.7.6",
-    "babel-loader": "^8.0.6",
-    "babel-polyfill": "^6.26.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "heroku": "^7.39.2",
+    "mermaid-cli": "^0.2.4"
   }
 }
