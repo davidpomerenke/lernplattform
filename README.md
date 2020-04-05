@@ -1,4 +1,4 @@
-<img src="bilder/logo-mittel.png" align="center">
+<div align="center"><img src="bilder/logo-mittel.png"></div>
 <h1 align="center">Deutschland lernt selbst.</h1>
 
 ## Die Idee
@@ -23,11 +23,11 @@ Die Website wird mit [Vue.js](https://vuejs.org/v2/guide/) konzipiert und mit [H
 
 ![Entity-Relationship Diagramm in Chen-Notation.](bilder/er-diagramm.png)
 
-Siehe `[db/init.sql](db/init.sql)`.
-
-<a href="https://wirvsvirushackathon.org"><img align="center" src="bilder/hackathon.png"></a>
+Siehe [db/init.sql](db/init.sql).
 
 ## Mitmachen
 
 - [Discord-Server](https://discord.gg/EUUyrK4)
 - [Projekt-Kanban](https://github.com/davidpomerenke/deutschland-lernt-selbst/projects/2)
+
+<div align="center"><a href="https://wirvsvirushackathon.org"><img src="bilder/hackathon.png"></a></div>
