@@ -1,7 +1,8 @@
 <div align="center"><img src="bilder/logo-mittel.png"></div>
 <h1 align="center">Deutschland lernt selbst.</h1>
 
-## Die Idee
+<h2 align="center">Die Idee</h2>
+
 Ziel ist es, für Schüler und Lehrer deutschlandweit eine Plattform bereitzustellen, auf der sie Links zu Selbstlern-Ressourcen miteinander austauschen können, die im Netz frei verfügbar sind:
 - Jede Person soll für ihr Bundesland, ihr Fach, und ihre Klassenstufe die passenden Materialien angezeigt bekommen. 
 - Jede Person soll auch selbst Materialien hinzufügen können, sowie bestehende Materialien bewerten können. Wichtig ist, dass die Materialien und Bewertungen immer für alle Bundesländer verfügbar gemacht werden. Das heißt, eine Mathelehrerin aus Berlin trägt z. B. eine interaktive Website zum Binomialgleichungen ein, die in Berlin in der siebten Klasse behandelt werden. In Bayern werden diese aber schon in der sechsten Klasse behandelt. Dann wird die Website sowohl Siebtklässlern in Berlin, als auch Sechstklässlern in Bayern angezeigt, mit denselben Bewertungen. (Fiktives Beispiel!)
@@ -15,17 +16,17 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 
 [Überblick über verwandte Projekte.](projekt/verwandte-projekte.md)
 
-## Technologie
+<h2 align="center">Technologie</h2>
 
 Die Website wird mit [Vue.js](https://vuejs.org/v2/guide/) konzipiert und mit [Heroku](https://devcenter.heroku.com/categories/reference) [gehostet](https://dashboard.heroku.com/apps/deutschland-lernt-selbst). Die Daten werden in einer zugehörigen [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank bei Heroku gespeichert.
 
-### Datenbank
+<h3 align="center">Datenbank</h3>
 
 ![Entity-Relationship Diagramm in Chen-Notation.](bilder/er-diagramm.png)
 
-Siehe [datenbank/aufsetzen.sql](datenbank/aufsetzen.sql).
+Das Diagramm ist ein Entity-Relationship-Diagramm in [Chen-Notation](https://www.vertabelo.com/blog/chen-erd-notation/), wobei die Schlüssel nicht dargestellt sind. Für den Aufbau der Tabellen siehe [datenbank/aufsetzen.sql](datenbank/aufsetzen.sql).
 
-## Mitmachen
+<h2 align="center">Mitmachen</h2>
 
 - [Discord-Server](https://discord.gg/EUUyrK4)
 - [Projekt-Kanban](https://github.com/davidpomerenke/deutschland-lernt-selbst/projects/2)
