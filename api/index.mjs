@@ -10,9 +10,11 @@ app.get('/', (request, result) => {
   const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } })
   client.connect()
   client.query('SELECT * FROM Lehrplan', (pgError, pgResult) => {
-    if (pgError) throw pgError
-    result.json(pgResult)
     client.end()
+    if (pgError) throw pgError
+    result
+      .json([process.env, pgResult.rows])
+      .cookie('passwort', 'baum', { expires: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), secure: true })
   })
 })
 
