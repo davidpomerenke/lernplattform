@@ -17,4 +17,4 @@ app.get('/', (request, result) => {
 })
 
 const port = process.env.PORT || 3000
-app.listen(port, (error) => { if (error) { throw error } else { console.log(`Server running on port ${port}.`}))
+app.listen(port, (error) => { if (error) { throw error } else { console.log(`Server running on port ${port}.`) } })
