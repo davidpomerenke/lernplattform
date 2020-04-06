@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta name="application-name" content="Lernplattform.Wiki" />
+  <meta name="description"
+    content="Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer." />
+  <meta name="author" content="David Pomerenke" />
+  <meta name="keywords"
+    content="Bildung, Lernen, Plattform, Austausch, Deutschland, Lehrplan, Schule, Gymnasium, Gemeinschaftsschule, Realschule, Grundschule, Primarstufe, Sekundarstufe, Unterstufe, Mittelstufe, Oberstufe, Klasse, Bundesländer, Baden-Württemberg, Bayern, Berlin, Brandenburg, Bremen, Hamburg, Hessen, Mecklenburg-Vorpommern, Niedersachsen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland, Sachsen, Sachsen-Anhalt, Schleswig-Holstein, Thüringen" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="display-4">Lernplattform.wiki</h1>
+    <p class="lead">Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer.</p>
+    <form>
+      <div class="form-row">
+        <div id="bundesland-auswählen" class="col-auto btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Bundesland
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Baden-Württemberg</a>
+            <a class="dropdown-item" href="#">Bayern</a>
+            <a class="dropdown-item" href="#">Berlin</a>
+            <a class="dropdown-item" href="#">Brandenburg</a>
+            <a class="dropdown-item" href="#">Bremen</a>
+            <a class="dropdown-item" href="#">Hamburg</a>
+            <a class="dropdown-item" href="#">Hessen</a>
+            <a class="dropdown-item" href="#">Mecklenburg-Vorpommern</a>
+            <a class="dropdown-item" href="#">Niedersachsen</a>
+            <a class="dropdown-item" href="#">Nordrhein-Westfalen</a>
+            <a class="dropdown-item" href="#">Rheinland-Pfalz</a>
+            <a class="dropdown-item" href="#">Saarland</a>
+            <a class="dropdown-item" href="#">Sachsen</a>
+            <a class="dropdown-item" href="#">Sachsen-Anhalt</a>
+            <a class="dropdown-item" href="#">Schleswig-Holstein</a>
+            <a class="dropdown-item" href="#">Thüringen</a>
+          </div>
+        </div>
+        <div id="schulart-auswählen" class="col-auto btn-group" hidden>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Schulart
+          </button>
+          <div class="dropdown-menu">
+          </div>
+        </div>
+        <div id="leer" hidden>Für dieses Bundesland sind leider noch keine Lehrpläne vorhanden.</div>
+      </div>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="index.mjs"></script>
+</body>
+
+</html>
