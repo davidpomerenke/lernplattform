@@ -1,7 +1,10 @@
 import express from 'express'
+import cors from 'cors'
 import pg from 'pg'
-
 const app = express()
+
+app.use(cors({ credentials: true, origin: true }))
+app.options('*', cors())
 
 app.get('/', (request, result) => {
   let query = ''
@@ -13,13 +16,16 @@ app.get('/', (request, result) => {
     client.connect()
     client.query(query, (pgError, pgResult) => {
       client.end()
-      if (pgError) throw pgError
-      result
-        .json([request, pgResult.rows])
-        .cookie('passwort', 'baum', { expires: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), secure: true })
+      if (pgError) {
+        result.status(500).send('PostgreSQL error: ' + pgError)
+      } else {
+        result
+          .json([request, pgResult.rows])
+          .cookie('passwort', 'baum', { expires: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), secure: true })
+      }
     })
   } else {
-    result.json(request)
+    result.status(500).send('Error: No valid query.')
   }
 })
 
