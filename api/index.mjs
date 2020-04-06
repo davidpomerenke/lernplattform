@@ -6,7 +6,7 @@ app.use(cors({ credentials: true, origin: true }))
 app.options('*', cors())
 
 app.get('/', (request, result) => {
-    res.json({ a: "b" })
+    result.json({ a: "b" })
 })
 
 const port = process.env.PORT || 3000
