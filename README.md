@@ -18,7 +18,7 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 
 <h2 align="center">Technologie</h2>
 
-Die Website wird mit [Vue.js](https://vuejs.org/v2/guide/) konzipiert und mit [Heroku](https://devcenter.heroku.com/categories/reference) [gehostet](https://dashboard.heroku.com/apps/deutschland-lernt-selbst). Die Daten werden in einer zugehörigen [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank bei Heroku gespeichert.
+Die Website wird mit [Heroku](https://devcenter.heroku.com/categories/reference) [gehostet](https://dashboard.heroku.com/apps/deutschland-lernt-selbst). Die Daten werden in einer zugehörigen [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank bei Heroku gespeichert.
 
 <h3 align="center">Datenbank</h3>
 
