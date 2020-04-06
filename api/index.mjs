@@ -7,15 +7,23 @@ app.use(cors({ credentials: true, origin: true }))
 app.options('*', cors())
 
 app.get('/', (request, result) => {
-  const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } })
-  client.connect()
-  client.query('SELECT * FROM Lehrplan', (pgError, pgResult) => {
-    client.end()
-    if (pgError) throw pgError
-    result
-      .json([process.env, pgResult.rows])
-      .cookie('passwort', 'baum', { expires: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), secure: true })
-  })
+  let query = ''
+  if ('bundesland' in request.query) {
+    query = `SELECT Schulart FROM Lehrplan where Bundesland = '${request.query.bundesland}';`
+  }
+  if (query) {
+    const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } })
+    client.connect()
+    client.query(query, (pgError, pgResult) => {
+      client.end()
+      if (pgError) throw pgError
+      result
+        .json([request, pgResult.rows])
+        .cookie('passwort', 'baum', { expires: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), secure: true })
+    })
+  } else {
+    result.status('404')
+  }
 })
 
 const port = process.env.PORT || 3000
