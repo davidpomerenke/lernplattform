@@ -8,7 +8,7 @@ app.options('*', cors())
 
 app.get('/', (request, result) => {
   const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } })
-  client.connect().catch(error => throw error)
+  client.connect()
   client.query('SELECT * FROM Lehrplan', (error, result) => {
     if (error) throw error
     result.json(result)
