@@ -4,11 +4,11 @@
   "author": "David Pomerenke",
   "description": "Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer.",
   "homepage": "https://lernplattform.wiki",
-  "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davidpomerenke/deutschland-lernt-selbst-proto.git"
   },
+  "license": "GPL-3.0-or-later",
   "private": true,
   "keywords": [
     "education",
@@ -21,15 +21,14 @@
     "deutschland"
   ],
   "main": "lib/index.mjs",
-  "devDependencies": {
-    "heroku": "^7.39.2",
-    "mermaid-cli": "^0.2.4"
-  },
   "scripts": {
     "start": "node api/index.mjs",
-    "diagramm": "npx mermaid-cli projekt/er-diagramm -o bilder",
-    "pg": "heroku pg:psql -a deutschland-lernt-selbst",
-    "pg:credentials": "heroku pg:credentials:url DATABASE_URL -a deutschland-lernt-selbst"
+    "local": "yarn heroku local",
+    "pg": "yarn heroku pg:psql -a deutschland-lernt-selbst",
+    "pg:credentials": "yarn heroku pg:credentials:url DATABASE_URL -a deutschland-lernt-selbst"
+  },
+  "devDependencies": {
+    "heroku": "^7.39.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
