@@ -6,7 +6,12 @@ const app = express()
 app.use(cors({ credentials: true, origin: true }))
 app.options('*', cors())
 
-app.get('/', (request, result) => {
+app.get('/', (_, result) => {
+  const request = {
+    query: {
+      bundesland: 'Bayern'
+    }
+  }
   let query = ''
   if ('bundesland' in request.query) {
     query = `SELECT Schulart FROM Lehrplan where Bundesland = '${request.query.bundesland}';`
