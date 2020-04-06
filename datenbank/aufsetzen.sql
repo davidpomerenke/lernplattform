@@ -1,8 +1,8 @@
 drop table if exists Module, ModulHierarchie, Lehrplan, SelbstlernRessource, Zuordnung;
-drop type if exists bundesland;
+drop type if exists bundesland, schulart;
 
 create table Module
-( Modulname varchar(500) primary key
+( Modul varchar(500) primary key
 );
 
 create type bundesland as enum
@@ -23,11 +23,19 @@ create type bundesland as enum
   , 'Schleswig-Holstein'
   , 'Thüringen');
 
+create type schulart as enum
+  ( 'Grundschule'
+  , 'Gemeinschaftsschule'
+  , 'Realschule'
+  , 'Gymnasium'
+  );
+
 create table Lehrplan
 ( Bundesland bundesland
+, Schulart schulart
 , Fach varchar(100)
 , Klassenstufe smallint
-, Modulname varchar(500) references Module(Modulname)
+, Modul varchar(500) references Module(Modul)
 , LehrplanTitel varchar(500)
 , LehrplanBeschreibung text
 , LehrplanLehrziel text
@@ -38,7 +46,7 @@ create table Lehrplan
   , Schulart
   , Fach
   , Klassenstufe
-  , Modulname
+  , Modul
   )
 );
 
@@ -50,15 +58,15 @@ create table SelbstlernRessource
 );
 
 create table Zuordnung
-( Modulname varchar(500) references Module(Modulname)
+( Modul varchar(500) references Module(Modul)
 , Link varchar(500) references SelbstlernRessource(Link)
 , primary key
-  ( Modulname
+  ( Modul
   , Link
   )
 );
 
 create table ModulHierarchie
-( Untermodul varchar(500) references Module(Modulname)
-, Übermodul varchar(500) references Module(Modulname)
+( Untermodul varchar(500) references Module(Modul)
+, Übermodul varchar(500) references Module(Modul)
 );

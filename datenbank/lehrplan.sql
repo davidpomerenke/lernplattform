@@ -1,22 +1,33 @@
-insert into lehrplan values 
-  ('Baden-Württemberg', 'Physik', 7, 'Denk- und Arbeitsweisen der Physik'),
-  ('Baden-Württemberg', 'Physik', 7, 'Optik'),
-  ('Baden-Württemberg', 'Physik', 7, 'Akustik'),
-  ('Baden-Württemberg', 'Physik', 7, 'Energie'),
-  ('Baden-Württemberg', 'Physik', 7, 'Magnetismus'),
-  ('Baden-Württemberg', 'Physik', 7, 'Elektromagnetismus'),
-  ('Baden-Württemberg', 'Physik', 7, 'Grundgrößen der Elektrizitätslehre'),
-  ('Baden-Württemberg', 'Physik', 7, 'Kinematik'),
-  ('Baden-Württemberg', 'Physik', 7, 'Dynamik'),
-  ('Baden-Württemberg', 'Physik', 8, 'Denk- und Arbeitsweisen der Physik'),
-  ('Baden-Württemberg', 'Physik', 8, 'Optik'),
-  ('Baden-Württemberg', 'Physik', 8, 'Akustik'),
-  ('Baden-Württemberg', 'Physik', 8, 'Energie'),
-  ('Baden-Württemberg', 'Physik', 8, 'Magnetismus'),
-  ('Baden-Württemberg', 'Physik', 8, 'Elektromagnetismus'),
-  ('Baden-Württemberg', 'Physik', 8, 'Grundgrößen der Elektrizitätslehre'),
-  ('Baden-Württemberg', 'Physik', 8, 'Kinematik'),
-  ('Baden-Württemberg', 'Physik', 8, 'Dynamik');
+insert into Module(Modul) values
+  ('Denk- und Arbeitsweisen der Physik'),
+  ('Optik'),
+  ('Akustik'),
+  ('Energie'),
+  ('Magnetismus'),
+  ('Elektromagnetismus'),
+  ('Grundgrößen der Elektrizitätslehre'),
+  ('Kinematik'),
+  ('Dynamik');
+
+insert into Lehrplan(Bundesland, Schulart, Fach, Klassenstufe, Modul) values 
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Denk- und Arbeitsweisen der Physik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Optik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Akustik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Energie'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Magnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Elektromagnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Grundgrößen der Elektrizitätslehre'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Kinematik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Dynamik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Denk- und Arbeitsweisen der Physik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Optik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Akustik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Energie'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Magnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Elektromagnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Grundgrößen der Elektrizitätslehre'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Kinematik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Dynamik');
 
 /*
 {
