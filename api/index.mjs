@@ -1,10 +1,7 @@
 import express from 'express'
-import cors from 'cors'
 import pg from 'pg'
-const app = express()
 
-app.use(cors({ credentials: true, origin: true }))
-app.options('*', cors())
+const app = express()
 
 app.get('/', (request, result) => {
   let query = ''
