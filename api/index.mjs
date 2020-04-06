@@ -22,7 +22,7 @@ app.get('/', (request, result) => {
         .cookie('passwort', 'baum', { expires: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), secure: true })
     })
   } else {
-    result.status('404')
+    result.json(request)
   }
 })
 
