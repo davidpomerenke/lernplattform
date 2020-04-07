@@ -2,10 +2,11 @@ import express from 'express'
 import pg from 'pg'
 const app = express()
 
-app.get('/.well-known/acme-challenge/:content', function(req, res) {
+app.get('/.well-known/acme-challenge/0PpdoTts85IdVI83NU-SzNyPMS575iHqNzzTUL-MkGk', function(req, res) {
   res.send('0PpdoTts85IdVI83NU-SzNyPMS575iHqNzzTUL-MkGk.9jKzP9V98xrYuhQC_fLEKWCWLoD20YtArWUkUMk5SUk')
 })
 
+/*
 app.get('/', (_, result) => {
   const request = {
     query: {
@@ -33,6 +34,7 @@ app.get('/', (_, result) => {
     result.status(500).send('Error: No valid query.')
   }
 })
+*/
 
 const port = process.env.PORT || 3000
 app.listen(port, (error) => { if (error) { throw error } else { console.log(`Server running on port ${port}.`) } })
