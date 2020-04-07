@@ -18,7 +18,7 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 
 <h2 align="center">Technologie</h2>
 
-Die Website wird mit [Heroku](https://devcenter.heroku.com/categories/reference) [gehostet](https://dashboard.heroku.com/apps/deutschland-lernt-selbst). Die Daten werden in einer zugehörigen [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank bei Heroku gespeichert.
+Die Daten werden in einer [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank [bei Heroku](https://dashboard.heroku.com/apps/lernplattform-api) gespeichert. Die Website (Ordner `public`) und die API zum Zugriff auf die Datenbank (Ordner `API`) werden [bei Zeit Now](https://zeit.co/davidpomerenke/lernplattform) gehostet, da es bei Heroku Probleme mit dem SSL-Zertifikat gibt.
 
 <h3 align="center">Datenbank</h3>
 
