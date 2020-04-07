@@ -2,6 +2,10 @@ import express from 'express'
 import pg from 'pg'
 const app = express()
 
+app.get('/.well-known/acme-challenge/:content', function(req, res) {
+  res.send('0PpdoTts85IdVI83NU-SzNyPMS575iHqNzzTUL-MkGk.9jKzP9V98xrYuhQC_fLEKWCWLoD20YtArWUkUMk5SUk')
+})
+
 app.get('/', (_, result) => {
   const request = {
     query: {
