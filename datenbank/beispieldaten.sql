@@ -1,0 +1,77 @@
+insert into Module(Modul) values
+  ('Denk- und Arbeitsweisen der Physik'),
+  ('Optik'),
+  ('Akustik'),
+  ('Energie'),
+  ('Magnetismus'),
+  ('Elektromagnetismus'),
+  ('Grundgrößen der Elektrizitätslehre'),
+  ('Kinematik'),
+  ('Dynamik'),
+  ('Griechisches Alphabet'),
+  ('Keplersche Gesetze'),
+  ('Politisches System Deutschlands'),
+  ('Intransitive Verben'),
+  ('Autokatalyse'),
+  ('Baumarten'),
+  ('Physik'),
+  ('Quantenobjekte');
+
+insert into Lehrplan(Bundesland, Schulart, Fach, Klassenstufe, Modul) values 
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Denk- und Arbeitsweisen der Physik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Optik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Akustik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Energie'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Magnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Elektromagnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Grundgrößen der Elektrizitätslehre'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Kinematik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 7, 'Dynamik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Denk- und Arbeitsweisen der Physik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Optik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Akustik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Energie'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Magnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Elektromagnetismus'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Grundgrößen der Elektrizitätslehre'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Kinematik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Dynamik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Musik', 7, 'Akustik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Altgriechisch', 8, 'Griechisches Alphabet'),
+  ('Baden-Württemberg', 'Gymnasium', 'Griechisch', 5, 'Griechisches Alphabet'),
+  ('Baden-Württemberg', 'Gymnasium', 'Griechisch', 6, 'Griechisches Alphabet'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 10, 'Keplersche Gesetze'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 11, 'Keplersche Gesetze'),
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 12, 'Keplersche Gesetze'),
+  ('Baden-Württemberg', 'Gymnasium', 'Astronomie', 11, 'Keplersche Gesetze'),
+  ('Baden-Württemberg', 'Gymnasium', 'Astronomie', 12, 'Keplersche Gesetze'),
+  ('Baden-Württemberg', 'Gymnasium', 'Gemeinschaftskunde', 6, 'Politisches System Deutschlands'),
+  ('Baden-Württemberg', 'Gymnasium', 'Gemeinschaftskunde', 7, 'Politisches System Deutschlands'),
+  ('Baden-Württemberg', 'Gymnasium', 'Latein', 7, 'Intransitive Verben'),
+  ('Baden-Württemberg', 'Gymnasium', 'Latein', 8, 'Intransitive Verben'),
+  ('Baden-Württemberg', 'Gymnasium', 'Biologie', 11, 'Autokatalyse'),
+  ('Baden-Württemberg', 'Gymnasium', 'Biologie', 12, 'Autokatalyse'),
+  ('Baden-Württemberg', 'Gymnasium', 'Biologie', 5, 'Baumarten'),
+  ('Baden-Württemberg', 'Gymnasium', 'Biologie', 6, 'Baumarten');
+
+insert into SelbstlernRessource (Art, Titel, Beschreibung, Link) values
+  ('Tutorial', 'Keplersche Gesetze selbst modifizieren', 'Hier lernt ihr, wie ihr das politische System der Erdumlaufbahn beschleunigen könnt, indem ihr Backpulver in intransitiven Autokatalysatoren auflöst.', 'https://amazondating.co/'),
+  ('Lerneinheit', 'Baumarten von A bis Z auswendig lernen', 'Nicht für Katzen und Erwachsene unter 18 Jahren geeignet.', 'https://wikipedia.org'),
+  ('Tool', 'Alphabetify', 'Ganz einfach das griechische / russische / japanische Alphabet lernen.', 'https://alphabetify.js.org/de/'),
+  ('Aufgaben', 'Größen zur Beschreibung des Stromkreises', 'Die Aufgaben zur elektrischen Spannung beinhalten Lückentexte, Umrechnungsaufgaben und Zuordnungsübungen.', 'https://wiki.zum.de/wiki/Gymnasium_Feuchtwangen/Physik/7._Klasse/Gr%c3%b6%c3%9fen_zur_Beschreibung_des_Stromkreises/Die_elektrische_Spannung/Aufgaben_zur_elektrischen_Spannung'),
+  ('vExperiment', 'Fokussierung von Elektronen durch eine magnetische Linse', 'Wie breiten sich Elektronenstrahlen im Raum aus? Die Antwort auf diese Frage kann man mithilfe der Schattenkreuzröhre (auch Malteserkreuzröhre) herausfinden.', 'https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/schattenkreuz/ausbreitung/aufbau.php'),
+  ('Wettbewerb', 'Physik-Problem des Monats', '', 'https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/pruefungen-und-wettbewerbe/physikproblem_des_monats');
+
+insert into ModulHierarchie(Untermodul, Übermodul) values
+  ('Grundgrößen der Elektrizitätslehre', 'Elektromagnetismus');
+
+insert into Zuordnung(Link, Modul) values
+  ('https://amazondating.co/', 'Keplersche Gesetze'),
+  ('https://amazondating.co/', 'Politisches System Deutschlands'),
+  ('https://amazondating.co/', 'Intransitive Verben'),
+  ('https://amazondating.co/', 'Autokatalyse'),
+  ('https://wikipedia.org', 'Baumarten'),
+  ('https://alphabetify.js.org/de/', 'Griechisches Alphabet'),
+  ('https://wiki.zum.de/wiki/Gymnasium_Feuchtwangen/Physik/7._Klasse/Gr%c3%b6%c3%9fen_zur_Beschreibung_des_Stromkreises/Die_elektrische_Spannung/Aufgaben_zur_elektrischen_Spannung', 'Grundgrößen der Elektrizitätslehre'),
+  ('https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/schattenkreuz/ausbreitung/aufbau.php', 'Quantenobjekte'),
+  ('https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/pruefungen-und-wettbewerbe/physikproblem_des_monats', 'Physik')

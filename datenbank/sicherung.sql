@@ -44,6 +44,43 @@ CREATE TYPE public.bundesland AS ENUM (
 ALTER TYPE public.bundesland OWNER TO zzljtitzdabcjg;
 
 --
+-- Name: ressourcenart; Type: TYPE; Schema: public; Owner: zzljtitzdabcjg
+--
+
+CREATE TYPE public.ressourcenart AS ENUM (
+    'vExperiment',
+    'Sammlung',
+    'Wettbewerb',
+    'Nachschlageseite',
+    'Tutorial',
+    'Aufgaben',
+    'Lerneinheit',
+    'Lerntext',
+    'Animation',
+    'Erklärvideo',
+    'Podcast',
+    'Reportage',
+    'Bericht',
+    'Interview',
+    'Originaltext',
+    'Übersetzung',
+    'Fachartikel',
+    'Interpretation',
+    'Vortrag',
+    'Musik',
+    'App',
+    'Tool',
+    'Code',
+    'Klassenarbeit',
+    'Musterlösung',
+    'Community',
+    'Q&A'
+);
+
+
+ALTER TYPE public.ressourcenart OWNER TO zzljtitzdabcjg;
+
+--
 -- Name: schulart; Type: TYPE; Schema: public; Owner: zzljtitzdabcjg
 --
 
@@ -110,9 +147,13 @@ ALTER TABLE public.modulhierarchie OWNER TO zzljtitzdabcjg;
 
 CREATE TABLE public.selbstlernressource (
     link character varying(500) NOT NULL,
+    art public.ressourcenart NOT NULL,
+    titel character varying(500) NOT NULL,
     beschreibung text DEFAULT ''::text,
     upvotes integer DEFAULT 0,
-    downvotes integer DEFAULT 0
+    downvotes integer DEFAULT 0,
+    eintragsdatum date DEFAULT CURRENT_DATE,
+    "Überprüfungsdatum" date DEFAULT CURRENT_DATE
 );
 
 
@@ -153,6 +194,23 @@ Baden-Württemberg	Gymnasium	Physik	8	Elektromagnetismus	\N	\N	\N	\N	\N
 Baden-Württemberg	Gymnasium	Physik	8	Grundgrößen der Elektrizitätslehre	\N	\N	\N	\N	\N
 Baden-Württemberg	Gymnasium	Physik	8	Kinematik	\N	\N	\N	\N	\N
 Baden-Württemberg	Gymnasium	Physik	8	Dynamik	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Musik	7	Akustik	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Altgriechisch	8	Griechisches Alphabet	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Griechisch	5	Griechisches Alphabet	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Griechisch	6	Griechisches Alphabet	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Physik	10	Keplersche Gesetze	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Physik	11	Keplersche Gesetze	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Physik	12	Keplersche Gesetze	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Astronomie	11	Keplersche Gesetze	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Astronomie	12	Keplersche Gesetze	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Gemeinschaftskunde	6	Politisches System Deutschlands	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Gemeinschaftskunde	7	Politisches System Deutschlands	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Latein	7	Intransitive Verben	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Latein	8	Intransitive Verben	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Biologie	11	Autokatalyse	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Biologie	12	Autokatalyse	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Biologie	5	Baumarten	\N	\N	\N	\N	\N
+Baden-Württemberg	Gymnasium	Biologie	6	Baumarten	\N	\N	\N	\N	\N
 \.
 
 
@@ -170,6 +228,14 @@ Elektromagnetismus
 Grundgrößen der Elektrizitätslehre
 Kinematik
 Dynamik
+Griechisches Alphabet
+Keplersche Gesetze
+Politisches System Deutschlands
+Intransitive Verben
+Autokatalyse
+Baumarten
+Physik
+Quantenobjekte
 \.
 
 
@@ -178,6 +244,7 @@ Dynamik
 --
 
 COPY public.modulhierarchie (untermodul, "Übermodul") FROM stdin;
+Grundgrößen der Elektrizitätslehre	Elektromagnetismus
 \.
 
 
@@ -185,7 +252,13 @@ COPY public.modulhierarchie (untermodul, "Übermodul") FROM stdin;
 -- Data for Name: selbstlernressource; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
 --
 
-COPY public.selbstlernressource (link, beschreibung, upvotes, downvotes) FROM stdin;
+COPY public.selbstlernressource (link, art, titel, beschreibung, upvotes, downvotes, eintragsdatum, "Überprüfungsdatum") FROM stdin;
+https://amazondating.co/	Tutorial	Keplersche Gesetze selbst modifizieren	Hier lernt ihr, wie ihr das politische System der Erdumlaufbahn beschleunigen könnt, indem ihr Backpulver in intransitiven Autokatalysatoren auflöst.	0	0	2020-04-08	2020-04-08
+https://wikipedia.org	Lerneinheit	Baumarten von A bis Z auswendig lernen	Nicht für Katzen und Erwachsene unter 18 Jahren geeignet.	0	0	2020-04-08	2020-04-08
+https://alphabetify.js.org/de/	Tool	Alphabetify	Ganz einfach das griechische / russische / japanische Alphabet lernen.	0	0	2020-04-08	2020-04-08
+https://wiki.zum.de/wiki/Gymnasium_Feuchtwangen/Physik/7._Klasse/Gr%c3%b6%c3%9fen_zur_Beschreibung_des_Stromkreises/Die_elektrische_Spannung/Aufgaben_zur_elektrischen_Spannung	Aufgaben	Größen zur Beschreibung des Stromkreises	Die Aufgaben zur elektrischen Spannung beinhalten Lückentexte, Umrechnungsaufgaben und Zuordnungsübungen.	0	0	2020-04-08	2020-04-08
+https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/schattenkreuz/ausbreitung/aufbau.php	vExperiment	Fokussierung von Elektronen durch eine magnetische Linse	Wie breiten sich Elektronenstrahlen im Raum aus? Die Antwort auf diese Frage kann man mithilfe der Schattenkreuzröhre (auch Malteserkreuzröhre) herausfinden.	0	0	2020-04-08	2020-04-08
+https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/pruefungen-und-wettbewerbe/physikproblem_des_monats	Wettbewerb	Physik-Problem des Monats		0	0	2020-04-08	2020-04-08
 \.
 
 
@@ -194,6 +267,15 @@ COPY public.selbstlernressource (link, beschreibung, upvotes, downvotes) FROM st
 --
 
 COPY public.zuordnung (modul, link) FROM stdin;
+Keplersche Gesetze	https://amazondating.co/
+Politisches System Deutschlands	https://amazondating.co/
+Intransitive Verben	https://amazondating.co/
+Autokatalyse	https://amazondating.co/
+Baumarten	https://wikipedia.org
+Griechisches Alphabet	https://alphabetify.js.org/de/
+Grundgrößen der Elektrizitätslehre	https://wiki.zum.de/wiki/Gymnasium_Feuchtwangen/Physik/7._Klasse/Gr%c3%b6%c3%9fen_zur_Beschreibung_des_Stromkreises/Die_elektrische_Spannung/Aufgaben_zur_elektrischen_Spannung
+Quantenobjekte	https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/schattenkreuz/ausbreitung/aufbau.php
+Physik	https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/pruefungen-und-wettbewerbe/physikproblem_des_monats
 \.
 
 

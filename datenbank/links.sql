@@ -41,14 +41,6 @@
       ]
     },
     {
-      "typ": "Wettbewerb",
-      "beschreibung": "Physik-Problem des Monats",
-      "link": "https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/pruefungen-und-wettbewerbe/physikproblem_des_monats",
-      "themen": [
-        "Allgemein"
-      ]
-    },
-    {
       "typ": "Nachschlageseite",
       "beschreibung": "Griechische Buchstaben",
       "link": "https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/unterrichtsmaterialien/allgemein/griechische_buchstaben.htm",
@@ -145,15 +137,6 @@
     },
     {
       "typ": "vExperiment",
-      "beschreibung": "Fokussierung von Elektronen durch eine magnetische Linse. Wie breiten sich Elektronenstrahlen im Raum aus? Die Antwort auf diese Frage kann man mithilfe der Schattenkreuzröhre (auch Malteserkreuzröhre) herausfinden.",
-      "link": "https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/schattenkreuz/ausbreitung/aufbau.php",
-      "themen": [
-        "Quantenobjekte",
-        "Atomphysik"
-      ]
-    },
-    {
-      "typ": "vExperiment",
       "beschreibung": "Bewegung von Elektronen im Magnetfeld mit Bestimmung des Kreisbahnradiuses durch Kräfteansatz. Zusätzlich Möglichkeit zum selbstständigen Bestimmen der spezifischen Elektronenladung e/m.",
       "link": "https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/b-feld/B-Feld/Helmholtzspulenpaar.php",
       "themen": [
@@ -177,14 +160,6 @@
       "themen": [
         "Quantenobjekte",
         "Atomphysik"
-      ]
-    },
-    {
-      "typ": "Aufgaben",
-      "beschreibung": "Größen zur Beschreibung des Stromkreises. Die Aufgaben zur elektrischen Spannung beinhalten Lückentexte, Umrechnungsaufgaben und Zuordnungsübungen.",
-      "link": "https://wiki.zum.de/wiki/Gymnasium_Feuchtwangen/Physik/7._Klasse/Gr%c3%b6%c3%9fen_zur_Beschreibung_des_Stromkreises/Die_elektrische_Spannung/Aufgaben_zur_elektrischen_Spannung",
-      "themen": [
-        "Elektrik"
       ]
     },
     {

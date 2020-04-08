@@ -1,5 +1,5 @@
 drop table if exists Module, ModulHierarchie, Lehrplan, SelbstlernRessource, Zuordnung;
-drop type if exists bundesland, schulart;
+drop type if exists bundesland, schulart, ressourcenart;
 
 create table Module
 ( Modul varchar(500) primary key
@@ -50,11 +50,45 @@ create table Lehrplan
   )
 );
 
+create type ressourcenart as enum
+  ( 'vExperiment'
+  , 'Sammlung'
+  , 'Wettbewerb'
+  , 'Nachschlageseite'
+  , 'Tutorial'
+  , 'Aufgaben'
+  , 'Lerneinheit'
+  , 'Lerntext'
+  , 'Animation'
+  , 'Erklärvideo'
+  , 'Podcast'
+  , 'Reportage'
+  , 'Bericht'
+  , 'Interview'
+  , 'Originaltext'
+  , 'Übersetzung'
+  , 'Fachartikel'
+  , 'Interpretation'
+  , 'Vortrag'
+  , 'Musik'
+  , 'App'
+  , 'Tool'
+  , 'Code'
+  , 'Klassenarbeit'
+  , 'Musterlösung'
+  , 'Community'
+  , 'Q&A'
+  );
+
 create table SelbstlernRessource
 ( Link varchar(500) primary key
+, Art ressourcenart not null
+, Titel varchar(500) not null
 , Beschreibung text default ''
 , Upvotes int default 0
 , Downvotes int default 0
+, EintragsDatum date default current_date
+, ÜberprüfungsDatum date default current_date
 );
 
 create table Zuordnung
