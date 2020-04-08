@@ -3,7 +3,7 @@
 
 <h2 align="center">Die Idee</h2>
 
-Ziel ist es, für Schüler und Lehrer deutschlandweit eine Plattform bereitzustellen, auf der sie Links zu Selbstlern-Ressourcen miteinander austauschen können, die im Netz frei verfügbar sind:
+Ziel ist es, für Schüler\*innen und Lehrer\*innen deutschlandweit eine Plattform bereitzustellen, auf der sie Links zu Selbstlern-Ressourcen miteinander austauschen können, die im Netz frei verfügbar sind:
 - Jede Person soll für ihr Bundesland, ihr Fach, und ihre Klassenstufe die passenden Materialien angezeigt bekommen. 
 - Jede Person soll auch selbst Materialien hinzufügen können, sowie bestehende Materialien bewerten können. Wichtig ist, dass die Materialien und Bewertungen immer für alle Bundesländer verfügbar gemacht werden. Das heißt, eine Mathelehrerin aus Berlin trägt z. B. eine interaktive Website zum Binomialgleichungen ein, die in Berlin in der siebten Klasse behandelt werden. In Bayern werden diese aber schon in der sechsten Klasse behandelt. Dann wird die Website sowohl Siebtklässlern in Berlin, als auch Sechstklässlern in Bayern angezeigt, mit denselben Bewertungen. (Fiktives Beispiel!)
 - Es sollen alle Fächer und alle Schularten unterstützt werden (inklusive Grundschule). Für den Prototyp werden erst einmal die Lehrpläne für Deutsch und Physik in den gymnasialen Oberstufen in Baden-Württemberg, Bayern und Berlin erstellt.

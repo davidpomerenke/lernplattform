@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "pg": "yarn heroku pg:psql -a lernplattform-api",
+    "pg:dump": "yarn heroku run 'pg_dump $DATABASE_URL' -a lernplattform-api > datenbank/sicherung.sql",
     "pg:credentials": "yarn heroku pg:credentials:url DATABASE_URL -a lernplattform-api"
   },
   "devDependencies": {

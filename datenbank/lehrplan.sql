@@ -27,7 +27,8 @@ insert into Lehrplan(Bundesland, Schulart, Fach, Klassenstufe, Modul) values
   ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Elektromagnetismus'),
   ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Grundgrößen der Elektrizitätslehre'),
   ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Kinematik'),
-  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Dynamik');
+  ('Baden-Württemberg', 'Gymnasium', 'Physik', 8, 'Dynamik'),
+  ('Baden-Württemberg', 'Gymnasium', 'Musik', 7, 'Akustik');
 
 /*
 {
