@@ -10,14 +10,15 @@
   <meta name="keywords"
     content="Bildung, Lernen, Plattform, Austausch, Deutschland, Lehrplan, Schule, Gymnasium, Gemeinschaftsschule, Realschule, Grundschule, Primarstufe, Sekundarstufe, Unterstufe, Mittelstufe, Oberstufe, Klasse, Bundesländer, Baden-Württemberg, Bayern, Berlin, Brandenburg, Bremen, Hamburg, Hessen, Mecklenburg-Vorpommern, Niedersachsen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland, Sachsen, Sachsen-Anhalt, Schleswig-Holstein, Thüringen" />
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
 <body>
   <div class="container">
     <h1 class="display-4">Lernplattform für Deutschland</h1>
-    <p class="lead">Zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer.</p>
+    <p class="lead">Zum Austauschen von Selbstlern-Material für die Lehrpläne aller Bundesländer.</p>
     <form>
       <div id="auswahl">
         <div class="form-row">
@@ -31,19 +32,44 @@
             <select class="custom-select bg-primary text-light border-0"></select>
           </div>
         </div>
-        <div id="fach-auswählen" class="border rounded-lg bg-light my-3 p-3 d-flex flex-wrap" style="display: none;"></div>
+        <div id="fach-auswählen" hidden>
+          <div class="border rounded-lg bg-light my-3 p-3 d-flex flex-wrap"></div>
+        </div>
         <button id="speichern" type="button" class="btn btn-success my-2" hidden>Material anzeigen!</button>
       </div>
       <div id="gespeichert" class="alert alert-success p-2" hidden>
         Die Daten wurden erfolgreich im Browser gespeichert.
       </div>
       <button id="bearbeiten" type="button" class="btn btn-warning my-2" hidden>Fächer ändern</button>
-  </div>
-  </form>
+    </form>
+    <main class="m-3">
+      <div id="physik" class="card-deck border rounded-lg bg-light">
+        <div class="card m-2" style="max-width: 18rem">
+          <div class="card-body" style="position: relative;">
+            <span class="badge badge-info">Experiment</span>
+            <h5 class="card-title">Keplersche Gesetze selbst modifizieren</h5>
+            <p class="card-text">Hier lernt ihr, wie ihr das politische System der Erdumlaufbahn beschleunigen könnt,
+              indem ihr Backpulver in intransitiven Autokatalysatoren auflöst.</p>
+            <small class="text-muted">
+              <a href="https://blog.fefe.de" target="_blank" class="stretched-link"></a>
+              blog.fefe.de <i class="fas fa-external-link-alt"></i>
+              </a>
+            </small>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <i class="far fa-thumbs-up fa-flip-horizontal text-success"
+              style="font-size: x-large; cursor: pointer;"></i>
+            <b>250</b>
+            <i class="far fa-thumbs-down text-danger" style="font-size: x-large; cursor: pointer;"></i>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/ba50ac3b8d.js"></script>
   <script src="index.mjs"></script>
 </body>
 

@@ -2,7 +2,7 @@
   "name": "deutschland-lernt-selbst",
   "version": "0.1.0",
   "author": "David Pomerenke",
-  "description": "Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer.",
+  "description": "Plattform zum Austauschen von Selbstlern-Material für die Lehrpläne aller Bundesländer.",
   "homepage": "https://lernplattform.wiki",
   "repository": {
     "type": "git",

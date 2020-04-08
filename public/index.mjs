@@ -22,14 +22,13 @@ $.ajax({
     const zeigeButtonsAn = daten => zeigeButtonAn('bundesland', {}, daten => {
       $('#klassenstufe-auswählen, #fächer-auswählen').attr('hidden', true)
       zeigeButtonAn('schulart', daten, daten => {
-        $('#fach-auswählen').hide()
+        $('#fach-auswählen').attr('hidden', true)
         zeigeButtonAn('klassenstufe', daten, daten => {
-          $('#fach-auswählen').show()
           $.ajax({
             url: `api/fach?bundesland=${daten.bundesland}&schulart=${daten.schulart}&klassenstufe=${daten.klassenstufe}`,
             success: result => {
-              $('#fach-auswählen').show()
-              $('#fach-auswählen').html(result.map(a =>
+              $('#fach-auswählen').attr('hidden', false)
+              $('#fach-auswählen div').html(result.map(a =>
                 `<button type="button" class="fach btn btn-outline-primary rounded-pill m-2 py-1 px-3">${a.fach}</button>`))
               $('button.fach').on('click', function (e) { $(this).toggleClass('bg-primary text-light') })
               $('#speichern').attr('hidden', false)
@@ -51,11 +50,9 @@ $.ajax({
       zeigeButtonsAn()
     }
     $('#bearbeiten').on('click', e => {
-      $('bearbeiten').attr('hidden', true)
+      $('#bearbeiten').attr('hidden', true)
       zeigeButtonsAn(localStorage.getItem('daten'))
     })
+    $('.fa-thumbs-up, .fa-thumbs-down').on('click', function() {$(this).toggleClass('fas').toggleClass('far')})
   }
 })
-
-// Sorry for the horrible jQuery code.
-// Aiming to eventually refactor it to Elm.
