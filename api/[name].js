@@ -13,15 +13,15 @@ module.exports = (request, result) => {
   switch (request.query.name) {
     case 'start':
       query(`select distinct Bundesland, Schulart, Klassenstufe from Lehrplan;`, a => result.json(a.rows))
-      break;
-    case 'fach':
-      query(
-        `select distinct Fach from Lehrplan where
+      break
+    case 'links':
+      query(`select * from
+        SelbstlernRessource natural join Zuordnung join Lehrplan on (Zuordnung.Modul = Lehrplan.Modul) where
         Bundesland   = '${request.query.bundesland}' and
         Schulart     = '${request.query.schulart}'   and
         Klassenstufe = '${request.query.klassenstufe}';`,
         a => result.json(a.rows))
-      break;
+      break
     default:
       result.status(404).send()
   }

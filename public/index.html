@@ -18,7 +18,8 @@
 <body>
   <div class="container">
     <h1 class="display-4">Lernplattform für Deutschland</h1>
-    <p class="lead">Zum Austauschen von Selbstlern-Material für die Lehrpläne aller Bundesländer. Für Schüler innen und Lehrer innen.</p>
+    <p class="lead">Zum Austauschen von Selbstlern-Material für die Lehrpläne aller Bundesländer. Für Schüler*innen und
+      Lehrer*innen.</p>
     <form>
       <div id="auswahl">
         <div class="form-row">
@@ -42,30 +43,12 @@
       </div>
       <button id="bearbeiten" type="button" class="btn btn-warning my-2" hidden>Fächer ändern</button>
     </form>
-    <main class="m-3">
-      <div id="physik" class="card-deck border rounded-lg bg-light">
-        <div class="card m-2" style="max-width: 18rem">
-          <div class="card-body" style="position: relative;">
-            <span class="badge badge-info">Experiment</span>
-            <h5 class="card-title">Keplersche Gesetze selbst modifizieren</h5>
-            <p class="card-text">Hier lernt ihr, wie ihr das politische System der Erdumlaufbahn beschleunigen könnt,
-              indem ihr Backpulver in intransitiven Autokatalysatoren auflöst.</p>
-            <small class="text-muted">
-              <a href="https://blog.fefe.de" target="_blank" class="stretched-link"></a>
-              blog.fefe.de 
-              <i class="fas fa-external-link-alt"></i>
-              </a>
-            </small>
-          </div>
-          <div class="card-footer d-flex justify-content-between">
-            <i class="far fa-thumbs-up fa-flip-horizontal text-success"
-              style="font-size: x-large; cursor: pointer;"></i>
-            <b>250</b>
-            <i class="far fa-thumbs-down text-danger" style="font-size: x-large; cursor: pointer;"></i>
-          </div>
-        </div>
+    <div id="physik" class="card">
+      <div class="card-header">
+        <h4>Physik</h4>
       </div>
-    </main>
+      <div class="card-body row"></div>
+    </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>

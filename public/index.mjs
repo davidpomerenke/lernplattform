@@ -53,6 +53,35 @@ $.ajax({
       $('#bearbeiten').attr('hidden', true)
       zeigeButtonsAn(localStorage.getItem('daten'))
     })
-    $('.fa-thumbs-up, .fa-thumbs-down').on('click', function() {$(this).toggleClass('fas').toggleClass('far')})
+    $.ajax({
+      url: `api/links`,
+      success: result => {
+        console.log(result
+          .map(a => a.fach))
+        $('#physik .card-body').html(result.map(a =>`
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 p-1">
+          <div class="card" style="height: 100%;">
+            <div class="card-body" style="position: relative;">
+              <span class="badge badge-info">${a.art}</span>
+              <h5 class="card-title">${a.titel}</h5>
+              <p class="card-text">${a.beschreibung}</p>
+              <small class="text-muted">
+                <a href="${a.link}" target="_blank" class="stretched-link"></a>
+                ${a.link.replace(/https?:\/\/(www\.)?/, '').replace(/\/.*/, '')} 
+                <i class="fas fa-external-link-alt"></i>
+                </a>
+              </small>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <i class="far fa-thumbs-up fa-flip-horizontal text-success"
+                style="font-size: x-large; cursor: pointer;"></i>
+              <b>${a.upvotes - a.downvotes}</b>
+              <i class="far fa-thumbs-down text-danger" style="font-size: x-large; cursor: pointer;"></i>
+            </div>
+          </div>
+        </div>`).join('\n'))
+      }
+    })
+    $('.fa-thumbs-up, .fa-thumbs-down').on('click', function() {console.log('al'); $(this).toggleClass('fas').toggleClass('far')})
   }
 })
