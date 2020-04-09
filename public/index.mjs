@@ -3,9 +3,8 @@ Array.prototype.unique = function () { return Array.from(new Set(this)) }
 String.prototype.capitalise = function () { return this[0].toUpperCase() + this.slice(1) }
 
 // Formular zum Auswählen von Bundesland, Schulart, Klassenstufe, Kursen
-$.ajax({
-  url: `api/start`,
-  success: ergebnis => {
+$.ajax(`api/start`)
+  .done(ergebnis => {
     const zeigeButtonAn = (feld, daten, callback) => {
       $(`#${feld}-auswählen`).attr('hidden', false)
       $(`#${feld}-auswählen select`).html(
@@ -37,7 +36,7 @@ $.ajax({
                 $('#auswahl').attr('hidden', true)
                 $('#gespeichert').attr('hidden', false)
                 $('#bearbeiten').attr('hidden', false)
-                zeigeLinksAn(result)
+                zeigeLinksAn(result, daten)
               })
             })
             .fail(error => console.log(error))
@@ -46,37 +45,46 @@ $.ajax({
     })
 
     // Liste mit Links
-    const zeigeLinksAn = links => {
-      $('#physik .card-body').html(links.map(a => `
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 p-1">
-          <div class="card" style="height: 100%;">
-            <div class="card-body" style="position: relative;">
-              <span class="badge badge-info">${a.art}</span>
-              <h5 class="card-title">${a.titel}</h5>
-              <p class="card-text">${a.beschreibung}</p>
-              <small class="text-muted">
-                <a href="${a.link}" target="_blank" class="stretched-link"></a>
-                ${a.link.replace(/https?:\/\/(www\.)?/, '').replace(/\/.*/, '')} 
-                <i class="fas fa-external-link-alt"></i>
-                </a>
-              </small>
-            </div>
-            <div class="card-footer d-flex justify-content-between">
-              <i class="far fa-thumbs-up fa-flip-horizontal text-success"
-                style="font-size: x-large; cursor: pointer;"></i>
-              <b>${a.upvotes - a.downvotes}</b>
-              <i class="far fa-thumbs-down text-danger" style="font-size: x-large; cursor: pointer;"></i>
-            </div>
+    const zeigeLinksAn = (links, daten) => {
+      console.log(links.map(a => a.fach).unique())
+      $('#links').html(links.map(a => a.fach).unique().filter(a => daten.fächer.includes(a)).map(fach => `
+        <div id="${fach}" class="card my-2">
+          <div class="card-header">
+            <h4>${fach}</h4>
           </div>
-        </div>`).join('\n'))
+          <div class="card-body row">` +
+        links.filter(a => a.fach === fach).map(a => `
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 p-1">
+            <div class="card" style="height: 100%;">
+              <div class="card-body" style="position: relative;">
+                <span class="badge badge-info">${a.art}</span>
+                <h5 class="card-title">${a.titel}</h5>
+                <p class="card-text">${a.beschreibung}</p>
+                <small class="text-muted">
+                  <a href="${a.link}" target="_blank" class="stretched-link"></a>
+                  ${a.link.replace(/https?:\/\/(www\.)?/, '').replace(/\/.*/, '')} 
+                  <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </small>
+              </div>
+              <div class="card-footer d-flex justify-content-between">
+                <i class="far fa-thumbs-up fa-flip-horizontal text-success"
+                  style="font-size: x-large; cursor: pointer;"></i>
+                <b>${a.upvotes - a.downvotes}</b>
+                <i class="far fa-thumbs-down text-danger" style="font-size: x-large; cursor: pointer;"></i>
+              </div>
+            </div>
+          </div>`).join('\n') +
+        `</div>
+        </div>`))
+      $('.fa-thumbs-up, .fa-thumbs-down').on('click', function () { console.log('al'); $(this).toggleClass('fas').toggleClass('far') })
     }
     if (localStorage.getItem('daten')) {
       $('#bearbeiten').attr('hidden', false)
       const daten = JSON.parse(localStorage.getItem('daten'))
       $.ajax(`api/links?bundesland=${daten.bundesland}&schulart=${daten.schulart}&klassenstufe=${daten.klassenstufe}`)
-        .done(result => {
-          zeigeLinksAn(result)
-        })
+        .done(result => zeigeLinksAn(result, daten))
+        .fail(error => console.log(error))
     } else {
       zeigeButtonsAn()
     }
@@ -84,7 +92,6 @@ $.ajax({
       $('#bearbeiten').attr('hidden', true)
       zeigeButtonsAn(JSON.parse(localStorage.getItem('daten')))
     })
-    $('.fa-thumbs-up, .fa-thumbs-down').on('click', function () { console.log('al'); $(this).toggleClass('fas').toggleClass('far') })
     $('#lokale-daten-löschen').on('click', e => {
       localStorage.removeItem('daten')
       $('#lokale-daten-löschen').attr('hidden', true)
@@ -92,5 +99,5 @@ $.ajax({
       $('#seite-neu-laden').attr('hidden', false)
       $('#seite-neu-laden').on('click', e => location.reload())
     })
-  }
-})
+  })
+  .fail(error => console.log(error))
