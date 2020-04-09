@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <main class="container">
     <h1 class="display-4">Lernplattform für Deutschland</h1>
     <p class="lead">Zum Austauschen von Selbstlern-Material für die Lehrpläne aller Bundesländer. Für Schüler*innen und
       Lehrer*innen.</p>
@@ -45,9 +45,54 @@
     </form>
     <div id="physik" class="card">
       <div class="card-header">
-        <h4>Physik</h4>
+        <h4>Links<!--Physik--></h4>
       </div>
       <div class="card-body row"></div>
+    </div>
+  </main>
+  <footer class="footer fixed-bottom container text-muted py-2" style="text-align: center;">
+    <a class="btn btn-light border" href="mailto:David Pomerenke<david@lernplattform.wiki>">Kontakt</a>
+    <button type="button" class="btn btn-light border" data-toggle="modal" data-target="#datenschutz">
+      Datenschutz
+    </button>
+    <a class="btn btn-light border" href="https://github.com/davidpomerenke/lernplattform" target="_blank">Github</a>
+  </footer>
+  <!-- Datenschutz-Modal -->
+  <div class="modal fade" id="datenschutz" tabindex="-1" role="dialog" aria-labelledby="DatenschutzLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="DatenschutzLabel">Datenschutz</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Diese Website schützt die Daten ihrer Nutzer sehr stark:<br\>
+            <ul>
+              <li>
+                Nutzerdaten werden ausschließlich lokal im Browser der jeweiligen Benutzer*in gespeichert.<br\>
+              </li>
+              <li>
+                Der Betreiber der Website oder irgendwelche Drittparteien haben keinen Zugriff auf die Nutzerdaten.
+                <br\>
+              </li>
+              <li>
+                Das ist transparent und überprüfbar, denn der Code der Website ist
+                <a href="https://github.com/davidpomerenke/lernplattform" target="_blank">öffentlich</a>.
+              </li>
+            </ul>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <div>
+            <button type="button" class="btn btn-danger" id="lokale-daten-löschen">Lokale Daten löschen</button>
+            <div class="alert alert-success" id="lokale-daten-gelöscht" hidden>Erfolgreich gelöscht.</div>
+            <button type="button" class="btn btn-info" id="seite-neu-laden" hidden>Seite neu laden</button>
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+        </div>
+      </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

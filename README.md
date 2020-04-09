@@ -14,7 +14,7 @@ Das Projekt strebt an, eine Datenbank zu erstellen, die aus zwei Teilen besteht:
 
 Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs einmal Bundesland, Klassenstufe, Kern- und Nebenfächer abfragen und lokal speichern. Daraufhin werden die verfügbaren Ressourcen pro Fach und nach Bewertungen sortiert angezeigt. Es soll auf der Website unkompliziert möglich sein, neue Einträge hinzuzufügen und bestehende Einträge zu bewerten.
 
-[Überblick über verwandte Projekte.](projekt/verwandte-projekte.md)
+[Überblick über verwandte Projekte.](verwandte-projekte.md)
 
 <h2 align="center">Technologie</h2>
 
