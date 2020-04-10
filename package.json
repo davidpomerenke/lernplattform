@@ -23,14 +23,17 @@
   "scripts": {
     "pg": "yarn heroku pg:psql -a lernplattform-api",
     "pg:dump": "yarn heroku run 'pg_dump $DATABASE_URL' -a lernplattform-api > datenbank/sicherung.sql",
-    "pg:credentials": "yarn heroku pg:credentials:url DATABASE_URL -a lernplattform-api"
+    "pg:credentials": "yarn heroku pg:credentials:url DATABASE_URL -a lernplattform-api",
+    "auslesen": "node lehrplan-ausleser/ausleser.mjs"
   },
   "devDependencies": {
     "heroku": "^7.39.2",
     "now-cli": "^0.0.0"
   },
   "dependencies": {
-    "pg": "^8.0.0"
+    "cheerio": "^1.0.0-rc.3",
+    "pg": "^8.0.0",
+    "sync-request": "^6.1.0"
   },
   "engines": {
     "node": ">=12.0"

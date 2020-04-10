@@ -46,7 +46,6 @@ $.ajax(`api/start`)
 
     // Liste mit Links
     const zeigeLinksAn = (links, daten) => {
-      console.log(links.map(a => a.fach).unique())
       $('#links').html(links.map(a => a.fach).unique().filter(a => daten.fächer.includes(a)).map(fach => `
         <div id="${fach}" class="card my-2">
           <div class="card-header">
@@ -77,7 +76,7 @@ $.ajax(`api/start`)
           </div>`).join('\n') +
         `</div>
         </div>`))
-      $('.fa-thumbs-up, .fa-thumbs-down').on('click', function () { console.log('al'); $(this).toggleClass('fas').toggleClass('far') })
+      $('.fa-thumbs-up, .fa-thumbs-down').on('click', function () { $(this).toggleClass('fas').toggleClass('far') })
     }
     if (localStorage.getItem('daten')) {
       $('#bearbeiten').attr('hidden', false)

@@ -18,7 +18,13 @@ Die Datenbank soll über eine Website zugänglich sein. Die Website soll anfangs
 
 <h2 align="center">Technologie</h2>
 
-Die Daten werden in einer [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank [bei Heroku](https://dashboard.heroku.com/apps/lernplattform-api) gespeichert. Die Website (Ordner `public`) und die API zum Zugriff auf die Datenbank (Ordner `API`) werden [bei Zeit Now](https://zeit.co/davidpomerenke/lernplattform) gehostet, da es bei Heroku Probleme mit dem SSL-Zertifikat gibt.
+Die Daten werden in einer [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank [bei Heroku](https://dashboard.heroku.com/apps/lernplattform-api) gespeichert. Die Website (Ordner `public`) und die API zum Zugriff auf die Datenbank (Ordner `api`) werden [bei Zeit Now](https://zeit.co/davidpomerenke/lernplattform) gehostet, da es bei Heroku Probleme mit dem SSL-Zertifikat gibt.
+
+<h3 align="center">Lokale Entwicklung</h3>
+- `now dev` startet einen lokalen Server für Website und API.
+- Um mit der Postgres-Datenbank zu verbinden, müssen das Passwort in der Form `PGPASSWORD=xyz` in der Datei `.env` im Hauptordner hinterlegt werden, sowie gegebenenfalls die Daten in `now.json` angepasst werden. Das Passwort für die Heroku-Datenbank kann ich bei Interesse mitteilen, zumindest solange das Projekt noch in der Entwicklung ist. In der Datenbank ist nur ein Benutzer angelegt.
+  - `yarn pg` verbindet dann mit der Datenbank zur Eingabe von SQL-Abfragen.
+  - `yarn pg:dump` lädt dann eine Kopie der Datenbank im SQL-Format herunter.
 
 <h3 align="center">Datenbank</h3>
 
