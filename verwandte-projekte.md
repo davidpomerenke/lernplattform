@@ -16,7 +16,7 @@
   - `-` Fokus auf eigenen Inhalten. Nur für Physik.
   - `→` Langfristig wäre eine Kooperation dergestalt sinnvoll, dass auf einen gemeinsamen Pool von Links zugegriffen wird.
 - [Übersicht der Lehrpläne](https://www.bildungsserver.de/Lehrplaene-400-de.html)
-- [Stack Exchange](https://stackoverflow.com)
+- [Stack Exchange](https://stackexchange.com), [Reddit](https://www.reddit.com/r/teachingresources/)
   - `+` Community-Funktionen: Abstimmungs-System, Privilegien-System (Stimmen zählen erst, wenn Nutzer mindestens einen Beitrag hinzugefügt hat).
-  - `-` Hat eine ganz andere Funktion, nämlich Diskussionen. Bedingt Registrierung der Nutzer.
-  - `→` Die Idee der Abstimmungen und des Privilegiensystems werden rudimentär übernommen. Nutzer-Accounts bleiben aber lokal (Daten werden nur im Browser gespeichert) und können mit auto-generierter Passwort-Kombination übertragen werden.
+  - `-` Haben primär eine andere Funktion, nämlich Diskussionen. Bedingt Registrierung der Nutzer.
+  - `→` Die Idee der Abstimmungen und des Privilegiensystems werden rudimentär übernommen. Nutzer-Accounts bleiben aber lokal (Daten werden nur im Browser gespeichert) und können bei Bedarf mit auto-generierter Passwort-Kombination übertragen werden.
