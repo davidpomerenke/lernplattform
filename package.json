@@ -22,9 +22,9 @@
   ],
   "scripts": {
     "pg": "yarn heroku pg:psql -a lernplattform-api",
-    "pg:dump": "yarn heroku run 'pg_dump $DATABASE_URL' -a lernplattform-api > datenbank/sicherung.sql",
+    "pg:dump": "yarn heroku run 'pg_dump $DATABASE_URL --exclude-table lehrplan --exclude-table lehrplandetails' -a lernplattform-api > datenbank/datenbank.sql",
     "pg:credentials": "yarn heroku pg:credentials:url DATABASE_URL -a lernplattform-api",
-    "auslesen": "node lehrplan-ausleser/ausleser.mjs"
+    "auslesen": "cd lehrplan-ausleser && node ausleser.mjs && node sequeliser.mjs"
   },
   "devDependencies": {
     "heroku": "^7.39.2",
@@ -33,6 +33,8 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "pg": "^8.0.0",
+    "pg-escape": "^0.2.0",
+    "sqlutils": "^1.2.0",
     "sync-request": "^6.1.0"
   },
   "engines": {

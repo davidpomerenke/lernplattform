@@ -1,4 +1,4 @@
-$ /home/davidp/Repositories/lernplattform/node_modules/.bin/heroku run 'pg_dump $DATABASE_URL' -a lernplattform-api
+$ /home/davidp/Repositories/lernplattform/node_modules/.bin/heroku run 'pg_dump $DATABASE_URL --exclude-table lehrplan --exclude-table lehrplandetails' -a lernplattform-api
 --
 -- PostgreSQL database dump
 --
@@ -88,35 +88,58 @@ CREATE TYPE public.schulart AS ENUM (
     'Grundschule',
     'Gemeinschaftsschule',
     'Realschule',
-    'Gymnasium'
+    'Gymnasium',
+    'Hauptschule'
 );
 
 
 ALTER TYPE public.schulart OWNER TO zzljtitzdabcjg;
+
+--
+-- Name: lehrplan_id_seq; Type: SEQUENCE; Schema: public; Owner: zzljtitzdabcjg
+--
+
+CREATE SEQUENCE public.lehrplan_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lehrplan_id_seq OWNER TO zzljtitzdabcjg;
+
+--
+-- Name: lehrplandetails_id_seq; Type: SEQUENCE; Schema: public; Owner: zzljtitzdabcjg
+--
+
+CREATE SEQUENCE public.lehrplandetails_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lehrplandetails_id_seq OWNER TO zzljtitzdabcjg;
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: lehrplan; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: linkzuordnung; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
 --
 
-CREATE TABLE public.lehrplan (
-    bundesland public.bundesland NOT NULL,
-    schulart public.schulart NOT NULL,
-    fach character varying(100) NOT NULL,
-    klassenstufe smallint NOT NULL,
+CREATE TABLE public.linkzuordnung (
     modul character varying(500) NOT NULL,
-    lehrplantitel character varying(500),
-    lehrplanbeschreibung text,
-    lehrplanlehrziel text,
-    lehrplanquelle character varying(500),
-    eintragsdatum date
+    link character varying(500) NOT NULL
 );
 
 
-ALTER TABLE public.lehrplan OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.linkzuordnung OWNER TO zzljtitzdabcjg;
 
 --
 -- Name: module; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
@@ -142,6 +165,31 @@ CREATE TABLE public.modulhierarchie (
 ALTER TABLE public.modulhierarchie OWNER TO zzljtitzdabcjg;
 
 --
+-- Name: modulzuordnung; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+--
+
+CREATE TABLE public.modulzuordnung (
+    lehrplanid integer NOT NULL,
+    modul character varying(500) NOT NULL
+);
+
+
+ALTER TABLE public.modulzuordnung OWNER TO zzljtitzdabcjg;
+
+--
+-- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+--
+
+CREATE TABLE public.schulartenbedeutung (
+    bundesland public.bundesland NOT NULL,
+    schulname character varying(500) NOT NULL,
+    schulbedeutung public.schulart NOT NULL
+);
+
+
+ALTER TABLE public.schulartenbedeutung OWNER TO zzljtitzdabcjg;
+
+--
 -- Name: selbstlernressource; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
 --
 
@@ -160,57 +208,19 @@ CREATE TABLE public.selbstlernressource (
 ALTER TABLE public.selbstlernressource OWNER TO zzljtitzdabcjg;
 
 --
--- Name: zuordnung; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Data for Name: linkzuordnung; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
 --
 
-CREATE TABLE public.zuordnung (
-    modul character varying(500) NOT NULL,
-    link character varying(500) NOT NULL
-);
-
-
-ALTER TABLE public.zuordnung OWNER TO zzljtitzdabcjg;
-
---
--- Data for Name: lehrplan; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
---
-
-COPY public.lehrplan (bundesland, schulart, fach, klassenstufe, modul, lehrplantitel, lehrplanbeschreibung, lehrplanlehrziel, lehrplanquelle, eintragsdatum) FROM stdin;
-Baden-Württemberg	Gymnasium	Physik	7	Denk- und Arbeitsweisen der Physik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Optik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Akustik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Energie	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Magnetismus	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Elektromagnetismus	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Grundgrößen der Elektrizitätslehre	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Kinematik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	7	Dynamik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Denk- und Arbeitsweisen der Physik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Optik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Akustik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Energie	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Magnetismus	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Elektromagnetismus	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Grundgrößen der Elektrizitätslehre	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Kinematik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	8	Dynamik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Musik	7	Akustik	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Altgriechisch	8	Griechisches Alphabet	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Griechisch	5	Griechisches Alphabet	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Griechisch	6	Griechisches Alphabet	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	10	Keplersche Gesetze	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	11	Keplersche Gesetze	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Physik	12	Keplersche Gesetze	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Astronomie	11	Keplersche Gesetze	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Astronomie	12	Keplersche Gesetze	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Gemeinschaftskunde	6	Politisches System Deutschlands	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Gemeinschaftskunde	7	Politisches System Deutschlands	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Latein	7	Intransitive Verben	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Latein	8	Intransitive Verben	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Biologie	11	Autokatalyse	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Biologie	12	Autokatalyse	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Biologie	5	Baumarten	\N	\N	\N	\N	\N
-Baden-Württemberg	Gymnasium	Biologie	6	Baumarten	\N	\N	\N	\N	\N
+COPY public.linkzuordnung (modul, link) FROM stdin;
+Keplersche Gesetze	https://amazondating.co/
+Politisches System Deutschlands	https://amazondating.co/
+Intransitive Verben	https://amazondating.co/
+Autokatalyse	https://amazondating.co/
+Baumarten	https://wikipedia.org
+Grundgrößen der Elektrizitätslehre	https://wiki.zum.de/wiki/Gymnasium_Feuchtwangen/Physik/7._Klasse/Gr%c3%b6%c3%9fen_zur_Beschreibung_des_Stromkreises/Die_elektrische_Spannung/Aufgaben_zur_elektrischen_Spannung
+Quantenobjekte	https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/schattenkreuz/ausbreitung/aufbau.php
+Physik	https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/pruefungen-und-wettbewerbe/physikproblem_des_monats
+Griechisches Alphabet	https://alphabetify.js.org/de
 \.
 
 
@@ -249,6 +259,32 @@ Grundgrößen der Elektrizitätslehre	Elektromagnetismus
 
 
 --
+-- Data for Name: modulzuordnung; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+--
+
+COPY public.modulzuordnung (lehrplanid, modul) FROM stdin;
+\.
+
+
+--
+-- Data for Name: schulartenbedeutung; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+--
+
+COPY public.schulartenbedeutung (bundesland, schulname, schulbedeutung) FROM stdin;
+Baden-Württemberg	Grundschule	Grundschule
+Baden-Württemberg	Hauptschule	Hauptschule
+Baden-Württemberg	Werkrealschule	Hauptschule
+Baden-Württemberg	Gemeinschaftsschule (Grundlegendes Niveau)	Hauptschule
+Baden-Württemberg	Realschule (Grundlegendes Niveau)	Hauptschule
+Baden-Württemberg	Gemeinschaftsschule (Mittleres Niveau)	Realschule
+Baden-Württemberg	Realschule (Mittleres Niveau)	Realschule
+Baden-Württemberg	Gymnasium	Gymnasium
+Baden-Württemberg	Gemeinschaftsschule (Erweitertes Niveau)	Gemeinschaftsschule
+Baden-Württemberg	Gemeinschaftsschule (Oberstufe)	Gemeinschaftsschule
+\.
+
+
+--
 -- Data for Name: selbstlernressource; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
 --
 
@@ -263,28 +299,17 @@ https://alphabetify.js.org/de	Tool	Alphabetify	Ganz einfach das griechische / ru
 
 
 --
--- Data for Name: zuordnung; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+-- Name: lehrplan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zzljtitzdabcjg
 --
 
-COPY public.zuordnung (modul, link) FROM stdin;
-Keplersche Gesetze	https://amazondating.co/
-Politisches System Deutschlands	https://amazondating.co/
-Intransitive Verben	https://amazondating.co/
-Autokatalyse	https://amazondating.co/
-Baumarten	https://wikipedia.org
-Grundgrößen der Elektrizitätslehre	https://wiki.zum.de/wiki/Gymnasium_Feuchtwangen/Physik/7._Klasse/Gr%c3%b6%c3%9fen_zur_Beschreibung_des_Stromkreises/Die_elektrische_Spannung/Aufgaben_zur_elektrischen_Spannung
-Quantenobjekte	https://www.didaktik.physik.uni-muenchen.de/elektronenbahnen/schattenkreuz/ausbreitung/aufbau.php
-Physik	https://www.schule-bw.de/faecher-und-schularten/mathematisch-naturwissenschaftliche-faecher/physik/pruefungen-und-wettbewerbe/physikproblem_des_monats
-Griechisches Alphabet	https://alphabetify.js.org/de
-\.
+SELECT pg_catalog.setval('public.lehrplan_id_seq', 35, true);
 
 
 --
--- Name: lehrplan lehrplan_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: lehrplandetails_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zzljtitzdabcjg
 --
 
-ALTER TABLE ONLY public.lehrplan
-    ADD CONSTRAINT lehrplan_pkey PRIMARY KEY (bundesland, schulart, fach, klassenstufe, modul);
+SELECT pg_catalog.setval('public.lehrplandetails_id_seq', 44634, true);
 
 
 --
@@ -296,6 +321,22 @@ ALTER TABLE ONLY public.module
 
 
 --
+-- Name: modulzuordnung modulzuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+--
+
+ALTER TABLE ONLY public.modulzuordnung
+    ADD CONSTRAINT modulzuordnung_pkey PRIMARY KEY (lehrplanid, modul);
+
+
+--
+-- Name: schulartenbedeutung schulartenbedeutung_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+--
+
+ALTER TABLE ONLY public.schulartenbedeutung
+    ADD CONSTRAINT schulartenbedeutung_pkey PRIMARY KEY (bundesland, schulname);
+
+
+--
 -- Name: selbstlernressource selbstlernressource_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
 --
 
@@ -304,19 +345,11 @@ ALTER TABLE ONLY public.selbstlernressource
 
 
 --
--- Name: zuordnung zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: linkzuordnung zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
 --
 
-ALTER TABLE ONLY public.zuordnung
+ALTER TABLE ONLY public.linkzuordnung
     ADD CONSTRAINT zuordnung_pkey PRIMARY KEY (modul, link);
-
-
---
--- Name: lehrplan lehrplan_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
---
-
-ALTER TABLE ONLY public.lehrplan
-    ADD CONSTRAINT lehrplan_modul_fkey FOREIGN KEY (modul) REFERENCES public.module(modul);
 
 
 --
@@ -336,18 +369,34 @@ ALTER TABLE ONLY public.modulhierarchie
 
 
 --
--- Name: zuordnung zuordnung_link_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulzuordnung modulzuordnung_lehrplanid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
 --
 
-ALTER TABLE ONLY public.zuordnung
+ALTER TABLE ONLY public.modulzuordnung
+    ADD CONSTRAINT modulzuordnung_lehrplanid_fkey FOREIGN KEY (lehrplanid) REFERENCES public.lehrplandetails(id);
+
+
+--
+-- Name: modulzuordnung modulzuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+--
+
+ALTER TABLE ONLY public.modulzuordnung
+    ADD CONSTRAINT modulzuordnung_modul_fkey FOREIGN KEY (modul) REFERENCES public.module(modul);
+
+
+--
+-- Name: linkzuordnung zuordnung_link_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+--
+
+ALTER TABLE ONLY public.linkzuordnung
     ADD CONSTRAINT zuordnung_link_fkey FOREIGN KEY (link) REFERENCES public.selbstlernressource(link) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: zuordnung zuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: linkzuordnung zuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
 --
 
-ALTER TABLE ONLY public.zuordnung
+ALTER TABLE ONLY public.linkzuordnung
     ADD CONSTRAINT zuordnung_modul_fkey FOREIGN KEY (modul) REFERENCES public.module(modul);
 
 
