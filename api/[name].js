@@ -1,6 +1,7 @@
 pg = require('pg')
 
 module.exports = (request, result) => {
+  String.prototype.sqlList = function () { return '(' + this.split(';').map(a => `'${a}'`).join(', ') + ')' }
   const query = (_query, callback) => {
     const client = new pg.Client({ ssl: { rejectUnauthorized: false } })
     client.connect()
@@ -12,14 +13,24 @@ module.exports = (request, result) => {
   }
   switch (request.query.name) {
     case 'start':
-      query(`select distinct Bundesland, Schulart, Klassenstufe from Lehrplan;`, a => result.json(a.rows))
+      query(
+        'select distinct a.Bundesland, b.Schulname as Schulart, a.Klassenstufe ' +
+        'from Lehrplan a join Schulartenbedeutung b on a.Schulart = b.Schulbedeutung;',
+        a => result.json(a.rows))
       break
-    case 'links':
-      query(`select * from
-        SelbstlernRessource natural join Zuordnung join Lehrplan on (Zuordnung.Modul = Lehrplan.Modul) where
+    case 'fächer':
+      query(`select distinct Fach from Lehrplan where
         Bundesland   = '${request.query.bundesland}' and
-        Schulart     = '${request.query.schulart}'   and
-        Klassenstufe = '${request.query.klassenstufe}';`,
+        Schulart     = (select schulbedeutung from schulartenbedeutung where schulname = '${request.query.schulart}') and
+        Klassenstufe in ${request.query.klassenstufen.sqlList()};`,
+        a => result.json(a.rows))
+      break
+    case 'lehrplan':
+      query(`select * from Lehrplan a join LehrplanDetails b on a.lehrplanid = b.id where
+          Bundesland   = '${request.query.bundesland}' and
+          Schulart     = (select schulbedeutung from schulartenbedeutung where schulname = '${request.query.schulart}') and
+          Klassenstufe in ${request.query.klassenstufen.sqlList()} and
+          Fach         in ${request.query.fächer.sqlList()};`,
         a => result.json(a.rows))
       break
     default:

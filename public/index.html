@@ -13,13 +13,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    button.fach:hover, button.lehrplantitel:hover {
+      color: rgb(2, 117, 216);
+      background-color: rgba(2, 117, 216, 0.05);
+    }
+  </style>
 </head>
 
 <body>
   <main class="container">
     <h1 class="display-4">Lernplattform für Deutschland</h1>
-    <p class="lead">Zum Austauschen von Selbstlern-Material für die Lehrpläne aller Bundesländer. Für Schüler*innen und
-      Lehrer*innen.</p>
+    <p class="lead">Zum Austauschen von Selbstlern-Material für die Lehrpläne aller Bundesländer.<br />
+      Für Schüler*innen und Lehrer*innen.</p>
     <form>
       <div id="auswahl">
         <div class="form-row">
@@ -29,19 +35,19 @@
           <div id="schulart-auswählen" class="col-auto my-2" hidden>
             <select class="custom-select bg-primary text-light border-0"></select>
           </div>
-          <div id="klassenstufe-auswählen" class="col-auto my-2" hidden>
+          <div id="klassenstufen-auswählen" class="col-auto my-2" hidden>
             <select class="custom-select bg-primary text-light border-0"></select>
           </div>
         </div>
         <div id="fach-auswählen" hidden>
           <div class="border rounded-lg bg-light my-3 p-3 d-flex flex-wrap"></div>
         </div>
-        <button id="speichern" type="button" class="btn btn-success my-2" hidden>Material anzeigen!</button>
+        <button id="speichern" type="button" class="btn btn-success my-2" hidden>Material anzeigen</button>
       </div>
       <div id="gespeichert" class="alert alert-success p-2" hidden>
         Die Daten wurden erfolgreich im Browser gespeichert.
       </div>
-      <button id="bearbeiten" type="button" class="btn btn-warning my-2" hidden>Fächer ändern</button>
+      <button id="bearbeiten" type="button" class="btn btn-warning my-2" hidden>Auswahl ändern</button>
     </form>
     <div id="links"></div>
   </main>
@@ -51,7 +57,8 @@
       Datenschutz
     </button>
     <a class="btn btn-light border" href="https://github.com/davidpomerenke/lernplattform" target="_blank">Github</a>
-    <a class="btn btn-light border" href="https://github.com/davidpomerenke/lernplattform/blob/master/finanzen.md" target="_blank">Spenden</a>
+    <a class="btn btn-light border" href="https://github.com/davidpomerenke/lernplattform/blob/master/finanzen.md"
+      target="_blank">Spenden</a>
   </footer>
   <!-- Datenschutz-Modal -->
   <div class="modal fade" id="datenschutz" tabindex="-1" role="dialog" aria-labelledby="DatenschutzLabel"
@@ -83,7 +90,8 @@
         <div class="modal-footer justify-content-between">
           <div>
             <button type="button" class="btn btn-danger" id="lokale-daten-löschen">Lokale Daten löschen</button>
-            <div class="alert alert-success" id="lokale-daten-gelöscht" hidden>Erfolgreich gelöscht.</div>
+            <button type="button" class="btn btn-success" id="lokale-daten-gelöscht" hidden>Erfolgreich
+              gelöscht.</button>
             <button type="button" class="btn btn-info" id="seite-neu-laden" hidden>Seite neu laden</button>
           </div>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
