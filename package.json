@@ -21,9 +21,8 @@
     "deutschland"
   ],
   "scripts": {
-    "pg": "yarn heroku pg:psql -a lernplattform-api",
+    "pg": "yarn heroku pg:psql postgresql-slippery-92508 --app lernplattform-api",
     "pg:dump": "yarn heroku run 'pg_dump $DATABASE_URL --exclude-table lehrplan --exclude-table lehrplandetails' -a lernplattform-api > datenbank/datenbank.sql",
-    "pg:credentials": "yarn heroku pg:credentials:url DATABASE_URL -a lernplattform-api",
     "auslesen": "cd lehrplan-ausleser && node ausleser.mjs && node sequeliser.mjs"
   },
   "devDependencies": {

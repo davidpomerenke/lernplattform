@@ -18,7 +18,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: bundesland; Type: TYPE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: bundesland; Type: TYPE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TYPE public.bundesland AS ENUM (
@@ -41,10 +41,10 @@ CREATE TYPE public.bundesland AS ENUM (
 );
 
 
-ALTER TYPE public.bundesland OWNER TO zzljtitzdabcjg;
+ALTER TYPE public.bundesland OWNER TO uxeykolcfjodyp;
 
 --
--- Name: ressourcenart; Type: TYPE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: ressourcenart; Type: TYPE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TYPE public.ressourcenart AS ENUM (
@@ -78,10 +78,10 @@ CREATE TYPE public.ressourcenart AS ENUM (
 );
 
 
-ALTER TYPE public.ressourcenart OWNER TO zzljtitzdabcjg;
+ALTER TYPE public.ressourcenart OWNER TO uxeykolcfjodyp;
 
 --
--- Name: schulart; Type: TYPE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: schulart; Type: TYPE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TYPE public.schulart AS ENUM (
@@ -93,10 +93,10 @@ CREATE TYPE public.schulart AS ENUM (
 );
 
 
-ALTER TYPE public.schulart OWNER TO zzljtitzdabcjg;
+ALTER TYPE public.schulart OWNER TO uxeykolcfjodyp;
 
 --
--- Name: lehrplan_id_seq; Type: SEQUENCE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: lehrplan_id_seq; Type: SEQUENCE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE SEQUENCE public.lehrplan_id_seq
@@ -108,10 +108,10 @@ CREATE SEQUENCE public.lehrplan_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lehrplan_id_seq OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.lehrplan_id_seq OWNER TO uxeykolcfjodyp;
 
 --
--- Name: lehrplandetails_id_seq; Type: SEQUENCE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: lehrplandetails_id_seq; Type: SEQUENCE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE SEQUENCE public.lehrplandetails_id_seq
@@ -123,14 +123,14 @@ CREATE SEQUENCE public.lehrplandetails_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lehrplandetails_id_seq OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.lehrplandetails_id_seq OWNER TO uxeykolcfjodyp;
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: linkzuordnung; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: linkzuordnung; Type: TABLE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TABLE public.linkzuordnung (
@@ -139,10 +139,10 @@ CREATE TABLE public.linkzuordnung (
 );
 
 
-ALTER TABLE public.linkzuordnung OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.linkzuordnung OWNER TO uxeykolcfjodyp;
 
 --
--- Name: module; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: module; Type: TABLE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TABLE public.module (
@@ -150,10 +150,10 @@ CREATE TABLE public.module (
 );
 
 
-ALTER TABLE public.module OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.module OWNER TO uxeykolcfjodyp;
 
 --
--- Name: modulhierarchie; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulhierarchie; Type: TABLE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TABLE public.modulhierarchie (
@@ -162,10 +162,10 @@ CREATE TABLE public.modulhierarchie (
 );
 
 
-ALTER TABLE public.modulhierarchie OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.modulhierarchie OWNER TO uxeykolcfjodyp;
 
 --
--- Name: modulzuordnung; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulzuordnung; Type: TABLE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TABLE public.modulzuordnung (
@@ -174,10 +174,10 @@ CREATE TABLE public.modulzuordnung (
 );
 
 
-ALTER TABLE public.modulzuordnung OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.modulzuordnung OWNER TO uxeykolcfjodyp;
 
 --
--- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TABLE public.schulartenbedeutung (
@@ -187,10 +187,10 @@ CREATE TABLE public.schulartenbedeutung (
 );
 
 
-ALTER TABLE public.schulartenbedeutung OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.schulartenbedeutung OWNER TO uxeykolcfjodyp;
 
 --
--- Name: selbstlernressource; Type: TABLE; Schema: public; Owner: zzljtitzdabcjg
+-- Name: selbstlernressource; Type: TABLE; Schema: public; Owner: uxeykolcfjodyp
 --
 
 CREATE TABLE public.selbstlernressource (
@@ -205,10 +205,10 @@ CREATE TABLE public.selbstlernressource (
 );
 
 
-ALTER TABLE public.selbstlernressource OWNER TO zzljtitzdabcjg;
+ALTER TABLE public.selbstlernressource OWNER TO uxeykolcfjodyp;
 
 --
--- Data for Name: linkzuordnung; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+-- Data for Name: linkzuordnung; Type: TABLE DATA; Schema: public; Owner: uxeykolcfjodyp
 --
 
 COPY public.linkzuordnung (modul, link) FROM stdin;
@@ -225,7 +225,7 @@ Griechisches Alphabet	https://alphabetify.js.org/de
 
 
 --
--- Data for Name: module; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+-- Data for Name: module; Type: TABLE DATA; Schema: public; Owner: uxeykolcfjodyp
 --
 
 COPY public.module (modul) FROM stdin;
@@ -250,7 +250,7 @@ Quantenobjekte
 
 
 --
--- Data for Name: modulhierarchie; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+-- Data for Name: modulhierarchie; Type: TABLE DATA; Schema: public; Owner: uxeykolcfjodyp
 --
 
 COPY public.modulhierarchie (untermodul, "Übermodul") FROM stdin;
@@ -259,7 +259,7 @@ Grundgrößen der Elektrizitätslehre	Elektromagnetismus
 
 
 --
--- Data for Name: modulzuordnung; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+-- Data for Name: modulzuordnung; Type: TABLE DATA; Schema: public; Owner: uxeykolcfjodyp
 --
 
 COPY public.modulzuordnung (lehrplanid, modul) FROM stdin;
@@ -267,7 +267,7 @@ COPY public.modulzuordnung (lehrplanid, modul) FROM stdin;
 
 
 --
--- Data for Name: schulartenbedeutung; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+-- Data for Name: schulartenbedeutung; Type: TABLE DATA; Schema: public; Owner: uxeykolcfjodyp
 --
 
 COPY public.schulartenbedeutung (bundesland, schulname, schulbedeutung) FROM stdin;
@@ -285,7 +285,7 @@ Baden-Württemberg	Gemeinschaftsschule (Oberstufe)	Gemeinschaftsschule
 
 
 --
--- Data for Name: selbstlernressource; Type: TABLE DATA; Schema: public; Owner: zzljtitzdabcjg
+-- Data for Name: selbstlernressource; Type: TABLE DATA; Schema: public; Owner: uxeykolcfjodyp
 --
 
 COPY public.selbstlernressource (link, art, titel, beschreibung, upvotes, downvotes, eintragsdatum, "Überprüfungsdatum") FROM stdin;
@@ -299,21 +299,21 @@ https://alphabetify.js.org/de	Tool	Alphabetify	Ganz einfach das griechische / ru
 
 
 --
--- Name: lehrplan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zzljtitzdabcjg
+-- Name: lehrplan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: uxeykolcfjodyp
 --
 
 SELECT pg_catalog.setval('public.lehrplan_id_seq', 35, true);
 
 
 --
--- Name: lehrplandetails_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zzljtitzdabcjg
+-- Name: lehrplandetails_id_seq; Type: SEQUENCE SET; Schema: public; Owner: uxeykolcfjodyp
 --
 
 SELECT pg_catalog.setval('public.lehrplandetails_id_seq', 44634, true);
 
 
 --
--- Name: module module_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: module module_pkey; Type: CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.module
@@ -321,7 +321,7 @@ ALTER TABLE ONLY public.module
 
 
 --
--- Name: modulzuordnung modulzuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulzuordnung modulzuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.modulzuordnung
@@ -329,7 +329,7 @@ ALTER TABLE ONLY public.modulzuordnung
 
 
 --
--- Name: schulartenbedeutung schulartenbedeutung_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: schulartenbedeutung schulartenbedeutung_pkey; Type: CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.schulartenbedeutung
@@ -337,7 +337,7 @@ ALTER TABLE ONLY public.schulartenbedeutung
 
 
 --
--- Name: selbstlernressource selbstlernressource_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: selbstlernressource selbstlernressource_pkey; Type: CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.selbstlernressource
@@ -345,7 +345,7 @@ ALTER TABLE ONLY public.selbstlernressource
 
 
 --
--- Name: linkzuordnung zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: linkzuordnung zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.linkzuordnung
@@ -353,7 +353,7 @@ ALTER TABLE ONLY public.linkzuordnung
 
 
 --
--- Name: modulhierarchie modulhierarchie_untermodul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulhierarchie modulhierarchie_untermodul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.modulhierarchie
@@ -361,7 +361,7 @@ ALTER TABLE ONLY public.modulhierarchie
 
 
 --
--- Name: modulhierarchie modulhierarchie_Übermodul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulhierarchie modulhierarchie_Übermodul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.modulhierarchie
@@ -369,7 +369,7 @@ ALTER TABLE ONLY public.modulhierarchie
 
 
 --
--- Name: modulzuordnung modulzuordnung_lehrplanid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulzuordnung modulzuordnung_lehrplanid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.modulzuordnung
@@ -377,7 +377,7 @@ ALTER TABLE ONLY public.modulzuordnung
 
 
 --
--- Name: modulzuordnung modulzuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: modulzuordnung modulzuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.modulzuordnung
@@ -385,7 +385,7 @@ ALTER TABLE ONLY public.modulzuordnung
 
 
 --
--- Name: linkzuordnung zuordnung_link_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: linkzuordnung zuordnung_link_fkey; Type: FK CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.linkzuordnung
@@ -393,7 +393,7 @@ ALTER TABLE ONLY public.linkzuordnung
 
 
 --
--- Name: linkzuordnung zuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zzljtitzdabcjg
+-- Name: linkzuordnung zuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: uxeykolcfjodyp
 --
 
 ALTER TABLE ONLY public.linkzuordnung
@@ -401,20 +401,10 @@ ALTER TABLE ONLY public.linkzuordnung
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: zzljtitzdabcjg
---
-
-REVOKE ALL ON SCHEMA public FROM postgres;
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-GRANT ALL ON SCHEMA public TO zzljtitzdabcjg;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
 -- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: postgres
 --
 
-GRANT ALL ON LANGUAGE plpgsql TO zzljtitzdabcjg;
+GRANT ALL ON LANGUAGE plpgsql TO uxeykolcfjodyp;
 
 
 --
