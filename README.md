@@ -1,5 +1,6 @@
 <div align="center"><img src="bilder/logo-mittel.png"></div>
-<h1 align="center">Deutschland lernt selbst.</h1>
+<h1 align="center">Lernplattform für Deutschland</h1>
+<div align="center"><a href="finanzen.md">Spenden / Sponsoring</a></div>
 
 <h2 align="center">Die Idee</h2>
 
