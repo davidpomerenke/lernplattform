@@ -6,7 +6,7 @@ module.exports = (request, result) => {
     client.connect()
     client.query(_query, (pgError, pgResult) => {
       client.end()
-      if (pgError) result.status(500).send(pgError)
+      if (pgError) result.send(pgError)
       else callback(pgResult)
     })
   }
@@ -34,5 +34,4 @@ module.exports = (request, result) => {
     default:
       result.status(404).send()
   }
-  //.cookie('passwort', 'baum', { expires: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), secure: true })
 }

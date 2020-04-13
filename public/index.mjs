@@ -29,7 +29,7 @@ const zeigeAuswahlOptionen = (auswahl) => {
   if (auswahlOptionen) {
     zeigeButtons(auswahlOptionen, auswahl)
   } else {
-    $.ajax(`api/start`)
+    $.ajax('api/start')
       .done(auswahlOptionen => zeigeButtons(auswahlOptionen, auswahl))
       .fail(fehler => console.log(fehler))
   }
@@ -117,10 +117,10 @@ const zeigeFächerButtons = (auswahl) => {
           (auswahl.klassenstufen.length > 1 ? `<h5>${klassenstufe}. Klasse</h5>` : '') +
           `<div class='fach ${klassenstufe}` +
           (auswahl.klassenstufen.length > 1 ? ` border rounded-lg bg-light my-2'>` : `'>`) +
-          fächer.filter(a => a.klassenstufe === klassenstufe).sort().map(a =>
+          fächer.filter(a => a.klassenstufe === klassenstufe).map(a => a.fach).sort().map(fach =>
             `<button type="button" class="fach btn btn-outline-primary rounded-pill m-2 py-1 px-3` +
-            (auswahl && 'fächer' in auswahl && auswahl.fächer.find(b => b.fach === a.fach && b.klassenstufe === klassenstufe) ? ' bg-primary text-light' : '') +
-            `">${a.fach}</button>`).join('') +
+            (auswahl && 'fächer' in auswahl && auswahl.fächer.find(b => b.fach === fach && b.klassenstufe === klassenstufe) ? ' bg-primary text-light' : '') +
+            `">${fach}</button>`).join('') +
           '</div>'
         ).join('')
         $('#fach-auswählen div').html(fächerHtml)
