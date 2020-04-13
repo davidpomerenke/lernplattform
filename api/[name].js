@@ -1,7 +1,6 @@
 pg = require('pg')
 
 module.exports = (request, result) => {
-  String.prototype.sqlList = function () { return '(' + this.split(';').map(a => `'${a}'`).join(', ') + ')' }
   const query = (_query, callback) => {
     const client = new pg.Client({ ssl: { rejectUnauthorized: false } })
     client.connect()
@@ -19,18 +18,17 @@ module.exports = (request, result) => {
         a => result.json(a.rows))
       break
     case 'fächer':
-      query(`select distinct Fach from Lehrplan where
+      query(`select distinct Fach, Klassenstufe from Lehrplan where
         Bundesland   = '${request.query.bundesland}' and
         Schulart     = (select schulbedeutung from schulartenbedeutung where schulname = '${request.query.schulart}') and
-        Klassenstufe in ${request.query.klassenstufen.sqlList()};`,
+        Klassenstufe in (` + JSON.parse(request.query.klassenstufen).map(a => `'${a}'`).join(', ') + ');',
         a => result.json(a.rows))
       break
     case 'lehrplan':
       query(`select * from Lehrplan a join LehrplanDetails b on a.lehrplanid = b.id where
-          Bundesland   = '${request.query.bundesland}' and
-          Schulart     = (select schulbedeutung from schulartenbedeutung where schulname = '${request.query.schulart}') and
-          Klassenstufe in ${request.query.klassenstufen.sqlList()} and
-          Fach         in ${request.query.fächer.sqlList()};`,
+        Bundesland   = '${request.query.bundesland}' and
+        Schulart     = (select schulbedeutung from schulartenbedeutung where schulname = '${request.query.schulart}') and (` +
+        JSON.parse(request.query.fächer).map(a => `(Klassenstufe = '${a.klassenstufe}' and Fach = '${a.fach}')`).join(' or ') + ');',
         a => result.json(a.rows))
       break
     default:
