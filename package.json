@@ -22,8 +22,8 @@
   ],
   "scripts": {
     "pg": "yarn heroku pg:psql postgresql-slippery-92508 --app lernplattform-api",
-    "pg:dump": "yarn heroku run 'pg_dump $DATABASE_URL --exclude-table lehrplan --exclude-table lehrplandetails' -a lernplattform-api > datenbank/datenbank.sql",
-    "auslesen": "cd lehrplan-ausleser && node ausleser.mjs && node sequeliser.mjs"
+    "pg:dump": "bash datenbank/dump.sh",
+    "pg:backup": "bash datenbank/backup.sh"
   },
   "devDependencies": {
     "heroku": "^7.39.2",

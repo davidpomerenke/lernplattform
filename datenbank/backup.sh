@@ -1,0 +1,1 @@
+yarn heroku pg:backups:capture -a lernplattform-api && yarn heroku pg:backups:download -a lernplattform-api -o backups/$(date +%Y-%m-%d.%H:%M).dump;
