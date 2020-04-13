@@ -1,10 +1,10 @@
-## Spenden
+# Spenden
 
 Das Projekt wird rein ehrenamtlich betrieben. Spenden sind sehr willkommen!
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/pools/c/8obC0wViwk)
 
-Alle Spenden werden hier anonym aufgelistet, auf Wunsch auch mit Name / Firmenname / Vereinsname. 
+Alle Spenden werden hier anonym aufgelistet, auf Wunsch auch mit Name / Firmenname / Vereinsname.
 
 Interessierte Sponsoren wenden sich bitte per Mail an den Betreiber [David Pomerenke](mailto:David%20Pomerenke<david@mailplattform.wiki>?subject=Sponsoring%20für%20Lernplattform.wiki&body=Lieber%20David%20Pomerenke,).
 
@@ -28,5 +28,3 @@ __Kosten 2020:__
 | Domain      | alldomains.hosting | .wiki-Aktion | 11,90€/y   | 9m       |               | _8,925€_       |
 | Entwicklung | David Pomerenke    |              | 20€/h      | 45h      |               | _900€_         |
 |             |                    |              |            |          |               | __*981,825€*__ |
-
-Die Differenz zwischen Spenden und Kosten wird von armen Studenten getragen. 

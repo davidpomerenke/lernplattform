@@ -1,11 +1,12 @@
-## Verwandte Projekte
-- [Awesome Lists](https://github.com/topics/awesome-list) (Github): 
-  - `+` Sind kollaborativ. 
+# Verwandte Projekte
+
+- [Awesome Lists](https://github.com/topics/awesome-list) (Github):
+  - `+` Sind kollaborativ.
   - `-` Sind auf Englisch und nicht auf Schüler zugeschnitten. Es gibt es keine Bewertungen. Der Github-Workflow ist zu kompliziert für die meisten Lehrer und Schüler.
   - `→` Insbesondere für die Oberstufe wird es Sinn machen, diese zunächst als ganze Listen zu verlinken, später dann zu den einzelnen Modulen aufzuschlüsseln und die einzelnen Links zu übernehmen.
 - [Landesbildungsserver](https://www.bildungsserver.de/Die-Landesbildungsserver-450-de.html):
-  - `+` Sind auf deutsch, auf die Lehrpläne zugeschnitten und von Lehrern kuratiert, daher sehr qualitativ. 
-  - `-` Sind nicht bundesweit vereinheitlicht und nicht direkt kollaborativ (meistens verwalten einige wenige Lehrer den Inhalt), auch gibt es keine Bewertungsmöglichkeit. Auf den Servern gibt es teilweise schon Listen mit Links zum Selbstlernen. 
+  - `+` Sind auf deutsch, auf die Lehrpläne zugeschnitten und von Lehrern kuratiert, daher sehr qualitativ.
+  - `-` Sind nicht bundesweit vereinheitlicht und nicht direkt kollaborativ (meistens verwalten einige wenige Lehrer den Inhalt), auch gibt es keine Bewertungsmöglichkeit. Auf den Servern gibt es teilweise schon Listen mit Links zum Selbstlernen.
   - `→` Langfristig wäre es sinnvoll, wenn es ein HTML-Snippet gäbe, mit dem auf einfache Weise auf den Landesbildungsservern modulweise die bundesweiten Listen von diesem Projekt angezeigt werden könnten.
 - [Deutscher Bildungsserver](https://www.bildungsserver.de/Sekundarbereich-Unterrichtsmaterial-702-de.html):
   - `+` Hat selbst eine Sammlung von eigenen Materialien, und gute Linklisten zu weiteren Seiten mit Materialien. Ist landesübergreifend und deutsch. Die Community ist insofern eingebunden, als sie defekte Links melden kann.
