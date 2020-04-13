@@ -14,6 +14,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <style>
+    html,
+    body,
+    .container {
+      height: 100%;
+    }
+
     button.fach:hover,
     button.lehrplantitel:hover {
       color: rgb(2, 117, 216);
@@ -23,7 +29,8 @@
 </head>
 
 <body>
-  <main class="container">
+  <div class="container d-flex align-items-start flex-column">
+    <main class="container my-3">
     <div id="entwicklungswarnung" class="alert alert-warning alert-dismissible fade show my-1" role="alert" hidden>
       Die Plattform befindet sich noch in der Entwicklung und ist nicht voll funktionstüchtig.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -58,21 +65,22 @@
     </form>
     <div id="links"></div>
   </main>
-  <footer class="footer container text-muted py-2" style="text-align: center;">
-    <a class="btn btn-light border my-2" href="mailto:David Pomerenke<david@lernplattform.wiki>">
+    <footer class="footer mt-auto text-muted py-2" style="width: 100%;">
+      <a class="btn btn-light border my-1" href="mailto:David Pomerenke<david@lernplattform.wiki>">
       Kontakt
     </a>
-    <button type="button" class="btn btn-light border my-2" data-toggle="modal" data-target="#datenschutz">
+      <button type="button" class="btn btn-light border my-1" data-toggle="modal" data-target="#datenschutz">
       Datenschutz
     </button>
-    <a class="btn btn-light border my-2" href="https://github.com/davidpomerenke/lernplattform" target="_blank">
+      <a class="btn btn-light border my-1" href="https://github.com/davidpomerenke/lernplattform" target="_blank">
       Github
     </a>
-    <a class="btn btn-light border my-2" href="https://github.com/davidpomerenke/lernplattform/blob/master/finanzen.md"
-      target="_blank">
+      <a class="btn btn-light border my-1"
+        href="https://github.com/davidpomerenke/lernplattform/blob/master/finanzen.md" target="_blank">
       Spenden
     </a>
   </footer>
+  </div>
   <!-- Datenschutz-Modal -->
   <div class="modal fade" id="datenschutz" tabindex="-1" role="dialog" aria-labelledby="DatenschutzLabel"
     aria-hidden="true">
