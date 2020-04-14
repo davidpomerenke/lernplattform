@@ -1,0 +1,3 @@
+# Normalize checked-in files to LF, force checkout as LF
+* text=auto eol=lf
+
