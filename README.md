@@ -35,9 +35,9 @@ Die Daten werden in einer [PostgreSQL](https://www.postgresql.org/docs/12/index.
 
 <h3 align="center">Datenbank</h3>
 
-![Entity-Relationship Diagramm in Chen-Notation.](bilder/er-diagramm.png)
+![Entity-Relationship Diagramm.](bilder/er-diagramm-dbeaver.png)
 
-Das Diagramm ist ein Entity-Relationship-Diagramm in [Chen-Notation](https://www.vertabelo.com/blog/chen-erd-notation/), wobei die Schlüssel nicht dargestellt sind. _Es stimmt momentan nicht exakt mit dem Aufbau der Datenbank überein (Todo), gibt aber deren Idee und ihren groben Aufbau gut wieder._ Für den Aufbau der Tabellen siehe [datenbank/schema.sql](datenbank/schema.sql).
+Das Diagramm ist ein mit [DBeaver](https://dbeaver.io/) erstelltes Entity-Relationship-Diagramm. Siehe [datenbank/schema.sql](datenbank/schema.sql).
 
 <h2 align="center">Mitmachen</h2>
 
