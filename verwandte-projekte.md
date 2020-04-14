@@ -1,5 +1,7 @@
 # Verwandte Projekte
 
+## Inspiration
+
 - [Awesome Lists](https://github.com/topics/awesome-list) (Github):
   - `+` Sind kollaborativ.
   - `-` Sind auf Englisch und nicht auf Schüler zugeschnitten. Es gibt es keine Bewertungen. Der Github-Workflow ist zu kompliziert für die meisten Lehrer und Schüler.
@@ -21,6 +23,9 @@
   - `+` Community-Funktionen: Abstimmungs-System, Privilegien-System (Stimmen zählen erst, wenn Nutzer mindestens einen Beitrag hinzugefügt hat).
   - `-` Haben primär eine andere Funktion, nämlich Diskussionen. Bedingt Registrierung der Nutzer.
   - `→` Die Idee der Abstimmungen und des Privilegiensystems werden rudimentär übernommen. Nutzer-Accounts bleiben aber lokal (Daten werden nur im Browser gespeichert) und können bei Bedarf mit auto-generierter Passwort-Kombination übertragen werden.
+
+## Sehr ähnliche Projekte
+
 - [edumentoring](https://edumentoring.de/lehrinhalte/)
   - `+` Haben eine statische Liste mit Lehrinhalten, sortiert nach Fächern, und auch mit Kategorie und Klassenstufenangabe.
   - `-` Die Website ist mehr eine (sehr gute) statische Übersicht über Tools, weniger eine kollaborative Plattform.
@@ -29,3 +34,5 @@
   - `+` Ist sehr nice. Ehrenamtliches Projekt.
 - [School to go](https://schooltogo.de/)
   - `+` Auch nicht schlecht. Kommerzieller Hintergrund?
+- [Zebis](https://www.zebis.ch/lp21/filter)
+  - `+` Benutzt Lehrpläne.
