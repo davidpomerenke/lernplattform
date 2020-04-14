@@ -2,7 +2,7 @@
 
 <h1 align="center">Lernplattform für Deutschland</h1>
 
-<div align="center"><a href="finanzen.md">Spenden / Sponsoring</a></div>
+<div align="center"><a href="finanzen.md">Spenden und Sponsoring</a> — <a href="https://discord.gg/EUUyrK4">Mitmachen im Discord Server</a></div>
 
 <h2 align="center">Die Idee</h2>
 
@@ -41,7 +41,7 @@ Das Diagramm ist ein mit [DBeaver](https://dbeaver.io/) erstelltes Entity-Relati
 
 <h2 align="center">Mitmachen</h2>
 
-- [Discord-Server](https://discord.gg/EUUyrK4)
+- [__Discord-Server__](https://discord.gg/EUUyrK4)
 - [Projekt-Kanban](https://github.com/davidpomerenke/deutschland-lernt-selbst/projects/2)
 
 <div align="center"><a href="https://wirvsvirushackathon.org"><img src="bilder/hackathon.png"></a></div>
