@@ -203,7 +203,7 @@ const zeigeFächerButtons = auswahl => {
                     )
                       ? ' bg-primary text-light'
                       : '') +
-                    `">${fach}</button>`
+                    `"><small>${fach}</small></button>`
                 )
                 .join('') +
               '</div>'
