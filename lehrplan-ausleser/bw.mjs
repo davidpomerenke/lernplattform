@@ -3,8 +3,10 @@ import request from 'sync-request'
 import cheerio from 'cheerio'
 import fs from 'fs'
 
-/** Todo:
- * - Hinweise ignorieren (z. B. Chemie in der 5./6. Klasse der gemeinsamen Sekundarstufe)
+/* Todo:
+ - Hinweise ignorieren (z. B. Chemie in der 5./6. Klasse der gemeinsamen Sekundarstufe)
+ - Bei manchen Fächern (zB Physik) ist die Aufteilung in Basi-/Profilfach innerhalb der 
+   Modulseite und nicht auf der Fächerübersicht
  */
 // Seite laden und mit Cheerio parsen, kann dann wie mit jQuery ausgelesen werden
 const load = url =>

@@ -26,8 +26,8 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.schulartenbedeutung (
     bundesland public.bundesland NOT NULL,
-    schulname character varying(500) NOT NULL,
-    schulbedeutung public.schulart NOT NULL
+    schulart character varying(500) NOT NULL,
+    schulart_intern public.schulart NOT NULL
 );
 
 
@@ -35,7 +35,7 @@ CREATE TABLE public.schulartenbedeutung (
 -- Data for Name: schulartenbedeutung; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.schulartenbedeutung (bundesland, schulname, schulbedeutung) FROM stdin;
+COPY public.schulartenbedeutung (bundesland, schulart, schulart_intern) FROM stdin;
 Baden-Württemberg	Grundschule	Grundschule
 Baden-Württemberg	Hauptschule	Hauptschule
 Baden-Württemberg	Werkrealschule	Hauptschule
@@ -54,7 +54,7 @@ Baden-Württemberg	Gemeinschaftsschule (Oberstufe)	Gemeinschaftsschule
 --
 
 ALTER TABLE ONLY public.schulartenbedeutung
-    ADD CONSTRAINT schulartenbedeutung_pkey PRIMARY KEY (bundesland, schulname);
+    ADD CONSTRAINT schulartenbedeutung_pkey PRIMARY KEY (bundesland, schulart);
 
 
 --

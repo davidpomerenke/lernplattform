@@ -98,7 +98,7 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.lehrplan (
     bundesland public.bundesland,
-    schulart public.schulart,
+    schulart_intern public.schulart,
     klassenstufe smallint,
     fach character varying(500),
     lehrplanid integer
@@ -123,7 +123,7 @@ CREATE SEQUENCE public.lehrplan_id_seq
 --
 
 CREATE TABLE public.lehrplandetails (
-    id integer NOT NULL,
+    lehrplanid integer NOT NULL,
     titel character varying(3000),
     beschreibung character varying(3000),
     quelle character varying(500),
@@ -163,14 +163,40 @@ CREATE SEQUENCE public.lehrplandetails_id_seq1
 -- Name: lehrplandetails_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.lehrplandetails_id_seq1 OWNED BY public.lehrplandetails.id;
+ALTER SEQUENCE public.lehrplandetails_id_seq1 OWNED BY public.lehrplandetails.lehrplanid;
 
 
 --
--- Name: linkzuordnung; Type: TABLE; Schema: public; Owner: -
+-- Name: lehrplanzuordnung; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.linkzuordnung (
+CREATE TABLE public.lehrplanzuordnung (
+    lehrplanid integer NOT NULL,
+    modul character varying(500) NOT NULL
+);
+
+
+--
+-- Name: material; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.material (
+    link character varying(500) NOT NULL,
+    materialart public.ressourcenart NOT NULL,
+    materialtitel character varying(500) NOT NULL,
+    materialbeschreibung text DEFAULT ''::text,
+    upvotes integer DEFAULT 0,
+    downvotes integer DEFAULT 0,
+    materialeintragsdatum date DEFAULT CURRENT_DATE,
+    materialtestdatum date DEFAULT CURRENT_DATE
+);
+
+
+--
+-- Name: materialzuordnung; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.materialzuordnung (
     modul character varying(500) NOT NULL,
     link character varying(500) NOT NULL
 );
@@ -196,47 +222,21 @@ CREATE TABLE public.modulhierarchie (
 
 
 --
--- Name: modulzuordnung; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.modulzuordnung (
-    lehrplanid integer NOT NULL,
-    modul character varying(500) NOT NULL
-);
-
-
---
 -- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.schulartenbedeutung (
     bundesland public.bundesland NOT NULL,
-    schulname character varying(500) NOT NULL,
-    schulbedeutung public.schulart NOT NULL
+    schulart character varying(500) NOT NULL,
+    schulart_intern public.schulart NOT NULL
 );
 
 
 --
--- Name: selbstlernressource; Type: TABLE; Schema: public; Owner: -
+-- Name: lehrplandetails lehrplanid; Type: DEFAULT; Schema: public; Owner: -
 --
 
-CREATE TABLE public.selbstlernressource (
-    link character varying(500) NOT NULL,
-    art public.ressourcenart NOT NULL,
-    titel character varying(500) NOT NULL,
-    beschreibung text DEFAULT ''::text,
-    upvotes integer DEFAULT 0,
-    downvotes integer DEFAULT 0,
-    eintragsdatum date DEFAULT CURRENT_DATE,
-    "Überprüfungsdatum" date DEFAULT CURRENT_DATE
-);
-
-
---
--- Name: lehrplandetails id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lehrplandetails ALTER COLUMN id SET DEFAULT nextval('public.lehrplandetails_id_seq1'::regclass);
+ALTER TABLE ONLY public.lehrplandetails ALTER COLUMN lehrplanid SET DEFAULT nextval('public.lehrplandetails_id_seq1'::regclass);
 
 
 --
@@ -244,7 +244,7 @@ ALTER TABLE ONLY public.lehrplandetails ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.lehrplandetails
-    ADD CONSTRAINT lehrplandetails_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT lehrplandetails_pkey PRIMARY KEY (lehrplanid);
 
 
 --
@@ -256,10 +256,10 @@ ALTER TABLE ONLY public.module
 
 
 --
--- Name: modulzuordnung modulzuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: lehrplanzuordnung modulzuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.modulzuordnung
+ALTER TABLE ONLY public.lehrplanzuordnung
     ADD CONSTRAINT modulzuordnung_pkey PRIMARY KEY (lehrplanid, modul);
 
 
@@ -268,22 +268,22 @@ ALTER TABLE ONLY public.modulzuordnung
 --
 
 ALTER TABLE ONLY public.schulartenbedeutung
-    ADD CONSTRAINT schulartenbedeutung_pkey PRIMARY KEY (bundesland, schulname);
+    ADD CONSTRAINT schulartenbedeutung_pkey PRIMARY KEY (bundesland, schulart);
 
 
 --
--- Name: selbstlernressource selbstlernressource_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: material selbstlernressource_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.selbstlernressource
+ALTER TABLE ONLY public.material
     ADD CONSTRAINT selbstlernressource_pkey PRIMARY KEY (link);
 
 
 --
--- Name: linkzuordnung zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: materialzuordnung zuordnung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.linkzuordnung
+ALTER TABLE ONLY public.materialzuordnung
     ADD CONSTRAINT zuordnung_pkey PRIMARY KEY (modul, link);
 
 
@@ -292,7 +292,7 @@ ALTER TABLE ONLY public.linkzuordnung
 --
 
 ALTER TABLE ONLY public.lehrplan
-    ADD CONSTRAINT lehrplan_lehrplanid_fkey FOREIGN KEY (lehrplanid) REFERENCES public.lehrplandetails(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT lehrplan_lehrplanid_fkey FOREIGN KEY (lehrplanid) REFERENCES public.lehrplandetails(lehrplanid) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -300,7 +300,7 @@ ALTER TABLE ONLY public.lehrplan
 --
 
 ALTER TABLE ONLY public.lehrplandetails
-    ADD CONSTRAINT lehrplandetails_elternid_fkey FOREIGN KEY (elternid) REFERENCES public.lehrplandetails(id);
+    ADD CONSTRAINT lehrplandetails_elternid_fkey FOREIGN KEY (elternid) REFERENCES public.lehrplandetails(lehrplanid);
 
 
 --
@@ -320,34 +320,34 @@ ALTER TABLE ONLY public.modulhierarchie
 
 
 --
--- Name: modulzuordnung modulzuordnung_lehrplanid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: lehrplanzuordnung modulzuordnung_lehrplanid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.modulzuordnung
-    ADD CONSTRAINT modulzuordnung_lehrplanid_fkey FOREIGN KEY (lehrplanid) REFERENCES public.lehrplandetails(id);
+ALTER TABLE ONLY public.lehrplanzuordnung
+    ADD CONSTRAINT modulzuordnung_lehrplanid_fkey FOREIGN KEY (lehrplanid) REFERENCES public.lehrplandetails(lehrplanid);
 
 
 --
--- Name: modulzuordnung modulzuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: lehrplanzuordnung modulzuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.modulzuordnung
+ALTER TABLE ONLY public.lehrplanzuordnung
     ADD CONSTRAINT modulzuordnung_modul_fkey FOREIGN KEY (modul) REFERENCES public.module(modul);
 
 
 --
--- Name: linkzuordnung zuordnung_link_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: materialzuordnung zuordnung_link_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.linkzuordnung
-    ADD CONSTRAINT zuordnung_link_fkey FOREIGN KEY (link) REFERENCES public.selbstlernressource(link) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.materialzuordnung
+    ADD CONSTRAINT zuordnung_link_fkey FOREIGN KEY (link) REFERENCES public.material(link) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: linkzuordnung zuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: materialzuordnung zuordnung_modul_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.linkzuordnung
+ALTER TABLE ONLY public.materialzuordnung
     ADD CONSTRAINT zuordnung_modul_fkey FOREIGN KEY (modul) REFERENCES public.module(modul);
 
 
