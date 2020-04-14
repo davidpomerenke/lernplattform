@@ -21,3 +21,11 @@
   - `+` Community-Funktionen: Abstimmungs-System, Privilegien-System (Stimmen zählen erst, wenn Nutzer mindestens einen Beitrag hinzugefügt hat).
   - `-` Haben primär eine andere Funktion, nämlich Diskussionen. Bedingt Registrierung der Nutzer.
   - `→` Die Idee der Abstimmungen und des Privilegiensystems werden rudimentär übernommen. Nutzer-Accounts bleiben aber lokal (Daten werden nur im Browser gespeichert) und können bei Bedarf mit auto-generierter Passwort-Kombination übertragen werden.
+- [edumentoring](https://edumentoring.de/lehrinhalte/)
+  - `+` Haben eine statische Liste mit Lehrinhalten, sortiert nach Fächern, und auch mit Kategorie und Klassenstufenangabe.
+  - `-` Die Website ist mehr eine (sehr gute) statische Übersicht über Tools, weniger eine kollaborative Plattform.
+  - `→` edumentoring ist auch bei #wirvsvirus entstanden und eine Kollaboration ist wahrscheinlich. Siehe [Slack](https://wirvsvirus.slack.com/archives/C010GLNAQ2C/p1586863455292100).
+- [ich-lerne-online.org](https://ich-lerne-online.org/)
+  - `+` Ist sehr nice. Ehrenamtliches Projekt.
+- [School to go](https://schooltogo.de/)
+  - `+` Auch nicht schlecht. Kommerzieller Hintergrund?
