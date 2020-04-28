@@ -1,4 +1,4 @@
-<div align="center"><img src="bilder/logo-mittel.png"></div>
+ <div align="center"><img src="bilder/logo-mittel.png"></div>
 
 <h1 align="center">Lernplattform für Deutschland</h1>
 
