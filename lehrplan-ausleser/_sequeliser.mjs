@@ -1,12 +1,17 @@
 import fs from 'fs'
 
-const bw = JSON.parse(fs.readFileSync('bw.json', { encoding: 'utf8' }))
+const data = code =>
+  JSON.parse(fs.readFileSync(code + '.json', { encoding: 'utf8' }))
 
-const format = a => a
-  .replace(/'/g, "''")
+const format = a => a.replace(/'/g, "''")
 
 // Ergebnis als SQL formatieren, um es in die Datenbank einzufügen
-const sequelise = einträge => einträge.map(eintrag => (`
+const sequelise = einträge =>
+  einträge
+    .map(
+      eintrag =>
+        (
+          `
   with row as
     ( insert into lehrplandetails
         ( titel
@@ -20,22 +25,34 @@ const sequelise = einträge => einträge.map(eintrag => (`
         , '${format(eintrag.nr || '')}'
         , '${format(eintrag.link || '')}'
         )
-      returning id
+      returning lehrplanid
     )
   insert into lehrplan
     ( bundesland
-    , schulart
+    , schulart_intern
     , fach
     , klassenstufe
     , lehrplanid
     )
-  values` + eintrag.klassenstufen.map(klassenstufe => `
+  values` +
+          eintrag.klassenstufen
+            .map(
+              klassenstufe => `
     ( '${format(eintrag.bundesland)}'
     , '${format(eintrag.schulart)}'
     , '${format(eintrag.fach)}'
-    , '${format(klassenstufe)}'
-    , (select id from row)
-    )`).join(',')).replace(/\n/g, '') + `;`).join('\n')
+    , '${format(klassenstufe.toString())}'
+    , (select lehrplanid from row)
+    )`
+            )
+            .join(',')
+        ).replace(/\n/g, '') + `;`
+    )
+    .join('\n')
 
-fs.writeFile('bw.sql', sequelise(bw),
-  'utf8', err => { if (err) console.log(err) })
+const save = code =>
+  fs.writeFile(code + '.sql', sequelise(data(code)), 'utf8', err => {
+    if (err) console.log(err)
+  })
+
+for (const a of ['bw', 'by']) save(a)

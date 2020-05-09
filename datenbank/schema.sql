@@ -17,6 +17,20 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+--
 -- Name: bundesland; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -75,19 +89,6 @@ CREATE TYPE public.ressourcenart AS ENUM (
 );
 
 
---
--- Name: schulart; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE public.schulart AS ENUM (
-    'Grundschule',
-    'Gemeinschaftsschule',
-    'Realschule',
-    'Gymnasium',
-    'Hauptschule'
-);
-
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -98,7 +99,7 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.lehrplan (
     bundesland public.bundesland,
-    schulart_intern public.schulart,
+    schulart_intern character varying(500),
     klassenstufe smallint,
     fach character varying(500),
     lehrplanid integer
@@ -228,7 +229,8 @@ CREATE TABLE public.modulhierarchie (
 CREATE TABLE public.schulartenbedeutung (
     bundesland public.bundesland NOT NULL,
     schulart character varying(500) NOT NULL,
-    schulart_intern public.schulart NOT NULL
+    schulart_intern character varying(500) NOT NULL,
+    sortcode integer
 );
 
 
@@ -261,6 +263,14 @@ ALTER TABLE ONLY public.module
 
 ALTER TABLE ONLY public.lehrplanzuordnung
     ADD CONSTRAINT modulzuordnung_pkey PRIMARY KEY (lehrplanid, modul);
+
+
+--
+-- Name: schulartenbedeutung schulartenbedeutung_bundesland_sortcode_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schulartenbedeutung
+    ADD CONSTRAINT schulartenbedeutung_bundesland_sortcode_key UNIQUE (bundesland, sortcode);
 
 
 --
