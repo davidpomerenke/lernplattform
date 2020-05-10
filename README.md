@@ -24,7 +24,7 @@ Die Datenbank ist über eine Website zugänglich. Die Website fragt anfangs einm
 
 <h2 align="center">Technologie</h2>
 
-Die Daten werden in einer [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank [bei Heroku](https://dashboard.heroku.com/apps/lernplattform-api) gespeichert. Die Website (Ordner `public`) und die API zum Zugriff auf die Datenbank (Ordner `api`) werden [bei Zeit Now](https://zeit.co/davidpomerenke/lernplattform) gehostet.
+Die Daten werden in einer [PostgreSQL](https://www.postgresql.org/docs/12/index.html)-Datenbank [bei Heroku](https://dashboard.heroku.com/apps/lernplattform-api) gespeichert. Die Website (Ordner `public`) wird [bei Zeit Now](https://zeit.co/davidpomerenke/lernplattform) gehostet.
 
 <h3 align="center">Lokale Entwicklung</h3>
 
@@ -35,9 +35,9 @@ Die Daten werden in einer [PostgreSQL](https://www.postgresql.org/docs/12/index.
 
 <h3 align="center">Datenbank</h3>
 
-![Entity-Relationship Diagramm.](bilder/er-diagramm-dbeaver.png)
+Die Datenbank steht Dritten per Schnittstelle zur Verfügung. Siehe [datenbank/README.md](datenbank/README.md).
 
-Das Diagramm ist ein mit [DBeaver](https://dbeaver.io/) erstelltes Entity-Relationship-Diagramm. Siehe [datenbank/schema.sql](datenbank/schema.sql).
+![Entity-Relationship Diagramm.](bilder/er-diagramm-dbeaver.png)
 
 <h2 align="center">Mitmachen</h2>
 

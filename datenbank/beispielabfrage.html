@@ -1,0 +1,66 @@
+<html>
+  <body>
+    <ul id="ergebnis"></ul>
+    <script>
+      // Beispiel einer Datenbankabfrage via GraphQL von einer externen Website aus.
+
+      // Funktion, um generelle Abfragen per POST-Methode durchzuführen
+      // Angepasst aus: https://plainjs.com/javascript/ajax/send-ajax-get-and-post-requests-47/
+      const postAjax = (url, data, success) => {
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', url)
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState > 3 && xhr.status == 200) {
+            success(xhr.responseText)
+          }
+        }
+        xhr.send(data)
+        return xhr
+      }
+
+      // GraphQL-Beispielabfrage
+      // Alle Modultitel und Links zu den Quellen im Lehrplanverzeichnis
+      // für Deutsch in der fünften Klasse, die einen Titel haben.
+      const beispielabfrage = `
+        query {
+          lehrplan(
+            where: {
+              fach: {_eq: "Deutsch"}, 
+              klassenstufe: {_eq: "4"}, 
+              lehrplandetail: {
+                titel: {_neq: ""}
+              },
+              schulart_intern: {_eq: "Grundschule"}
+            }
+          ) 
+          {
+            lehrplandetail {
+              beschreibung
+              hierarchie
+              quelle
+              titel
+            }
+          }
+        }`
+
+      postAjax(
+        'https://lernplattform-graphql.herokuapp.com/v1/graphql',
+        JSON.stringify({ query: beispielabfrage }),
+        data => {
+          document.getElementById('ergebnis').innerHTML = JSON.parse(data)
+            .data.lehrplan.map(
+              a => `
+                <li>
+                  ${a.lehrplandetail.hierarchie} 
+                  <a href="${a.lehrplandetail.quelle}">
+                    ${a.lehrplandetail.titel}
+                  </a>
+                </li>
+                <p>${a.lehrplandetail.beschreibung}</p>`
+            )
+            .join('<br />')
+        }
+      )
+    </script>
+  </body>
+</html>

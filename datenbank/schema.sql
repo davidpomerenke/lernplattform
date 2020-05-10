@@ -98,11 +98,11 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.lehrplan (
-    bundesland public.bundesland,
-    schulart_intern character varying(500),
-    klassenstufe smallint,
-    fach character varying(500),
-    lehrplanid integer
+    bundesland public.bundesland NOT NULL,
+    schulart_intern character varying(500) NOT NULL,
+    klassenstufe integer NOT NULL,
+    fach character varying(500) NOT NULL,
+    lehrplanid integer NOT NULL
 );
 
 
@@ -127,8 +127,8 @@ CREATE TABLE public.lehrplandetails (
     lehrplanid integer NOT NULL,
     titel character varying(3000),
     beschreibung character varying(3000),
-    quelle character varying(500),
-    eintragsdatum date DEFAULT CURRENT_DATE,
+    quelle character varying(500) NOT NULL,
+    eintragsdatum date DEFAULT CURRENT_DATE NOT NULL,
     elternid integer,
     hierarchie character varying(20)
 );
@@ -186,9 +186,9 @@ CREATE TABLE public.material (
     materialart public.ressourcenart NOT NULL,
     materialtitel character varying(500) NOT NULL,
     materialbeschreibung text DEFAULT ''::text,
-    upvotes integer DEFAULT 0,
-    downvotes integer DEFAULT 0,
-    materialeintragsdatum date DEFAULT CURRENT_DATE,
+    upvotes integer DEFAULT 0 NOT NULL,
+    downvotes integer DEFAULT 0 NOT NULL,
+    materialeintragsdatum date DEFAULT CURRENT_DATE NOT NULL,
     materialtestdatum date DEFAULT CURRENT_DATE
 );
 
@@ -217,8 +217,8 @@ CREATE TABLE public.module (
 --
 
 CREATE TABLE public.modulhierarchie (
-    untermodul character varying(500),
-    "Übermodul" character varying(500)
+    untermodul character varying(500) NOT NULL,
+    "Übermodul" character varying(500) NOT NULL
 );
 
 
@@ -230,7 +230,7 @@ CREATE TABLE public.schulartenbedeutung (
     bundesland public.bundesland NOT NULL,
     schulart character varying(500) NOT NULL,
     schulart_intern character varying(500) NOT NULL,
-    sortcode integer
+    sortcode integer NOT NULL
 );
 
 

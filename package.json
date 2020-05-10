@@ -21,20 +21,22 @@
     "deutschland"
   ],
   "scripts": {
+    "gq:dump-schema": "yarn --silent gq https://lernplattform-graphql.herokuapp.com/v1/graphql --introspect > datenbank/schema.graphql",
     "pg": "yarn heroku pg:psql postgresql-slippery-92508 --app lernplattform-api",
     "pg:dump": "bash datenbank/dump.sh",
     "pg:backup": "bash datenbank/backup.sh"
   },
   "devDependencies": {
-    "heroku": "^7.39.2",
-    "now-cli": "^0.0.0"
-  },
-  "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "pg": "^8.0.0",
+    "graphqurl": "^0.3.3",
+    "heroku": "^7.39.2",
+    "now-cli": "^0.0.0",
     "pg-escape": "^0.2.0",
     "sqlutils": "^1.2.0",
     "sync-request": "^6.1.0"
+  },
+  "dependencies": {
+    "pg": "^8.0.0"
   },
   "engines": {
     "node": ">=12.0"

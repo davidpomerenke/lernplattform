@@ -28,7 +28,7 @@ CREATE TABLE public.schulartenbedeutung (
     bundesland public.bundesland NOT NULL,
     schulart character varying(500) NOT NULL,
     schulart_intern character varying(500) NOT NULL,
-    sortcode integer
+    sortcode integer NOT NULL
 );
 
 
