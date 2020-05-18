@@ -44,19 +44,7 @@ module.exports = (anfrage, antwort) => {
           )
           .join(' or ')
         const abfrage = `
-        select * from 
-          (
-            Schulartenbedeutung
-            natural join Lehrplan 
-            natural join Lehrplandetails
-          )
-          natural left join 
-          (
-            Lehrplanzuordnung
-            natural join Materialzuordnung
-            natural join Material
-          )
-        where
+        select * from Lernplattform where
           Bundesland = '${anfrage.query.bundesland}' and
           Schulart = '${anfrage.query.schulart}' and 
           (${bedingungen});`

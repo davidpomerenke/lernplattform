@@ -21,7 +21,7 @@
     "deutschland"
   ],
   "scripts": {
-    "gq:dump-schema": "yarn --silent gq https://lernplattform-graphql.herokuapp.com/v1/graphql --introspect > datenbank/schema.graphql",
+    "gq:dump-schema": "yarn --silent graphqurl https://lernplattform-graphql.herokuapp.com/v1/graphql --introspect > datenbank/schema.graphql",
     "pg": "yarn heroku pg:psql postgresql-slippery-92508 --app lernplattform-api",
     "pg:dump": "bash datenbank/dump.sh",
     "pg:backup": "bash datenbank/backup.sh"

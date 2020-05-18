@@ -204,6 +204,53 @@ CREATE TABLE public.materialzuordnung (
 
 
 --
+-- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schulartenbedeutung (
+    bundesland public.bundesland NOT NULL,
+    schulart character varying(500) NOT NULL,
+    schulart_intern character varying(500) NOT NULL,
+    sortcode integer NOT NULL
+);
+
+
+--
+-- Name: lernplattform; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.lernplattform AS
+ SELECT lehrplan.lehrplanid,
+    schulartenbedeutung.bundesland,
+    schulartenbedeutung.schulart_intern,
+    schulartenbedeutung.schulart,
+    schulartenbedeutung.sortcode,
+    lehrplan.klassenstufe,
+    lehrplan.fach,
+    lehrplandetails.titel,
+    lehrplandetails.beschreibung,
+    lehrplandetails.quelle,
+    lehrplandetails.eintragsdatum,
+    lehrplandetails.elternid,
+    lehrplandetails.hierarchie,
+    materialzuordnung.link,
+    lehrplanzuordnung.modul,
+    material.materialart,
+    material.materialtitel,
+    material.materialbeschreibung,
+    material.upvotes,
+    material.downvotes,
+    material.materialeintragsdatum,
+    material.materialtestdatum
+   FROM (((public.schulartenbedeutung
+     JOIN public.lehrplan USING (bundesland, schulart_intern))
+     JOIN public.lehrplandetails USING (lehrplanid))
+     LEFT JOIN ((public.lehrplanzuordnung
+     JOIN public.materialzuordnung USING (modul))
+     JOIN public.material USING (link)) USING (lehrplanid));
+
+
+--
 -- Name: module; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -219,18 +266,6 @@ CREATE TABLE public.module (
 CREATE TABLE public.modulhierarchie (
     untermodul character varying(500) NOT NULL,
     "Übermodul" character varying(500) NOT NULL
-);
-
-
---
--- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.schulartenbedeutung (
-    bundesland public.bundesland NOT NULL,
-    schulart character varying(500) NOT NULL,
-    schulart_intern character varying(500) NOT NULL,
-    sortcode integer NOT NULL
 );
 
 

@@ -260,6 +260,156 @@ enum lehrplanzuordnung_select_column {
   modul
 }
 
+# columns and relationships of "lernplattform"
+type lernplattform {
+  beschreibung: String
+  bundesland: bundesland
+  downvotes: Int
+  eintragsdatum: date
+  elternid: Int
+  fach: String
+  hierarchie: String
+  klassenstufe: Int
+  lehrplanid: Int
+  link: String
+  materialart: ressourcenart
+  materialbeschreibung: String
+  materialeintragsdatum: date
+  materialtestdatum: date
+  materialtitel: String
+  modul: String
+  quelle: String
+  schulart: String
+  schulart_intern: String
+  sortcode: Int
+  titel: String
+  upvotes: Int
+}
+
+# Boolean expression to filter rows from the table "lernplattform". All fields are combined with a logical 'AND'.
+input lernplattform_bool_exp {
+  _and: [lernplattform_bool_exp]
+  _not: lernplattform_bool_exp
+  _or: [lernplattform_bool_exp]
+  beschreibung: String_comparison_exp
+  bundesland: bundesland_comparison_exp
+  downvotes: Int_comparison_exp
+  eintragsdatum: date_comparison_exp
+  elternid: Int_comparison_exp
+  fach: String_comparison_exp
+  hierarchie: String_comparison_exp
+  klassenstufe: Int_comparison_exp
+  lehrplanid: Int_comparison_exp
+  link: String_comparison_exp
+  materialart: ressourcenart_comparison_exp
+  materialbeschreibung: String_comparison_exp
+  materialeintragsdatum: date_comparison_exp
+  materialtestdatum: date_comparison_exp
+  materialtitel: String_comparison_exp
+  modul: String_comparison_exp
+  quelle: String_comparison_exp
+  schulart: String_comparison_exp
+  schulart_intern: String_comparison_exp
+  sortcode: Int_comparison_exp
+  titel: String_comparison_exp
+  upvotes: Int_comparison_exp
+}
+
+# ordering options when selecting data from "lernplattform"
+input lernplattform_order_by {
+  beschreibung: order_by
+  bundesland: order_by
+  downvotes: order_by
+  eintragsdatum: order_by
+  elternid: order_by
+  fach: order_by
+  hierarchie: order_by
+  klassenstufe: order_by
+  lehrplanid: order_by
+  link: order_by
+  materialart: order_by
+  materialbeschreibung: order_by
+  materialeintragsdatum: order_by
+  materialtestdatum: order_by
+  materialtitel: order_by
+  modul: order_by
+  quelle: order_by
+  schulart: order_by
+  schulart_intern: order_by
+  sortcode: order_by
+  titel: order_by
+  upvotes: order_by
+}
+
+# select columns of table "lernplattform"
+enum lernplattform_select_column {
+  # column name
+  beschreibung
+
+  # column name
+  bundesland
+
+  # column name
+  downvotes
+
+  # column name
+  eintragsdatum
+
+  # column name
+  elternid
+
+  # column name
+  fach
+
+  # column name
+  hierarchie
+
+  # column name
+  klassenstufe
+
+  # column name
+  lehrplanid
+
+  # column name
+  link
+
+  # column name
+  materialart
+
+  # column name
+  materialbeschreibung
+
+  # column name
+  materialeintragsdatum
+
+  # column name
+  materialtestdatum
+
+  # column name
+  materialtitel
+
+  # column name
+  modul
+
+  # column name
+  quelle
+
+  # column name
+  schulart
+
+  # column name
+  schulart_intern
+
+  # column name
+  sortcode
+
+  # column name
+  titel
+
+  # column name
+  upvotes
+}
+
 # columns and relationships of "material"
 type material {
   downvotes: Int!
@@ -576,6 +726,24 @@ type query_root {
   # fetch data from the table: "lehrplanzuordnung" using primary key columns
   lehrplanzuordnung_by_pk(lehrplanid: Int!, modul: String!): lehrplanzuordnung
 
+  # fetch data from the table: "lernplattform"
+  lernplattform(
+    # distinct select on columns
+    distinct_on: [lernplattform_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [lernplattform_order_by!]
+
+    # filter the rows returned
+    where: lernplattform_bool_exp
+  ): [lernplattform!]!
+
   # fetch data from the table: "material"
   material(
     # distinct select on columns
@@ -816,6 +984,24 @@ type subscription_root {
 
   # fetch data from the table: "lehrplanzuordnung" using primary key columns
   lehrplanzuordnung_by_pk(lehrplanid: Int!, modul: String!): lehrplanzuordnung
+
+  # fetch data from the table: "lernplattform"
+  lernplattform(
+    # distinct select on columns
+    distinct_on: [lernplattform_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [lernplattform_order_by!]
+
+    # filter the rows returned
+    where: lernplattform_bool_exp
+  ): [lernplattform!]!
 
   # fetch data from the table: "material"
   material(
