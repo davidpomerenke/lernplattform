@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 12.2 (Ubuntu 12.2-2.pgdg16.04+1)
--- Dumped by pg_dump version 12.2 (Ubuntu 12.2-2.pgdg18.04+1)
+-- Dumped by pg_dump version 12.3 (Ubuntu 12.3-1.pgdg18.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -125,12 +125,12 @@ CREATE SEQUENCE public.lehrplan_id_seq
 
 CREATE TABLE public.lehrplandetails (
     lehrplanid integer NOT NULL,
-    titel character varying(3000),
-    beschreibung character varying(3000),
-    quelle character varying(500) NOT NULL,
-    eintragsdatum date DEFAULT CURRENT_DATE NOT NULL,
-    elternid integer,
-    hierarchie character varying(20)
+    lehrplantitel character varying(3000),
+    lehrplanbeschreibung character varying(3000),
+    lehrplanquelle character varying(500) NOT NULL,
+    lehrplaneintragsdatum date DEFAULT CURRENT_DATE NOT NULL,
+    lehrplanelternid integer,
+    lehrplanhierarchie character varying(20)
 );
 
 
@@ -210,8 +210,7 @@ CREATE TABLE public.materialzuordnung (
 CREATE TABLE public.schulartenbedeutung (
     bundesland public.bundesland NOT NULL,
     schulart character varying(500) NOT NULL,
-    schulart_intern character varying(500) NOT NULL,
-    sortcode integer NOT NULL
+    schulart_intern character varying(500) NOT NULL
 );
 
 
@@ -220,20 +219,17 @@ CREATE TABLE public.schulartenbedeutung (
 --
 
 CREATE VIEW public.lernplattform AS
- SELECT lehrplan.lehrplanid,
-    schulartenbedeutung.bundesland,
-    schulartenbedeutung.schulart_intern,
-    schulartenbedeutung.schulart,
-    schulartenbedeutung.sortcode,
+ SELECT lehrplan.bundesland,
+    COALESCE(schulartenbedeutung.schulart, lehrplan.schulart_intern) AS schulart,
     lehrplan.klassenstufe,
     lehrplan.fach,
-    lehrplandetails.titel,
-    lehrplandetails.beschreibung,
-    lehrplandetails.quelle,
-    lehrplandetails.eintragsdatum,
-    lehrplandetails.elternid,
-    lehrplandetails.hierarchie,
-    materialzuordnung.link,
+    lehrplandetails.lehrplantitel,
+    lehrplandetails.lehrplanbeschreibung,
+    lehrplandetails.lehrplanquelle,
+    lehrplandetails.lehrplaneintragsdatum,
+    lehrplandetails.lehrplanelternid,
+    lehrplandetails.lehrplanhierarchie,
+    material.link,
     lehrplanzuordnung.modul,
     material.materialart,
     material.materialtitel,
@@ -243,7 +239,7 @@ CREATE VIEW public.lernplattform AS
     material.materialeintragsdatum,
     material.materialtestdatum
    FROM (((public.schulartenbedeutung
-     JOIN public.lehrplan USING (bundesland, schulart_intern))
+     RIGHT JOIN public.lehrplan USING (bundesland, schulart_intern))
      JOIN public.lehrplandetails USING (lehrplanid))
      LEFT JOIN ((public.lehrplanzuordnung
      JOIN public.materialzuordnung USING (modul))
@@ -301,14 +297,6 @@ ALTER TABLE ONLY public.lehrplanzuordnung
 
 
 --
--- Name: schulartenbedeutung schulartenbedeutung_bundesland_sortcode_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.schulartenbedeutung
-    ADD CONSTRAINT schulartenbedeutung_bundesland_sortcode_key UNIQUE (bundesland, sortcode);
-
-
---
 -- Name: schulartenbedeutung schulartenbedeutung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -345,7 +333,7 @@ ALTER TABLE ONLY public.lehrplan
 --
 
 ALTER TABLE ONLY public.lehrplandetails
-    ADD CONSTRAINT lehrplandetails_elternid_fkey FOREIGN KEY (elternid) REFERENCES public.lehrplandetails(lehrplanid);
+    ADD CONSTRAINT lehrplandetails_elternid_fkey FOREIGN KEY (lehrplanelternid) REFERENCES public.lehrplandetails(lehrplanid);
 
 
 --

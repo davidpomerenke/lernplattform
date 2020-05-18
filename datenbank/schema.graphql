@@ -101,10 +101,7 @@ enum lehrplan_select_column {
 
 # columns and relationships of "lehrplandetails"
 type lehrplandetails {
-  beschreibung: String
-  eintragsdatum: date!
-  elternid: Int
-  hierarchie: String
+  lehrplanbeschreibung: String
 
   # An object relationship
   lehrplandetail: lehrplandetails
@@ -126,7 +123,11 @@ type lehrplandetails {
     # filter the rows returned
     where: lehrplandetails_bool_exp
   ): [lehrplandetails!]!
+  lehrplaneintragsdatum: date!
+  lehrplanelternid: Int
+  lehrplanhierarchie: String
   lehrplanid: Int!
+  lehrplanquelle: String!
 
   # An array relationship
   lehrplans(
@@ -145,6 +146,7 @@ type lehrplandetails {
     # filter the rows returned
     where: lehrplan_bool_exp
   ): [lehrplan!]!
+  lehrplantitel: String
 
   # An array relationship
   lehrplanzuordnungs(
@@ -163,8 +165,6 @@ type lehrplandetails {
     # filter the rows returned
     where: lehrplanzuordnung_bool_exp
   ): [lehrplanzuordnung!]!
-  quelle: String!
-  titel: String
 }
 
 # Boolean expression to filter rows from the table "lehrplandetails". All fields are combined with a logical 'AND'.
@@ -172,53 +172,53 @@ input lehrplandetails_bool_exp {
   _and: [lehrplandetails_bool_exp]
   _not: lehrplandetails_bool_exp
   _or: [lehrplandetails_bool_exp]
-  beschreibung: String_comparison_exp
-  eintragsdatum: date_comparison_exp
-  elternid: Int_comparison_exp
-  hierarchie: String_comparison_exp
+  lehrplanbeschreibung: String_comparison_exp
   lehrplandetail: lehrplandetails_bool_exp
   lehrplandetails: lehrplandetails_bool_exp
+  lehrplaneintragsdatum: date_comparison_exp
+  lehrplanelternid: Int_comparison_exp
+  lehrplanhierarchie: String_comparison_exp
   lehrplanid: Int_comparison_exp
+  lehrplanquelle: String_comparison_exp
   lehrplans: lehrplan_bool_exp
+  lehrplantitel: String_comparison_exp
   lehrplanzuordnungs: lehrplanzuordnung_bool_exp
-  quelle: String_comparison_exp
-  titel: String_comparison_exp
 }
 
 # ordering options when selecting data from "lehrplandetails"
 input lehrplandetails_order_by {
-  beschreibung: order_by
-  eintragsdatum: order_by
-  elternid: order_by
-  hierarchie: order_by
+  lehrplanbeschreibung: order_by
   lehrplandetail: lehrplandetails_order_by
+  lehrplaneintragsdatum: order_by
+  lehrplanelternid: order_by
+  lehrplanhierarchie: order_by
   lehrplanid: order_by
-  quelle: order_by
-  titel: order_by
+  lehrplanquelle: order_by
+  lehrplantitel: order_by
 }
 
 # select columns of table "lehrplandetails"
 enum lehrplandetails_select_column {
   # column name
-  beschreibung
+  lehrplanbeschreibung
 
   # column name
-  eintragsdatum
+  lehrplaneintragsdatum
 
   # column name
-  elternid
+  lehrplanelternid
 
   # column name
-  hierarchie
+  lehrplanhierarchie
 
   # column name
   lehrplanid
 
   # column name
-  quelle
+  lehrplanquelle
 
   # column name
-  titel
+  lehrplantitel
 }
 
 # columns and relationships of "lehrplanzuordnung"
@@ -262,15 +262,16 @@ enum lehrplanzuordnung_select_column {
 
 # columns and relationships of "lernplattform"
 type lernplattform {
-  beschreibung: String
   bundesland: bundesland
   downvotes: Int
-  eintragsdatum: date
-  elternid: Int
   fach: String
-  hierarchie: String
   klassenstufe: Int
-  lehrplanid: Int
+  lehrplanbeschreibung: String
+  lehrplaneintragsdatum: date
+  lehrplanelternid: Int
+  lehrplanhierarchie: String
+  lehrplanquelle: String
+  lehrplantitel: String
   link: String
   materialart: ressourcenart
   materialbeschreibung: String
@@ -278,11 +279,7 @@ type lernplattform {
   materialtestdatum: date
   materialtitel: String
   modul: String
-  quelle: String
   schulart: String
-  schulart_intern: String
-  sortcode: Int
-  titel: String
   upvotes: Int
 }
 
@@ -291,15 +288,16 @@ input lernplattform_bool_exp {
   _and: [lernplattform_bool_exp]
   _not: lernplattform_bool_exp
   _or: [lernplattform_bool_exp]
-  beschreibung: String_comparison_exp
   bundesland: bundesland_comparison_exp
   downvotes: Int_comparison_exp
-  eintragsdatum: date_comparison_exp
-  elternid: Int_comparison_exp
   fach: String_comparison_exp
-  hierarchie: String_comparison_exp
   klassenstufe: Int_comparison_exp
-  lehrplanid: Int_comparison_exp
+  lehrplanbeschreibung: String_comparison_exp
+  lehrplaneintragsdatum: date_comparison_exp
+  lehrplanelternid: Int_comparison_exp
+  lehrplanhierarchie: String_comparison_exp
+  lehrplanquelle: String_comparison_exp
+  lehrplantitel: String_comparison_exp
   link: String_comparison_exp
   materialart: ressourcenart_comparison_exp
   materialbeschreibung: String_comparison_exp
@@ -307,25 +305,22 @@ input lernplattform_bool_exp {
   materialtestdatum: date_comparison_exp
   materialtitel: String_comparison_exp
   modul: String_comparison_exp
-  quelle: String_comparison_exp
   schulart: String_comparison_exp
-  schulart_intern: String_comparison_exp
-  sortcode: Int_comparison_exp
-  titel: String_comparison_exp
   upvotes: Int_comparison_exp
 }
 
 # ordering options when selecting data from "lernplattform"
 input lernplattform_order_by {
-  beschreibung: order_by
   bundesland: order_by
   downvotes: order_by
-  eintragsdatum: order_by
-  elternid: order_by
   fach: order_by
-  hierarchie: order_by
   klassenstufe: order_by
-  lehrplanid: order_by
+  lehrplanbeschreibung: order_by
+  lehrplaneintragsdatum: order_by
+  lehrplanelternid: order_by
+  lehrplanhierarchie: order_by
+  lehrplanquelle: order_by
+  lehrplantitel: order_by
   link: order_by
   materialart: order_by
   materialbeschreibung: order_by
@@ -333,19 +328,12 @@ input lernplattform_order_by {
   materialtestdatum: order_by
   materialtitel: order_by
   modul: order_by
-  quelle: order_by
   schulart: order_by
-  schulart_intern: order_by
-  sortcode: order_by
-  titel: order_by
   upvotes: order_by
 }
 
 # select columns of table "lernplattform"
 enum lernplattform_select_column {
-  # column name
-  beschreibung
-
   # column name
   bundesland
 
@@ -353,22 +341,28 @@ enum lernplattform_select_column {
   downvotes
 
   # column name
-  eintragsdatum
-
-  # column name
-  elternid
-
-  # column name
   fach
-
-  # column name
-  hierarchie
 
   # column name
   klassenstufe
 
   # column name
-  lehrplanid
+  lehrplanbeschreibung
+
+  # column name
+  lehrplaneintragsdatum
+
+  # column name
+  lehrplanelternid
+
+  # column name
+  lehrplanhierarchie
+
+  # column name
+  lehrplanquelle
+
+  # column name
+  lehrplantitel
 
   # column name
   link
@@ -392,19 +386,7 @@ enum lernplattform_select_column {
   modul
 
   # column name
-  quelle
-
-  # column name
   schulart
-
-  # column name
-  schulart_intern
-
-  # column name
-  sortcode
-
-  # column name
-  titel
 
   # column name
   upvotes
@@ -867,7 +849,6 @@ type schulartenbedeutung {
   bundesland: bundesland!
   schulart: String!
   schulart_intern: String!
-  sortcode: Int!
 }
 
 # Boolean expression to filter rows from the table "schulartenbedeutung". All fields are combined with a logical 'AND'.
@@ -878,7 +859,6 @@ input schulartenbedeutung_bool_exp {
   bundesland: bundesland_comparison_exp
   schulart: String_comparison_exp
   schulart_intern: String_comparison_exp
-  sortcode: Int_comparison_exp
 }
 
 # ordering options when selecting data from "schulartenbedeutung"
@@ -886,7 +866,6 @@ input schulartenbedeutung_order_by {
   bundesland: order_by
   schulart: order_by
   schulart_intern: order_by
-  sortcode: order_by
 }
 
 # select columns of table "schulartenbedeutung"
@@ -899,9 +878,6 @@ enum schulartenbedeutung_select_column {
 
   # column name
   schulart_intern
-
-  # column name
-  sortcode
 }
 
 # expression to compare columns of type String. All fields are combined with logical 'AND'.
