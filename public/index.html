@@ -1,221 +1,41 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <title>Lernplattform für Deutschland</title>
-    <meta name="application-name" content="Lernplattform.Wiki" />
-    <meta
-      name="description"
-      content="Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer."
-    />
-    <meta name="author" content="David Pomerenke" />
-    <meta
-      name="keywords"
-      content="Bildung, Lernen, Plattform, Austausch, Deutschland, Lehrplan, Schule, Gymnasium, Gemeinschaftsschule, Realschule, Grundschule, Primarstufe, Sekundarstufe, Unterstufe, Mittelstufe, Oberstufe, Klasse, Bundesländer, Baden-Württemberg, Bayern, Berlin, Brandenburg, Bremen, Hamburg, Hessen, Mecklenburg-Vorpommern, Niedersachsen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland, Sachsen, Sachsen-Anhalt, Schleswig-Holstein, Thüringen"
-    />
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <style>
-      button.fach:hover,
-      button.lehrplantitel:hover {
-        color: rgb(2, 117, 216);
-        background-color: rgba(2, 117, 216, 0.05);
-      }
-    </style>
-  </head>
 
-  <body>
-    <main class="container">
-      <div
-        id="entwicklungswarnung"
-        class="alert alert-warning alert-dismissible fade show my-1"
-        role="alert"
-        hidden
-      >
-        Die Plattform befindet sich noch in der Entwicklung und ist nicht voll
-        funktionstüchtig.
-        <button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <h1 class="display-4">Lernplattform für Deutschland</h1>
-      <p class="lead">
-        Zum Austauschen von Selbstlern-Material für die Lehrpläne aller
-        Bundesländer.<br />
-        Für Schüler*innen und Lehrer*innen.
-      </p>
-      <form>
-        <div id="auswahl">
-          <div class="form-row">
-            <div id="bundesland-auswählen" class="col-auto my-2" hidden>
-              <select
-                class="custom-select bg-primary text-white border-0"
-              ></select>
-            </div>
-            <div id="schulart-auswählen" class="col-auto my-2" hidden>
-              <select
-                class="custom-select bg-primary text-white border-0"
-              ></select>
-            </div>
-            <div id="klassenstufen-auswählen" class="col-auto my-2" hidden>
-              <div class="btn-group"></div>
-            </div>
-          </div>
-          <div id="fach-auswählen" hidden>
-            <div
-              class="border rounded-lg bg-light my-3 p-3 d-flex flex-wrap"
-            ></div>
-          </div>
-          <button
-            id="speichern"
-            type="button"
-            class="btn btn-success my-2"
-            hidden
-          >
-            Material anzeigen
-          </button>
-        </div>
-        <div id="gespeichert" class="alert alert-success p-2" hidden>
-          Die Auswahl wurde erfolgreich im Browser gespeichert.
-        </div>
-        <button
-          id="bearbeiten"
-          type="button"
-          class="btn btn-warning my-2"
-          hidden
-        >
-          Auswahl ändern
-        </button>
-      </form>
-      <div id="links"></div>
-    </main>
-    <footer
-      class="footer container text-muted py-2"
-      style="text-align: center;"
-    >
-      <a
-        class="btn btn-light border m-2"
-        href="mailto:David Pomerenke<david@lernplattform.wiki>"
-      >
-        Kontakt
-      </a>
-      <button
-        type="button"
-        class="btn btn-light border m-2"
-        data-toggle="modal"
-        data-target="#datenschutz"
-      >
-        Datenschutz
-      </button>
-      <a
-        class="btn btn-light border m-2"
-        href="https://github.com/davidpomerenke/lernplattform"
-        target="_blank"
-      >
-        Github
-      </a>
-      <a
-        class="btn btn-light border m-2"
-        href="https://github.com/davidpomerenke/lernplattform/blob/master/finanzen.md"
-        target="_blank"
-      >
-        Spenden
-      </a>
-    </footer>
-    <!-- Datenschutz-Modal -->
-    <div
-      class="modal fade"
-      id="datenschutz"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="DatenschutzLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="DatenschutzLabel">Datenschutz</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Diese Website schützt die Daten ihrer Nutzer sehr stark:<br \ />
-            <ul>
-              <li>
-                Nutzerdaten werden ausschließlich lokal im Browser der
-                jeweiligen Benutzer*in gespeichert.<br \ />
-              </li>
-              <li>
-                Der Betreiber der Website oder irgendwelche Drittparteien haben
-                keinen Zugriff auf die Nutzerdaten.
-                <br \ />
-              </li>
-              <li>
-                Das ist transparent und überprüfbar, denn der Code der Website
-                ist
-                <a
-                  href="https://github.com/davidpomerenke/lernplattform"
-                  target="_blank"
-                  >öffentlich</a
-                >.
-              </li>
-            </ul>
-            <div class="alert alert-success" id="lokale-daten-gelöscht" hidden>
-              Erfolgreich gelöscht.
-            </div>
-          </div>
-          <div class="modal-footer justify-content-between">
-            <button
-              type="button"
-              class="btn btn-danger"
-              id="lokale-daten-löschen"
-            >
-              Lokale Daten löschen
-            </button>
-            <button
-              type="button"
-              class="btn btn-info"
-              id="seite-neu-laden"
-              hidden
-            >
-              Seite neu laden
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Schließen
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/ba50ac3b8d.js"></script>
-    <script src="index.js"></script>
-  </body>
+<head>
+  <title>Lernplattform für Deutschland</title>
+  <meta name="application-name" content="Lernplattform.Wiki" />
+  <meta name="description"
+    content="Plattform zum Austauschen von Selbstlern-Ressourcen für die Lehrpläne aller Bundesländer." />
+  <meta name="author" content="David Pomerenke" />
+  <meta name="keywords"
+    content="Bildung, Lernen, Plattform, Austausch, Deutschland, Lehrplan, Schule, Gymnasium, Gemeinschaftsschule, Realschule, Grundschule, Primarstufe, Sekundarstufe, Unterstufe, Mittelstufe, Oberstufe, Klasse, Bundesländer, Baden-Württemberg, Bayern, Berlin, Brandenburg, Bremen, Hamburg, Hessen, Mecklenburg-Vorpommern, Niedersachsen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland, Sachsen, Sachsen-Anhalt, Schleswig-Holstein, Thüringen" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script src="main.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="lernplattform"></div>
+  <script>
+    var storedData = localStorage.getItem('lernplattform-model')
+    var flags = storedData ? JSON.parse(storedData) : null
+
+    var app = Elm.Main.init({
+      node: document.getElementById('lernplattform'),
+      flags: flags
+    })
+
+    app.ports.setStorage.subscribe(function (state) {
+      localStorage.setItem('lernplattform-model', JSON.stringify(state))
+    })
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/ba50ac3b8d.js"></script>
+</body>
+
 </html>

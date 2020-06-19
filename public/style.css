@@ -1,0 +1,20 @@
+button.fach:hover,
+button.lehrplantitel:hover {
+  color: rgb(2, 117, 216);
+  background-color: rgba(2, 117, 216, 0.05);
+}
+
+.loader {
+  border: 2px solid lightgrey;
+  border-top: 2px solid black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin: auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
