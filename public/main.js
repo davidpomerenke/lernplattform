@@ -8284,93 +8284,73 @@ var $elm$html$Html$select = _VirtualDom_node('select');
 var $elm$html$Html$Attributes$selected = $elm$html$Html$Attributes$boolProperty('selected');
 var $author$project$Components$Form$select = F4(
 	function (name, options, val, msg) {
-		return A2(
-			$elm$html$Html$select,
-			_List_fromArray(
-				[
-					$elm$html$Html$Events$onInput(msg),
-					$elm$html$Html$Attributes$class('custom-select bg-primary text-white border-0')
-				]),
-			_Utils_ap(
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$option,
+		switch (options.$) {
+			case 'NotAsked':
+				return $elm$html$Html$text('');
+			case 'Failure':
+				return $elm$html$Html$text('Fehler!');
+			case 'Loading':
+				return A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('loader')
+						]),
+					_List_Nil);
+			default:
+				var a = options.a;
+				return A2(
+					$elm$html$Html$select,
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onInput(msg),
+							$elm$html$Html$Attributes$class('custom-select bg-primary text-white border-0')
+						]),
+					_Utils_ap(
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$hidden(true),
-								$elm$html$Html$Attributes$selected(
-								_Utils_eq(val, $elm$core$Maybe$Nothing))
+								A2(
+								$elm$html$Html$option,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$hidden(true),
+										$elm$html$Html$Attributes$selected(
+										_Utils_eq(val, $elm$core$Maybe$Nothing))
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(name)
+									])),
+								A2(
+								$elm$html$Html$option,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$disabled(true)
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(name)
+									]))
 							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(name)
-							])),
 						A2(
-						$elm$html$Html$option,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$disabled(true)
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(name)
-							]))
-					]),
-				function () {
-					switch (options.$) {
-						case 'NotAsked':
-							return _List_Nil;
-						case 'Failure':
-							return _List_fromArray(
-								[
-									A2(
+							$elm$core$List$map,
+							function (b) {
+								return A2(
 									$elm$html$Html$option,
 									_List_fromArray(
 										[
-											$elm$html$Html$Attributes$disabled(true)
+											$elm$html$Html$Attributes$selected(
+											_Utils_eq(
+												$elm$core$Maybe$Just(b),
+												val))
 										]),
 									_List_fromArray(
 										[
-											$elm$html$Html$text('Fehler!')
-										]))
-								]);
-						case 'Loading':
-							return _List_fromArray(
-								[
-									A2(
-									$elm$html$Html$option,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$disabled(true)
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('Loading ...')
-										]))
-								]);
-						default:
-							var a = options.a;
-							return A2(
-								$elm$core$List$map,
-								function (b) {
-									return A2(
-										$elm$html$Html$option,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$selected(
-												_Utils_eq(
-													$elm$core$Maybe$Just(b),
-													val))
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text(b)
-											]));
-								},
-								a);
-					}
-				}()));
+											$elm$html$Html$text(b)
+										]));
+							},
+							a)));
+		}
 	});
 var $author$project$Components$Form$bundesland = function (model) {
 	return A4($author$project$Components$Form$select, 'Bundesland', model.availableBundesland, model.bundesland, $author$project$Messages$SetBundesland);
@@ -8400,7 +8380,6 @@ var $author$project$Components$Form$klassenstufen = function (model) {
 		case 'NotAsked':
 			return _List_Nil;
 		case 'Failure':
-			var e = _v0.a;
 			return _List_fromArray(
 				[
 					$elm$html$Html$text('Fehler!')

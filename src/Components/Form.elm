@@ -59,7 +59,7 @@ klassenstufen model =
         NotAsked ->
             []
 
-        Failure e ->
+        Failure _ ->
             [ text "Fehler!" ]
 
         Loading ->
@@ -87,22 +87,21 @@ klassenstufen model =
 
 select : String -> RemoteData (Graphql.Http.Error (List String)) (List String) -> Maybe String -> (String -> Msg) -> Html Msg
 select name options val msg =
-    Html.select
-        [ onInput msg, class "custom-select bg-primary text-white border-0" ]
-        ([ option [ hidden True, selected (val == Nothing) ] [ text name ]
-         , option [ disabled True ] [ text name ]
-         ]
-            ++ (case options of
-                    NotAsked ->
-                        []
+    case options of
+        NotAsked ->
+            text ""
 
-                    Failure _ ->
-                        [ option [ disabled True ] [ text "Fehler!" ] ]
+        Failure _ ->
+            text "Fehler!"
 
-                    Loading ->
-                        [ option [ disabled True ] [ text "Loading ..." ] ]
+        Loading ->
+            div [ class "loader" ] []
 
-                    Success a ->
-                        List.map (\b -> option [ selected (Just b == val) ] [ text b ]) a
-               )
-        )
+        Success a ->
+            Html.select
+                [ onInput msg, class "custom-select bg-primary text-white border-0" ]
+                ([ option [ hidden True, selected (val == Nothing) ] [ text name ]
+                 , option [ disabled True ] [ text name ]
+                 ]
+                    ++ List.map (\b -> option [ selected (Just b == val) ] [ text b ]) a
+                )
