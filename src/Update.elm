@@ -1,7 +1,9 @@
 module Update exposing (update)
 
+import Helpers.GraphqlRequests exposing (makeSchulartRequest)
 import Messages exposing (Msg(..))
-import Model exposing (HttpStatus(..), Model)
+import Model exposing (Model)
+import RemoteData exposing (RemoteData(..))
 import Set
 
 
@@ -14,18 +16,18 @@ update msg model =
         ShowForm ->
             ( { model | showForm = True }, Cmd.none )
 
-        SetBundesland a ->
+        SetBundesland bundesland ->
             ( { model
-                | bundesland = Just a
+                | bundesland = Just bundesland
                 , schulart = Nothing
                 , klassenstufen = Set.empty
-                , availableSchulart = HttpLoading
+                , availableSchulart = Loading
               }
-            , Cmd.none
+            , makeSchulartRequest bundesland
             )
 
-        SetSchulart a ->
-            ( { model | schulart = Just a, klassenstufen = Set.empty }, Cmd.none )
+        SetSchulart schulart ->
+            ( { model | schulart = Just schulart, klassenstufen = Set.empty }, Cmd.none )
 
         ToggleKlassenstufe a ->
             let
@@ -43,3 +45,6 @@ update msg model =
             , Cmd.none
               -- httpRequestFach newModel
             )
+
+        GotSchulartResponse response ->
+            ( { model | availableSchulart = response }, Cmd.none )

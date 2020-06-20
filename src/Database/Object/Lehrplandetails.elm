@@ -4,6 +4,7 @@
 
 module Database.Object.Lehrplandetails exposing (..)
 
+import Database.Enum.Lehrplan_intern_select_column
 import Database.Enum.Lehrplandetails_select_column
 import Database.Enum.Lehrplanzuordnung_select_column
 import Database.InputObject
@@ -19,6 +20,40 @@ import Graphql.Operation exposing (RootMutation, RootQuery, RootSubscription)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet exposing (SelectionSet)
 import Json.Decode as Decode
+
+
+type alias LehrplanInternsOptionalArguments =
+    { distinct_on : OptionalArgument (List Database.Enum.Lehrplan_intern_select_column.Lehrplan_intern_select_column)
+    , limit : OptionalArgument Int
+    , offset : OptionalArgument Int
+    , order_by : OptionalArgument (List Database.InputObject.Lehrplan_intern_order_by)
+    , where_ : OptionalArgument Database.InputObject.Lehrplan_intern_bool_exp
+    }
+
+
+{-| An array relationship
+
+  - distinct\_on - distinct select on columns
+  - limit - limit the number of rows returned
+  - offset - skip the first n rows. Use only with order\_by
+  - order\_by - sort the rows by one or more columns
+  - where\_ - filter the rows returned
+
+-}
+lehrplan_interns :
+    (LehrplanInternsOptionalArguments -> LehrplanInternsOptionalArguments)
+    -> SelectionSet decodesTo Database.Object.Lehrplan_intern
+    -> SelectionSet (List decodesTo) Database.Object.Lehrplandetails
+lehrplan_interns fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { distinct_on = Absent, limit = Absent, offset = Absent, order_by = Absent, where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "distinct_on" filledInOptionals.distinct_on (Encode.enum Database.Enum.Lehrplan_intern_select_column.toString |> Encode.list), Argument.optional "limit" filledInOptionals.limit Encode.int, Argument.optional "offset" filledInOptionals.offset Encode.int, Argument.optional "order_by" filledInOptionals.order_by (Database.InputObject.encodeLehrplan_intern_order_by |> Encode.list), Argument.optional "where" filledInOptionals.where_ Database.InputObject.encodeLehrplan_intern_bool_exp ]
+                |> List.filterMap identity
+    in
+    Object.selectionForCompositeField "lehrplan_interns" optionalArgs object_ (identity >> Decode.list)
 
 
 lehrplanbeschreibung : SelectionSet (Maybe String) Database.Object.Lehrplandetails

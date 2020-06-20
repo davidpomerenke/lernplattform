@@ -224,9 +224,9 @@ buildLehrplan_intern_bool_exp fillOptionals =
     let
         optionals =
             fillOptionals
-                { and_ = Absent, not_ = Absent, or_ = Absent, bundesland = Absent, fach = Absent, klassenstufe = Absent, lehrplanid = Absent, schulart_intern = Absent }
+                { and_ = Absent, not_ = Absent, or_ = Absent, bundesland = Absent, fach = Absent, klassenstufe = Absent, lehrplandetail = Absent, lehrplanid = Absent, schulart_intern = Absent }
     in
-    Lehrplan_intern_bool_exp { and_ = optionals.and_, not_ = optionals.not_, or_ = optionals.or_, bundesland = optionals.bundesland, fach = optionals.fach, klassenstufe = optionals.klassenstufe, lehrplanid = optionals.lehrplanid, schulart_intern = optionals.schulart_intern }
+    Lehrplan_intern_bool_exp { and_ = optionals.and_, not_ = optionals.not_, or_ = optionals.or_, bundesland = optionals.bundesland, fach = optionals.fach, klassenstufe = optionals.klassenstufe, lehrplandetail = optionals.lehrplandetail, lehrplanid = optionals.lehrplanid, schulart_intern = optionals.schulart_intern }
 
 
 type alias Lehrplan_intern_bool_expOptionalFields =
@@ -236,6 +236,7 @@ type alias Lehrplan_intern_bool_expOptionalFields =
     , bundesland : OptionalArgument Bundesland_comparison_exp
     , fach : OptionalArgument String_comparison_exp
     , klassenstufe : OptionalArgument Int_comparison_exp
+    , lehrplandetail : OptionalArgument Lehrplandetails_bool_exp
     , lehrplanid : OptionalArgument Int_comparison_exp
     , schulart_intern : OptionalArgument String_comparison_exp
     }
@@ -253,6 +254,7 @@ type alias Lehrplan_intern_bool_expRaw =
     , bundesland : OptionalArgument Bundesland_comparison_exp
     , fach : OptionalArgument String_comparison_exp
     , klassenstufe : OptionalArgument Int_comparison_exp
+    , lehrplandetail : OptionalArgument Lehrplandetails_bool_exp
     , lehrplanid : OptionalArgument Int_comparison_exp
     , schulart_intern : OptionalArgument String_comparison_exp
     }
@@ -269,7 +271,7 @@ type Lehrplan_intern_bool_exp
 encodeLehrplan_intern_bool_exp : Lehrplan_intern_bool_exp -> Value
 encodeLehrplan_intern_bool_exp (Lehrplan_intern_bool_exp input) =
     Encode.maybeObject
-        [ ( "_and", (encodeLehrplan_intern_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.and_ ), ( "_not", encodeLehrplan_intern_bool_exp |> Encode.optional input.not_ ), ( "_or", (encodeLehrplan_intern_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.or_ ), ( "bundesland", encodeBundesland_comparison_exp |> Encode.optional input.bundesland ), ( "fach", encodeString_comparison_exp |> Encode.optional input.fach ), ( "klassenstufe", encodeInt_comparison_exp |> Encode.optional input.klassenstufe ), ( "lehrplanid", encodeInt_comparison_exp |> Encode.optional input.lehrplanid ), ( "schulart_intern", encodeString_comparison_exp |> Encode.optional input.schulart_intern ) ]
+        [ ( "_and", (encodeLehrplan_intern_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.and_ ), ( "_not", encodeLehrplan_intern_bool_exp |> Encode.optional input.not_ ), ( "_or", (encodeLehrplan_intern_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.or_ ), ( "bundesland", encodeBundesland_comparison_exp |> Encode.optional input.bundesland ), ( "fach", encodeString_comparison_exp |> Encode.optional input.fach ), ( "klassenstufe", encodeInt_comparison_exp |> Encode.optional input.klassenstufe ), ( "lehrplandetail", encodeLehrplandetails_bool_exp |> Encode.optional input.lehrplandetail ), ( "lehrplanid", encodeInt_comparison_exp |> Encode.optional input.lehrplanid ), ( "schulart_intern", encodeString_comparison_exp |> Encode.optional input.schulart_intern ) ]
 
 
 buildLehrplan_intern_order_by :
@@ -279,15 +281,31 @@ buildLehrplan_intern_order_by fillOptionals =
     let
         optionals =
             fillOptionals
-                { bundesland = Absent, fach = Absent, klassenstufe = Absent, lehrplanid = Absent, schulart_intern = Absent }
+                { bundesland = Absent, fach = Absent, klassenstufe = Absent, lehrplandetail = Absent, lehrplanid = Absent, schulart_intern = Absent }
     in
-    { bundesland = optionals.bundesland, fach = optionals.fach, klassenstufe = optionals.klassenstufe, lehrplanid = optionals.lehrplanid, schulart_intern = optionals.schulart_intern }
+    Lehrplan_intern_order_by { bundesland = optionals.bundesland, fach = optionals.fach, klassenstufe = optionals.klassenstufe, lehrplandetail = optionals.lehrplandetail, lehrplanid = optionals.lehrplanid, schulart_intern = optionals.schulart_intern }
 
 
 type alias Lehrplan_intern_order_byOptionalFields =
     { bundesland : OptionalArgument Database.Enum.Order_by.Order_by
     , fach : OptionalArgument Database.Enum.Order_by.Order_by
     , klassenstufe : OptionalArgument Database.Enum.Order_by.Order_by
+    , lehrplandetail : OptionalArgument Lehrplandetails_order_by
+    , lehrplanid : OptionalArgument Database.Enum.Order_by.Order_by
+    , schulart_intern : OptionalArgument Database.Enum.Order_by.Order_by
+    }
+
+
+{-| Type alias for the `Lehrplan_intern_order_by` attributes. Note that this type
+needs to use the `Lehrplan_intern_order_by` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias Lehrplan_intern_order_byRaw =
+    { bundesland : OptionalArgument Database.Enum.Order_by.Order_by
+    , fach : OptionalArgument Database.Enum.Order_by.Order_by
+    , klassenstufe : OptionalArgument Database.Enum.Order_by.Order_by
+    , lehrplandetail : OptionalArgument Lehrplandetails_order_by
     , lehrplanid : OptionalArgument Database.Enum.Order_by.Order_by
     , schulart_intern : OptionalArgument Database.Enum.Order_by.Order_by
     }
@@ -295,21 +313,16 @@ type alias Lehrplan_intern_order_byOptionalFields =
 
 {-| Type for the Lehrplan\_intern\_order\_by input object.
 -}
-type alias Lehrplan_intern_order_by =
-    { bundesland : OptionalArgument Database.Enum.Order_by.Order_by
-    , fach : OptionalArgument Database.Enum.Order_by.Order_by
-    , klassenstufe : OptionalArgument Database.Enum.Order_by.Order_by
-    , lehrplanid : OptionalArgument Database.Enum.Order_by.Order_by
-    , schulart_intern : OptionalArgument Database.Enum.Order_by.Order_by
-    }
+type Lehrplan_intern_order_by
+    = Lehrplan_intern_order_by Lehrplan_intern_order_byRaw
 
 
 {-| Encode a Lehrplan\_intern\_order\_by into a value that can be used as an argument.
 -}
 encodeLehrplan_intern_order_by : Lehrplan_intern_order_by -> Value
-encodeLehrplan_intern_order_by input =
+encodeLehrplan_intern_order_by (Lehrplan_intern_order_by input) =
     Encode.maybeObject
-        [ ( "bundesland", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.bundesland ), ( "fach", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.fach ), ( "klassenstufe", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.klassenstufe ), ( "lehrplanid", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.lehrplanid ), ( "schulart_intern", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.schulart_intern ) ]
+        [ ( "bundesland", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.bundesland ), ( "fach", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.fach ), ( "klassenstufe", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.klassenstufe ), ( "lehrplandetail", encodeLehrplandetails_order_by |> Encode.optional input.lehrplandetail ), ( "lehrplanid", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.lehrplanid ), ( "schulart_intern", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.schulart_intern ) ]
 
 
 buildLehrplan_order_by :
@@ -359,15 +372,16 @@ buildLehrplandetails_bool_exp fillOptionals =
     let
         optionals =
             fillOptionals
-                { and_ = Absent, not_ = Absent, or_ = Absent, lehrplanbeschreibung = Absent, lehrplandetail = Absent, lehrplandetails = Absent, lehrplaneintragsdatum = Absent, lehrplanelternid = Absent, lehrplanhierarchie = Absent, lehrplanid = Absent, lehrplanquelle = Absent, lehrplantitel = Absent, lehrplanzuordnungs = Absent }
+                { and_ = Absent, not_ = Absent, or_ = Absent, lehrplan_interns = Absent, lehrplanbeschreibung = Absent, lehrplandetail = Absent, lehrplandetails = Absent, lehrplaneintragsdatum = Absent, lehrplanelternid = Absent, lehrplanhierarchie = Absent, lehrplanid = Absent, lehrplanquelle = Absent, lehrplantitel = Absent, lehrplanzuordnungs = Absent }
     in
-    Lehrplandetails_bool_exp { and_ = optionals.and_, not_ = optionals.not_, or_ = optionals.or_, lehrplanbeschreibung = optionals.lehrplanbeschreibung, lehrplandetail = optionals.lehrplandetail, lehrplandetails = optionals.lehrplandetails, lehrplaneintragsdatum = optionals.lehrplaneintragsdatum, lehrplanelternid = optionals.lehrplanelternid, lehrplanhierarchie = optionals.lehrplanhierarchie, lehrplanid = optionals.lehrplanid, lehrplanquelle = optionals.lehrplanquelle, lehrplantitel = optionals.lehrplantitel, lehrplanzuordnungs = optionals.lehrplanzuordnungs }
+    Lehrplandetails_bool_exp { and_ = optionals.and_, not_ = optionals.not_, or_ = optionals.or_, lehrplan_interns = optionals.lehrplan_interns, lehrplanbeschreibung = optionals.lehrplanbeschreibung, lehrplandetail = optionals.lehrplandetail, lehrplandetails = optionals.lehrplandetails, lehrplaneintragsdatum = optionals.lehrplaneintragsdatum, lehrplanelternid = optionals.lehrplanelternid, lehrplanhierarchie = optionals.lehrplanhierarchie, lehrplanid = optionals.lehrplanid, lehrplanquelle = optionals.lehrplanquelle, lehrplantitel = optionals.lehrplantitel, lehrplanzuordnungs = optionals.lehrplanzuordnungs }
 
 
 type alias Lehrplandetails_bool_expOptionalFields =
     { and_ : OptionalArgument (List (Maybe Lehrplandetails_bool_exp))
     , not_ : OptionalArgument Lehrplandetails_bool_exp
     , or_ : OptionalArgument (List (Maybe Lehrplandetails_bool_exp))
+    , lehrplan_interns : OptionalArgument Lehrplan_intern_bool_exp
     , lehrplanbeschreibung : OptionalArgument String_comparison_exp
     , lehrplandetail : OptionalArgument Lehrplandetails_bool_exp
     , lehrplandetails : OptionalArgument Lehrplandetails_bool_exp
@@ -390,6 +404,7 @@ type alias Lehrplandetails_bool_expRaw =
     { and_ : OptionalArgument (List (Maybe Lehrplandetails_bool_exp))
     , not_ : OptionalArgument Lehrplandetails_bool_exp
     , or_ : OptionalArgument (List (Maybe Lehrplandetails_bool_exp))
+    , lehrplan_interns : OptionalArgument Lehrplan_intern_bool_exp
     , lehrplanbeschreibung : OptionalArgument String_comparison_exp
     , lehrplandetail : OptionalArgument Lehrplandetails_bool_exp
     , lehrplandetails : OptionalArgument Lehrplandetails_bool_exp
@@ -414,7 +429,7 @@ type Lehrplandetails_bool_exp
 encodeLehrplandetails_bool_exp : Lehrplandetails_bool_exp -> Value
 encodeLehrplandetails_bool_exp (Lehrplandetails_bool_exp input) =
     Encode.maybeObject
-        [ ( "_and", (encodeLehrplandetails_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.and_ ), ( "_not", encodeLehrplandetails_bool_exp |> Encode.optional input.not_ ), ( "_or", (encodeLehrplandetails_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.or_ ), ( "lehrplanbeschreibung", encodeString_comparison_exp |> Encode.optional input.lehrplanbeschreibung ), ( "lehrplandetail", encodeLehrplandetails_bool_exp |> Encode.optional input.lehrplandetail ), ( "lehrplandetails", encodeLehrplandetails_bool_exp |> Encode.optional input.lehrplandetails ), ( "lehrplaneintragsdatum", encodeDate_comparison_exp |> Encode.optional input.lehrplaneintragsdatum ), ( "lehrplanelternid", encodeInt_comparison_exp |> Encode.optional input.lehrplanelternid ), ( "lehrplanhierarchie", encodeString_comparison_exp |> Encode.optional input.lehrplanhierarchie ), ( "lehrplanid", encodeInt_comparison_exp |> Encode.optional input.lehrplanid ), ( "lehrplanquelle", encodeString_comparison_exp |> Encode.optional input.lehrplanquelle ), ( "lehrplantitel", encodeString_comparison_exp |> Encode.optional input.lehrplantitel ), ( "lehrplanzuordnungs", encodeLehrplanzuordnung_bool_exp |> Encode.optional input.lehrplanzuordnungs ) ]
+        [ ( "_and", (encodeLehrplandetails_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.and_ ), ( "_not", encodeLehrplandetails_bool_exp |> Encode.optional input.not_ ), ( "_or", (encodeLehrplandetails_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.or_ ), ( "lehrplan_interns", encodeLehrplan_intern_bool_exp |> Encode.optional input.lehrplan_interns ), ( "lehrplanbeschreibung", encodeString_comparison_exp |> Encode.optional input.lehrplanbeschreibung ), ( "lehrplandetail", encodeLehrplandetails_bool_exp |> Encode.optional input.lehrplandetail ), ( "lehrplandetails", encodeLehrplandetails_bool_exp |> Encode.optional input.lehrplandetails ), ( "lehrplaneintragsdatum", encodeDate_comparison_exp |> Encode.optional input.lehrplaneintragsdatum ), ( "lehrplanelternid", encodeInt_comparison_exp |> Encode.optional input.lehrplanelternid ), ( "lehrplanhierarchie", encodeString_comparison_exp |> Encode.optional input.lehrplanhierarchie ), ( "lehrplanid", encodeInt_comparison_exp |> Encode.optional input.lehrplanid ), ( "lehrplanquelle", encodeString_comparison_exp |> Encode.optional input.lehrplanquelle ), ( "lehrplantitel", encodeString_comparison_exp |> Encode.optional input.lehrplantitel ), ( "lehrplanzuordnungs", encodeLehrplanzuordnung_bool_exp |> Encode.optional input.lehrplanzuordnungs ) ]
 
 
 buildLehrplandetails_order_by :
@@ -1135,6 +1150,89 @@ encodeRessourcenart_comparison_exp : Ressourcenart_comparison_exp -> Value
 encodeRessourcenart_comparison_exp input =
     Encode.maybeObject
         [ ( "_eq", (Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.optional input.eq_ ), ( "_gt", (Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.optional input.gt_ ), ( "_gte", (Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.optional input.gte_ ), ( "_in", ((Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.list) |> Encode.optional input.in_ ), ( "_is_null", Encode.bool |> Encode.optional input.is_null_ ), ( "_lt", (Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.optional input.lt_ ), ( "_lte", (Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.optional input.lte_ ), ( "_neq", (Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.optional input.neq_ ), ( "_nin", ((Database.ScalarCodecs.codecs |> Database.Scalar.unwrapEncoder .codecRessourcenart) |> Encode.list) |> Encode.optional input.nin_ ) ]
+
+
+buildSchulart_bool_exp :
+    (Schulart_bool_expOptionalFields -> Schulart_bool_expOptionalFields)
+    -> Schulart_bool_exp
+buildSchulart_bool_exp fillOptionals =
+    let
+        optionals =
+            fillOptionals
+                { and_ = Absent, not_ = Absent, or_ = Absent, bundesland = Absent, schulart = Absent }
+    in
+    Schulart_bool_exp { and_ = optionals.and_, not_ = optionals.not_, or_ = optionals.or_, bundesland = optionals.bundesland, schulart = optionals.schulart }
+
+
+type alias Schulart_bool_expOptionalFields =
+    { and_ : OptionalArgument (List (Maybe Schulart_bool_exp))
+    , not_ : OptionalArgument Schulart_bool_exp
+    , or_ : OptionalArgument (List (Maybe Schulart_bool_exp))
+    , bundesland : OptionalArgument Bundesland_comparison_exp
+    , schulart : OptionalArgument String_comparison_exp
+    }
+
+
+{-| Type alias for the `Schulart_bool_exp` attributes. Note that this type
+needs to use the `Schulart_bool_exp` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias Schulart_bool_expRaw =
+    { and_ : OptionalArgument (List (Maybe Schulart_bool_exp))
+    , not_ : OptionalArgument Schulart_bool_exp
+    , or_ : OptionalArgument (List (Maybe Schulart_bool_exp))
+    , bundesland : OptionalArgument Bundesland_comparison_exp
+    , schulart : OptionalArgument String_comparison_exp
+    }
+
+
+{-| Type for the Schulart\_bool\_exp input object.
+-}
+type Schulart_bool_exp
+    = Schulart_bool_exp Schulart_bool_expRaw
+
+
+{-| Encode a Schulart\_bool\_exp into a value that can be used as an argument.
+-}
+encodeSchulart_bool_exp : Schulart_bool_exp -> Value
+encodeSchulart_bool_exp (Schulart_bool_exp input) =
+    Encode.maybeObject
+        [ ( "_and", (encodeSchulart_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.and_ ), ( "_not", encodeSchulart_bool_exp |> Encode.optional input.not_ ), ( "_or", (encodeSchulart_bool_exp |> Encode.maybe |> Encode.list) |> Encode.optional input.or_ ), ( "bundesland", encodeBundesland_comparison_exp |> Encode.optional input.bundesland ), ( "schulart", encodeString_comparison_exp |> Encode.optional input.schulart ) ]
+
+
+buildSchulart_order_by :
+    (Schulart_order_byOptionalFields -> Schulart_order_byOptionalFields)
+    -> Schulart_order_by
+buildSchulart_order_by fillOptionals =
+    let
+        optionals =
+            fillOptionals
+                { bundesland = Absent, schulart = Absent }
+    in
+    { bundesland = optionals.bundesland, schulart = optionals.schulart }
+
+
+type alias Schulart_order_byOptionalFields =
+    { bundesland : OptionalArgument Database.Enum.Order_by.Order_by
+    , schulart : OptionalArgument Database.Enum.Order_by.Order_by
+    }
+
+
+{-| Type for the Schulart\_order\_by input object.
+-}
+type alias Schulart_order_by =
+    { bundesland : OptionalArgument Database.Enum.Order_by.Order_by
+    , schulart : OptionalArgument Database.Enum.Order_by.Order_by
+    }
+
+
+{-| Encode a Schulart\_order\_by into a value that can be used as an argument.
+-}
+encodeSchulart_order_by : Schulart_order_by -> Value
+encodeSchulart_order_by input =
+    Encode.maybeObject
+        [ ( "bundesland", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.bundesland ), ( "schulart", Encode.enum Database.Enum.Order_by.toString |> Encode.optional input.schulart ) ]
 
 
 buildSchulartenbedeutung_bool_exp :

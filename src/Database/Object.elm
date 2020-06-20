@@ -41,5 +41,9 @@ type Modulhierarchie
     = Modulhierarchie
 
 
+type Schulart
+    = Schulart
+
+
 type Schulartenbedeutung
     = Schulartenbedeutung

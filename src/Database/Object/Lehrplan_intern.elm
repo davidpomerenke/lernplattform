@@ -34,6 +34,15 @@ klassenstufe =
     Object.selectionForField "Int" "klassenstufe" [] Decode.int
 
 
+{-| An object relationship
+-}
+lehrplandetail :
+    SelectionSet decodesTo Database.Object.Lehrplandetails
+    -> SelectionSet decodesTo Database.Object.Lehrplan_intern
+lehrplandetail object_ =
+    Object.selectionForCompositeField "lehrplandetail" [] object_ identity
+
+
 lehrplanid : SelectionSet Int Database.Object.Lehrplan_intern
 lehrplanid =
     Object.selectionForField "Int" "lehrplanid" [] Decode.int

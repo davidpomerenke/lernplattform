@@ -1,6 +1,9 @@
-module Model exposing (HttpStatus(..), Model)
+module Model exposing (Model)
 
+import Graphql.Http
+import RemoteData exposing (RemoteData)
 import Set exposing (Set)
+
 
 type alias Model =
     { showDevWarning : Bool
@@ -9,18 +12,7 @@ type alias Model =
     , schulart : Maybe String
     , klassenstufen : Set Int
     , fächer : List String
-    , availableBundesland : HttpStatus (List String)
-    , availableSchulart : HttpStatus (List String)
-    , availableKlassenstufen : HttpStatus (List Int)
+    , availableBundesland : RemoteData (Graphql.Http.Error (List String)) (List String)
+    , availableSchulart : RemoteData (Graphql.Http.Error (List String)) (List String)
+    , availableKlassenstufen : RemoteData (Graphql.Http.Error (List Int)) (List Int)
     }
-
-
-
--- for status of a http request
-
-
-type HttpStatus result
-    = HttpNotRequested
-    | HttpFailure
-    | HttpLoading
-    | HttpSuccess result

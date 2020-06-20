@@ -4,7 +4,8 @@ import Browser
 import Helpers.Data exposing (availableBundesland)
 import Helpers.LocalStorage exposing (initWithStorage, updateWithStorage)
 import Messages exposing (Msg(..))
-import Model exposing (HttpStatus(..), Model)
+import Model exposing (Model)
+import RemoteData exposing (RemoteData(..))
 import Set
 import Update exposing (update)
 import View exposing (view)
@@ -31,10 +32,9 @@ initialModel =
     , schulart = Nothing
     , klassenstufen = Set.empty
     , fächer = []
-    , availableBundesland = availableBundesland
-    , availableSchulart =
-        HttpNotRequested
-    , availableKlassenstufen = HttpNotRequested
+    , availableBundesland = Success availableBundesland
+    , availableSchulart = NotAsked
+    , availableKlassenstufen = NotAsked
     }
 
 

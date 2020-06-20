@@ -1,10 +1,12 @@
 module Components.Form exposing (form)
 
+import Graphql.Http
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Messages exposing (Msg(..))
-import Model exposing (HttpStatus(..), Model)
+import Model exposing (Model)
+import RemoteData exposing (RemoteData(..))
 import Set
 
 
@@ -54,16 +56,16 @@ schulart model =
 klassenstufen : Model -> List (Html Msg)
 klassenstufen model =
     case model.availableKlassenstufen of
-        HttpNotRequested ->
+        NotAsked ->
             []
 
-        HttpFailure ->
+        Failure e ->
             [ text "Fehler!" ]
 
-        HttpLoading ->
+        Loading ->
             [ div [ class "loader" ] [] ]
 
-        HttpSuccess a ->
+        Success a ->
             a
                 |> List.map
                     (\b ->
@@ -83,23 +85,24 @@ klassenstufen model =
                     )
 
 
-select : String -> HttpStatus (List String) -> Maybe String -> (String -> Msg) -> Html Msg
-select name options value msg =
+select : String -> RemoteData (Graphql.Http.Error (List String)) (List String) -> Maybe String -> (String -> Msg) -> Html Msg
+select name options val msg =
     Html.select
         [ onInput msg, class "custom-select bg-primary text-white border-0" ]
-        (option [ disabled True, selected (value == Nothing) ] [ text name ]
-            :: (case options of
-                    HttpNotRequested ->
+        ([ option [ hidden True, selected (val == Nothing) ] [ text name ]
+         , option [ disabled True ] [ text name ]
+         ]
+            ++ (case options of
+                    NotAsked ->
                         []
 
-                    HttpFailure ->
-                        [ option [] [ text "Fehler!" ] ]
+                    Failure _ ->
+                        [ option [ disabled True ] [ text "Fehler!" ] ]
 
-                    HttpLoading ->
-                        [ option [] [ text "Loading ..." ] ]
+                    Loading ->
+                        [ option [ disabled True ] [ text "Loading ..." ] ]
 
-                    HttpSuccess a ->
-                        a
-                            |> List.map (\b -> option [ selected (Just b == value) ] [ text b ])
+                    Success a ->
+                        List.map (\b -> option [ selected (Just b == val) ] [ text b ]) a
                )
         )

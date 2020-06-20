@@ -5,10 +5,11 @@ import Json.Decode.Extra as D
 import Json.Decode.Pipeline exposing (hardcoded, required)
 import Json.Encode as E
 import Messages exposing (Msg)
-import Model exposing (Model, HttpStatus(..))
+import Model exposing (Model)
 import Set
 import Update exposing (update)
 import Helpers.Data exposing (availableBundesland)
+import RemoteData exposing (RemoteData(..))
 
 
 initWithStorage : Model -> List (Cmd Msg) -> D.Value -> ( Model, Cmd Msg )
@@ -68,6 +69,6 @@ decoder =
         |> required "schulart" (D.nullable D.string)
         |> required "klassenstufen" (D.set D.int)
         |> hardcoded []
-        |> hardcoded availableBundesland
-        |> hardcoded HttpNotRequested
-        |> hardcoded HttpNotRequested
+        |> hardcoded (Success availableBundesland)
+        |> hardcoded NotAsked
+        |> hardcoded NotAsked

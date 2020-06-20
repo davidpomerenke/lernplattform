@@ -1,19 +1,14 @@
 module Helpers.Data exposing (availableBundesland, schulartenOrder)
 
-import Model exposing (HttpStatus(..))
-
-
-
 -- hardcoded because it should be loaded immediately
 -- whereas other data needs only be available after some user interaction
 
 
-availableBundesland : HttpStatus (List String)
+availableBundesland : List String
 availableBundesland =
-    HttpSuccess
-        [ "Baden-Württemberg"
-        , "Bayern"
-        ]
+    [ "Baden-Württemberg"
+    , "Bayern"
+    ]
 
 
 

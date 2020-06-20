@@ -13,6 +13,7 @@ import Database.Enum.Material_select_column
 import Database.Enum.Materialzuordnung_select_column
 import Database.Enum.Module_select_column
 import Database.Enum.Modulhierarchie_select_column
+import Database.Enum.Schulart_select_column
 import Database.Enum.Schulartenbedeutung_select_column
 import Database.InputObject
 import Database.Interface
@@ -407,6 +408,40 @@ modulhierarchie fillInOptionals object_ =
                 |> List.filterMap identity
     in
     Object.selectionForCompositeField "modulhierarchie" optionalArgs object_ (identity >> Decode.list)
+
+
+type alias SchulartOptionalArguments =
+    { distinct_on : OptionalArgument (List Database.Enum.Schulart_select_column.Schulart_select_column)
+    , limit : OptionalArgument Int
+    , offset : OptionalArgument Int
+    , order_by : OptionalArgument (List Database.InputObject.Schulart_order_by)
+    , where_ : OptionalArgument Database.InputObject.Schulart_bool_exp
+    }
+
+
+{-| fetch data from the table: "schulart"
+
+  - distinct\_on - distinct select on columns
+  - limit - limit the number of rows returned
+  - offset - skip the first n rows. Use only with order\_by
+  - order\_by - sort the rows by one or more columns
+  - where\_ - filter the rows returned
+
+-}
+schulart :
+    (SchulartOptionalArguments -> SchulartOptionalArguments)
+    -> SelectionSet decodesTo Database.Object.Schulart
+    -> SelectionSet (List decodesTo) RootQuery
+schulart fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { distinct_on = Absent, limit = Absent, offset = Absent, order_by = Absent, where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "distinct_on" filledInOptionals.distinct_on (Encode.enum Database.Enum.Schulart_select_column.toString |> Encode.list), Argument.optional "limit" filledInOptionals.limit Encode.int, Argument.optional "offset" filledInOptionals.offset Encode.int, Argument.optional "order_by" filledInOptionals.order_by (Database.InputObject.encodeSchulart_order_by |> Encode.list), Argument.optional "where" filledInOptionals.where_ Database.InputObject.encodeSchulart_bool_exp ]
+                |> List.filterMap identity
+    in
+    Object.selectionForCompositeField "schulart" optionalArgs object_ (identity >> Decode.list)
 
 
 type alias SchulartenbedeutungOptionalArguments =
