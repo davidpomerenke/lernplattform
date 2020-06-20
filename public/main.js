@@ -8282,9 +8282,9 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 var $elm$html$Html$option = _VirtualDom_node('option');
 var $elm$html$Html$select = _VirtualDom_node('select');
 var $elm$html$Html$Attributes$selected = $elm$html$Html$Attributes$boolProperty('selected');
-var $author$project$Components$Form$select = F4(
-	function (name, options, val, msg) {
-		switch (options.$) {
+var $author$project$Components$Loader$withLoader = F2(
+	function (dynamicContent, html) {
+		switch (dynamicContent.$) {
 			case 'NotAsked':
 				return $elm$html$Html$text('');
 			case 'Failure':
@@ -8298,7 +8298,16 @@ var $author$project$Components$Form$select = F4(
 						]),
 					_List_Nil);
 			default:
-				var a = options.a;
+				var a = dynamicContent.a;
+				return html(a);
+		}
+	});
+var $author$project$Components$Form$select = F4(
+	function (name, options, val, msg) {
+		return A2(
+			$author$project$Components$Loader$withLoader,
+			options,
+			function (options_) {
 				return A2(
 					$elm$html$Html$select,
 					_List_fromArray(
@@ -8349,8 +8358,8 @@ var $author$project$Components$Form$select = F4(
 											$elm$html$Html$text(b)
 										]));
 							},
-							a)));
-		}
+							options_)));
+			});
 	});
 var $author$project$Components$Form$bundesland = function (model) {
 	return A4($author$project$Components$Form$select, 'Bundesland', model.availableBundesland, model.bundesland, $author$project$Messages$SetBundesland);
@@ -8375,48 +8384,33 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		$elm$json$Json$Decode$succeed(msg));
 };
 var $author$project$Components$Form$klassenstufen = function (model) {
-	var _v0 = model.availableKlassenstufen;
-	switch (_v0.$) {
-		case 'NotAsked':
-			return _List_Nil;
-		case 'Failure':
-			return _List_fromArray(
-				[
-					$elm$html$Html$text('Fehler!')
-				]);
-		case 'Loading':
-			return _List_fromArray(
-				[
-					A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('loader')
-						]),
-					_List_Nil)
-				]);
-		default:
-			var a = _v0.a;
+	return A2(
+		$author$project$Components$Loader$withLoader,
+		model.availableKlassenstufen,
+		function (availableKlassenstufen) {
 			return A2(
-				$elm$core$List$map,
-				function (b) {
-					return A2(
-						$elm$html$Html$button,
-						_List_fromArray(
-							[
-								$elm$html$Html$Events$onClick(
-								$author$project$Messages$ToggleKlassenstufe(b)),
-								$elm$html$Html$Attributes$class(
-								'klassenstufe btn btn-light border border-primary ' + (A2($elm$core$Set$member, b, model.klassenstufen) ? 'bg-primary text-white' : 'text-primary'))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(
-								$elm$core$String$fromInt(b))
-							]));
-				},
-				a);
-	}
+				$elm$html$Html$div,
+				_List_Nil,
+				A2(
+					$elm$core$List$map,
+					function (b) {
+						return A2(
+							$elm$html$Html$button,
+							_List_fromArray(
+								[
+									$elm$html$Html$Events$onClick(
+									$author$project$Messages$ToggleKlassenstufe(b)),
+									$elm$html$Html$Attributes$class(
+									'klassenstufe btn btn-light border border-primary ' + (A2($elm$core$Set$member, b, model.klassenstufen) ? 'bg-primary text-white' : 'text-primary'))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(
+									$elm$core$String$fromInt(b))
+								]));
+					},
+					availableKlassenstufen));
+		});
 };
 var $author$project$Messages$SetSchulart = function (a) {
 	return {$: 'SetSchulart', a: a};
@@ -8476,7 +8470,10 @@ var $author$project$Components$Form$form = function (model) {
 										_Utils_eq(model.schulart, $elm$core$Maybe$Nothing)),
 										$elm$html$Html$Attributes$class('btn-group col-auto my-2')
 									]),
-								$author$project$Components$Form$klassenstufen(model))
+								_List_fromArray(
+									[
+										$author$project$Components$Form$klassenstufen(model)
+									]))
 							])),
 						A2(
 						$elm$html$Html$button,

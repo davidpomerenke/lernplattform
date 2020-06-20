@@ -1,5 +1,6 @@
 module Components.Form exposing (form)
 
+import Components.Loader exposing (withLoader)
 import Graphql.Http
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -25,7 +26,7 @@ form model =
                         [ schulart model ]
                     , div
                         [ hidden (model.schulart == Nothing), class "btn-group col-auto my-2" ]
-                        (klassenstufen model)
+                        [ klassenstufen model ]
                     ]
                 , button
                     [ class "btn btn-success my-2" ]
@@ -53,21 +54,12 @@ schulart model =
     select "Schulart" model.availableSchulart model.schulart SetSchulart
 
 
-klassenstufen : Model -> List (Html Msg)
+klassenstufen : Model -> Html Msg
 klassenstufen model =
-    case model.availableKlassenstufen of
-        NotAsked ->
-            []
-
-        Failure _ ->
-            [ text "Fehler!" ]
-
-        Loading ->
-            [ div [ class "loader" ] [] ]
-
-        Success a ->
-            a
-                |> List.map
+    withLoader model.availableKlassenstufen
+        (\availableKlassenstufen ->
+            div []
+                (List.map
                     (\b ->
                         button
                             [ onClick (ToggleKlassenstufe b)
@@ -83,25 +75,20 @@ klassenstufen model =
                             ]
                             [ text (String.fromInt b) ]
                     )
+                    availableKlassenstufen
+                )
+        )
 
 
 select : String -> RemoteData (Graphql.Http.Error (List String)) (List String) -> Maybe String -> (String -> Msg) -> Html Msg
 select name options val msg =
-    case options of
-        NotAsked ->
-            text ""
-
-        Failure _ ->
-            text "Fehler!"
-
-        Loading ->
-            div [ class "loader" ] []
-
-        Success a ->
+    withLoader options
+        (\options_ ->
             Html.select
                 [ onInput msg, class "custom-select bg-primary text-white border-0" ]
                 ([ option [ hidden True, selected (val == Nothing) ] [ text name ]
                  , option [ disabled True ] [ text name ]
                  ]
-                    ++ List.map (\b -> option [ selected (Just b == val) ] [ text b ]) a
+                    ++ List.map (\b -> option [ selected (Just b == val) ] [ text b ]) options_
                 )
+        )
