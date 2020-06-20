@@ -8246,6 +8246,49 @@ var $author$project$Messages$ShowForm = {$: 'ShowForm'};
 var $author$project$Messages$SetBundesland = function (a) {
 	return {$: 'SetBundesland', a: a};
 };
+var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
+	function (index, predicate, list) {
+		findIndexHelp:
+		while (true) {
+			if (!list.b) {
+				return $elm$core$Maybe$Nothing;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (predicate(x)) {
+					return $elm$core$Maybe$Just(index);
+				} else {
+					var $temp$index = index + 1,
+						$temp$predicate = predicate,
+						$temp$list = xs;
+					index = $temp$index;
+					predicate = $temp$predicate;
+					list = $temp$list;
+					continue findIndexHelp;
+				}
+			}
+		}
+	});
+var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
+var $elm_community$list_extra$List$Extra$elemIndex = function (x) {
+	return $elm_community$list_extra$List$Extra$findIndex(
+		$elm$core$Basics$eq(x));
+};
+var $author$project$Helpers$Data$schulartenOrder = _List_fromArray(
+	['Grundschule', 'Hauptschule', 'Werkrealschule', 'Realschule (Grundlegendes Niveau)', 'Realschule (Mittleres Niveau)', 'Realschule', 'Wirtschaftsschule', 'Fachoberschule', 'Berufsoberschule', 'Gymnasium', 'Gemeinschaftsschule (Grundlegendes Niveau)', 'Gemeinschaftsschule (Mittleres Niveau)', 'Gemeinschaftsschule (Erweitertes Niveau)', 'Gemeinschaftsschule (Oberstufe)', 'Förderschule emotionale und soziale Entwicklung', 'Förderschule geistige Entwicklung', 'Förderschule Hören', 'Förderschule körperliche und motorische Entwicklung', 'Förderschule Lernen', 'Förderschule Sehen', 'Förderschule Sprache']);
+var $author$project$Helpers$Data$compareSchularten = F2(
+	function (a, b) {
+		return A2(
+			$elm$core$Basics$compare,
+			A2(
+				$elm$core$Maybe$withDefault,
+				0,
+				A2($elm_community$list_extra$List$Extra$elemIndex, a, $author$project$Helpers$Data$schulartenOrder)),
+			A2(
+				$elm$core$Maybe$withDefault,
+				1,
+				A2($elm_community$list_extra$List$Extra$elemIndex, b, $author$project$Helpers$Data$schulartenOrder)));
+	});
 var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
 var $elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
@@ -8282,6 +8325,7 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 var $elm$html$Html$option = _VirtualDom_node('option');
 var $elm$html$Html$select = _VirtualDom_node('select');
 var $elm$html$Html$Attributes$selected = $elm$html$Html$Attributes$boolProperty('selected');
+var $elm$core$List$sortWith = _List_sortWith;
 var $author$project$Components$Loader$withLoader = F2(
 	function (dynamicContent, html) {
 		switch (dynamicContent.$) {
@@ -8358,7 +8402,7 @@ var $author$project$Components$Form$select = F4(
 											$elm$html$Html$text(b)
 										]));
 							},
-							options_)));
+							A2($elm$core$List$sortWith, $author$project$Helpers$Data$compareSchularten, options_))));
 			});
 	});
 var $author$project$Components$Form$bundesland = function (model) {

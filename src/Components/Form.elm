@@ -9,6 +9,7 @@ import Messages exposing (Msg(..))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(..))
 import Set
+import Helpers.Data exposing (compareSchularten)
 
 
 form : Model -> Html Msg
@@ -80,7 +81,12 @@ klassenstufen model =
         )
 
 
-select : String -> RemoteData (Graphql.Http.Error (List String)) (List String) -> Maybe String -> (String -> Msg) -> Html Msg
+select :
+    String
+    -> RemoteData (Graphql.Http.Error (List String)) (List String)
+    -> Maybe String
+    -> (String -> Msg)
+    -> Html Msg
 select name options val msg =
     withLoader options
         (\options_ ->
@@ -89,6 +95,7 @@ select name options val msg =
                 ([ option [ hidden True, selected (val == Nothing) ] [ text name ]
                  , option [ disabled True ] [ text name ]
                  ]
-                    ++ List.map (\b -> option [ selected (Just b == val) ] [ text b ]) options_
+                    ++ List.map (\b -> option [ selected (Just b == val) ] [ text b ])
+                        (List.sortWith compareSchularten options_)
                 )
         )
