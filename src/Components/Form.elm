@@ -1,15 +1,14 @@
 module Components.Form exposing (form)
 
 import Components.Loader exposing (withLoader)
-import Graphql.Http
+import Helpers.Data exposing (compareSchularten)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Messages exposing (Msg(..))
 import Model exposing (Model)
-import RemoteData exposing (RemoteData(..))
+import RemoteData exposing (RemoteData(..), WebData)
 import Set
-import Helpers.Data exposing (compareSchularten)
 
 
 form : Model -> Html Msg
@@ -57,33 +56,34 @@ schulart model =
 
 klassenstufen : Model -> Html Msg
 klassenstufen model =
-    withLoader model.availableKlassenstufen
-        (\availableKlassenstufen ->
-            div []
-                (List.map
-                    (\b ->
-                        button
-                            [ onClick (ToggleKlassenstufe b)
-                            , class
-                                ("klassenstufe btn btn-light border border-primary "
-                                    ++ (if Set.member b model.klassenstufen then
-                                            "bg-primary text-white"
+    withLoader model.availableKlassenstufe
+        (\availableKlassenstufe ->
+            div [ class "btn-group" ]
+                (availableKlassenstufe
+                    |> List.sort
+                    |> List.map
+                        (\b ->
+                            button
+                                [ onClick (ToggleKlassenstufe b)
+                                , class
+                                    ("klassenstufe btn btn-light border border-primary "
+                                        ++ (if Set.member b model.klassenstufen then
+                                                "bg-primary text-white"
 
-                                        else
-                                            "text-primary"
-                                       )
-                                )
-                            ]
-                            [ text (String.fromInt b) ]
-                    )
-                    availableKlassenstufen
+                                            else
+                                                "text-primary"
+                                           )
+                                    )
+                                ]
+                                [ text (String.fromInt b) ]
+                        )
                 )
         )
 
 
 select :
     String
-    -> RemoteData (Graphql.Http.Error (List String)) (List String)
+    -> WebData (List String)
     -> Maybe String
     -> (String -> Msg)
     -> Html Msg

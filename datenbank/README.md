@@ -5,6 +5,14 @@
 ![Aufbau der Datenbank](../bilder/er-diagramm-dbeaver.png)
 Das Diagramm ist ein mit [DBeaver](https://dbeaver.io/) erstelltes Entity-Relationship-Diagramm. Siehe [datenbank/schema.sql](datenbank/schema.sql).
 
+## SQL-Schnittstelle
+
+SQL-Queries können per POST an `https://lernplattform.wiki/api/sql` geschickt werden. Sie werden mit Rolle `anonymous` ausgeführt, welche nur Leserechte hat.
+
+### Anwendungsbeispiel
+
+`TODO`
+
 ## GraphQL-Schnittstelle
 
 Die Datenbank steht Dritten per öffentlicher GraphQL-Schnittstelle unter `https://lernplattform-graphql.herokuapp.com/v1/graphql` zur Verfügung.
@@ -17,4 +25,4 @@ Ein einfaches Anwendungsbeispiel einer Javascript-Abfrage von einer Website aus 
 
 ## PostgREST-Schnittstelle
 
-Es wäre sinnvoll, auch eine PostgREST-Schnittstelle zur Verfügung zu stellen. Diese bedingt aber ein Upgrade bei Heroku von Hobby Dev auf Basic, so dass ein Benutzer mit ausschließlichen Leserechten angelegt werden kann.
+Bei Bedarf.

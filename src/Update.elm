@@ -1,6 +1,7 @@
 module Update exposing (update)
 
-import Helpers.GraphqlRequests exposing (makeSchulartRequest)
+import Helpers.HttpRequests exposing (makeRequest)
+import Json.Decode exposing (field, int, list, string)
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(..))
@@ -23,11 +24,33 @@ update msg model =
                 , klassenstufen = Set.empty
                 , availableSchulart = Loading
               }
-            , makeSchulartRequest bundesland
+            , makeRequest
+                ("select distinct schulart from lehrplan where bundesland = '" ++ bundesland ++ "';")
+                (list (field "schulart" string))
+                GotSchulartResponse
             )
 
         SetSchulart schulart ->
-            ( { model | schulart = Just schulart, klassenstufen = Set.empty }, Cmd.none )
+            case model.bundesland of
+                Nothing ->
+                    ( model, Cmd.none )
+
+                Just bundesland ->
+                    ( { model
+                        | schulart = Just schulart
+                        , klassenstufen = Set.empty
+                        , availableKlassenstufe = Loading
+                      }
+                    , makeRequest
+                        ("select distinct klassenstufe from lehrplan where bundesland = '"
+                            ++ bundesland
+                            ++ "' and schulart = '"
+                            ++ schulart
+                            ++ "';"
+                        )
+                        (list (field "klassenstufe" int))
+                        GotKlassenstufeResponse
+                    )
 
         ToggleKlassenstufe a ->
             let
@@ -46,5 +69,8 @@ update msg model =
               -- httpRequestFach newModel
             )
 
-        GotSchulartResponse response ->
-            ( { model | availableSchulart = response }, Cmd.none )
+        GotSchulartResponse schulart ->
+            ( { model | availableSchulart = schulart }, Cmd.none )
+
+        GotKlassenstufeResponse klassenstufe ->
+            ( { model | availableKlassenstufe = klassenstufe }, Cmd.none )

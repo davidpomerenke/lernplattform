@@ -4358,43 +4358,6 @@ function _Browser_load(url)
 
 
 
-var _Bitwise_and = F2(function(a, b)
-{
-	return a & b;
-});
-
-var _Bitwise_or = F2(function(a, b)
-{
-	return a | b;
-});
-
-var _Bitwise_xor = F2(function(a, b)
-{
-	return a ^ b;
-});
-
-function _Bitwise_complement(a)
-{
-	return ~a;
-};
-
-var _Bitwise_shiftLeftBy = F2(function(offset, a)
-{
-	return a << offset;
-});
-
-var _Bitwise_shiftRightBy = F2(function(offset, a)
-{
-	return a >> offset;
-});
-
-var _Bitwise_shiftRightZfBy = F2(function(offset, a)
-{
-	return a >>> offset;
-});
-
-
-
 // SEND REQUEST
 
 var _Http_toTask = F3(function(router, toTask, request)
@@ -4567,124 +4530,6 @@ function _Http_track(router, xhr, tracker)
 			size: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
 		}))));
 	});
-}
-
-// CREATE
-
-var _Regex_never = /.^/;
-
-var _Regex_fromStringWith = F2(function(options, string)
-{
-	var flags = 'g';
-	if (options.multiline) { flags += 'm'; }
-	if (options.caseInsensitive) { flags += 'i'; }
-
-	try
-	{
-		return $elm$core$Maybe$Just(new RegExp(string, flags));
-	}
-	catch(error)
-	{
-		return $elm$core$Maybe$Nothing;
-	}
-});
-
-
-// USE
-
-var _Regex_contains = F2(function(re, string)
-{
-	return string.match(re) !== null;
-});
-
-
-var _Regex_findAtMost = F3(function(n, re, str)
-{
-	var out = [];
-	var number = 0;
-	var string = str;
-	var lastIndex = re.lastIndex;
-	var prevLastIndex = -1;
-	var result;
-	while (number++ < n && (result = re.exec(string)))
-	{
-		if (prevLastIndex == re.lastIndex) break;
-		var i = result.length - 1;
-		var subs = new Array(i);
-		while (i > 0)
-		{
-			var submatch = result[i];
-			subs[--i] = submatch
-				? $elm$core$Maybe$Just(submatch)
-				: $elm$core$Maybe$Nothing;
-		}
-		out.push(A4($elm$regex$Regex$Match, result[0], result.index, number, _List_fromArray(subs)));
-		prevLastIndex = re.lastIndex;
-	}
-	re.lastIndex = lastIndex;
-	return _List_fromArray(out);
-});
-
-
-var _Regex_replaceAtMost = F4(function(n, re, replacer, string)
-{
-	var count = 0;
-	function jsReplacer(match)
-	{
-		if (count++ >= n)
-		{
-			return match;
-		}
-		var i = arguments.length - 3;
-		var submatches = new Array(i);
-		while (i > 0)
-		{
-			var submatch = arguments[i];
-			submatches[--i] = submatch
-				? $elm$core$Maybe$Just(submatch)
-				: $elm$core$Maybe$Nothing;
-		}
-		return replacer(A4($elm$regex$Regex$Match, match, arguments[arguments.length - 2], count, _List_fromArray(submatches)));
-	}
-	return string.replace(re, jsReplacer);
-});
-
-var _Regex_splitAtMost = F3(function(n, re, str)
-{
-	var string = str;
-	var out = [];
-	var start = re.lastIndex;
-	var restoreLastIndex = re.lastIndex;
-	while (n--)
-	{
-		var result = re.exec(string);
-		if (!result) break;
-		out.push(string.slice(start, result.index));
-		start = re.lastIndex;
-	}
-	out.push(string.slice(start));
-	re.lastIndex = restoreLastIndex;
-	return _List_fromArray(out);
-});
-
-var _Regex_infinity = Infinity;
-
-
-function _Url_percentEncode(string)
-{
-	return encodeURIComponent(string);
-}
-
-function _Url_percentDecode(string)
-{
-	try
-	{
-		return $elm$core$Maybe$Just(decodeURIComponent(string));
-	}
-	catch (e)
-	{
-		return $elm$core$Maybe$Nothing;
-	}
 }var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5477,8 +5322,8 @@ var $elm$browser$Browser$element = _Browser_element;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $author$project$Model$Model = F9(
-	function (showDevWarning, showForm, bundesland, schulart, klassenstufen, fächer, availableBundesland, availableSchulart, availableKlassenstufen) {
-		return {availableBundesland: availableBundesland, availableKlassenstufen: availableKlassenstufen, availableSchulart: availableSchulart, bundesland: bundesland, fächer: fächer, klassenstufen: klassenstufen, schulart: schulart, showDevWarning: showDevWarning, showForm: showForm};
+	function (showDevWarning, showForm, bundesland, schulart, klassenstufen, fächer, availableBundesland, availableSchulart, availableKlassenstufe) {
+		return {availableBundesland: availableBundesland, availableKlassenstufe: availableKlassenstufe, availableSchulart: availableSchulart, bundesland: bundesland, fächer: fächer, klassenstufen: klassenstufen, schulart: schulart, showDevWarning: showDevWarning, showForm: showForm};
 	});
 var $krisajenkins$remotedata$RemoteData$NotAsked = {$: 'NotAsked'};
 var $krisajenkins$remotedata$RemoteData$Success = function (a) {
@@ -5695,7 +5540,7 @@ var $author$project$Helpers$LocalStorage$initWithStorage = F3(
 var $author$project$Main$initialCommands = _List_Nil;
 var $author$project$Main$initialModel = {
 	availableBundesland: $krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableBundesland),
-	availableKlassenstufen: $krisajenkins$remotedata$RemoteData$NotAsked,
+	availableKlassenstufe: $krisajenkins$remotedata$RemoteData$NotAsked,
 	availableSchulart: $krisajenkins$remotedata$RemoteData$NotAsked,
 	bundesland: $elm$core$Maybe$Nothing,
 	fächer: _List_Nil,
@@ -5767,844 +5612,14 @@ var $author$project$Helpers$LocalStorage$encode = function (model) {
 			]));
 };
 var $author$project$Helpers$LocalStorage$setStorage = _Platform_outgoingPort('setStorage', $elm$core$Basics$identity);
-var $krisajenkins$remotedata$RemoteData$Loading = {$: 'Loading'};
+var $author$project$Messages$GotKlassenstufeResponse = function (a) {
+	return {$: 'GotKlassenstufeResponse', a: a};
+};
 var $author$project$Messages$GotSchulartResponse = function (a) {
 	return {$: 'GotSchulartResponse', a: a};
 };
-var $krisajenkins$remotedata$RemoteData$Failure = function (a) {
-	return {$: 'Failure', a: a};
-};
-var $krisajenkins$remotedata$RemoteData$fromResult = function (result) {
-	if (result.$ === 'Err') {
-		var e = result.a;
-		return $krisajenkins$remotedata$RemoteData$Failure(e);
-	} else {
-		var x = result.a;
-		return $krisajenkins$remotedata$RemoteData$Success(x);
-	}
-};
-var $dillonkearns$elm_graphql$Graphql$Http$Query = F2(
-	function (a, b) {
-		return {$: 'Query', a: a, b: b};
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$Request = function (a) {
-	return {$: 'Request', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Document$decoder = function (_v0) {
-	var fields = _v0.a;
-	var decoder_ = _v0.b;
-	return A2($elm$json$Json$Decode$field, 'data', decoder_);
-};
-var $dillonkearns$elm_graphql$Graphql$Http$queryRequest = F2(
-	function (baseUrl, query) {
-		return $dillonkearns$elm_graphql$Graphql$Http$Request(
-			{
-				baseUrl: baseUrl,
-				details: A2($dillonkearns$elm_graphql$Graphql$Http$Query, $elm$core$Maybe$Nothing, query),
-				expect: $dillonkearns$elm_graphql$Graphql$Document$decoder(query),
-				headers: _List_Nil,
-				operationName: $elm$core$Maybe$Nothing,
-				queryParams: _List_Nil,
-				timeout: $elm$core$Maybe$Nothing,
-				withCredentials: false
-			});
-	});
-var $dillonkearns$elm_graphql$Graphql$SelectionSet$SelectionSet = F2(
-	function (a, b) {
-		return {$: 'SelectionSet', a: a, b: b};
-	});
-var $elm$json$Json$Decode$andThen = _Json_andThen;
-var $elm$json$Json$Decode$fail = _Json_fail;
-var $dillonkearns$elm_graphql$Graphql$SelectionSet$nonNullOrFail = function (_v0) {
-	var fields = _v0.a;
-	var decoder = _v0.b;
-	return A2(
-		$dillonkearns$elm_graphql$Graphql$SelectionSet$SelectionSet,
-		fields,
-		A2(
-			$elm$json$Json$Decode$andThen,
-			function (result) {
-				if (result.$ === 'Just') {
-					var value = result.a;
-					return $elm$json$Json$Decode$succeed(value);
-				} else {
-					return $elm$json$Json$Decode$fail('Expected non-null but got null, check for calls to nonNullOrFail in your code. Ideally your schema should indicate that this is non-nullable so you don\'t need to use nonNullOrFail at all.');
-				}
-			},
-			decoder));
-};
-var $elm$core$Maybe$map = F2(
-	function (f, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return $elm$core$Maybe$Just(
-				f(value));
-		} else {
-			return $elm$core$Maybe$Nothing;
-		}
-	});
-var $elm$core$List$append = F2(
-	function (xs, ys) {
-		if (!ys.b) {
-			return xs;
-		} else {
-			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
-		}
-	});
-var $elm$core$String$concat = function (strings) {
-	return A2($elm$core$String$join, '', strings);
-};
-var $Skinney$murmur3$Murmur3$HashData = F4(
-	function (shift, seed, hash, charsProcessed) {
-		return {charsProcessed: charsProcessed, hash: hash, seed: seed, shift: shift};
-	});
-var $Skinney$murmur3$Murmur3$c1 = 3432918353;
-var $Skinney$murmur3$Murmur3$c2 = 461845907;
-var $elm$core$Bitwise$and = _Bitwise_and;
-var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
-var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
-var $Skinney$murmur3$Murmur3$multiplyBy = F2(
-	function (b, a) {
-		return ((a & 65535) * b) + ((((a >>> 16) * b) & 65535) << 16);
-	});
-var $elm$core$Basics$neq = _Utils_notEqual;
-var $elm$core$Bitwise$or = _Bitwise_or;
-var $Skinney$murmur3$Murmur3$rotlBy = F2(
-	function (b, a) {
-		return (a << b) | (a >>> (32 - b));
-	});
-var $elm$core$Bitwise$xor = _Bitwise_xor;
-var $Skinney$murmur3$Murmur3$finalize = function (data) {
-	var acc = (!(!data.hash)) ? (data.seed ^ A2(
-		$Skinney$murmur3$Murmur3$multiplyBy,
-		$Skinney$murmur3$Murmur3$c2,
-		A2(
-			$Skinney$murmur3$Murmur3$rotlBy,
-			15,
-			A2($Skinney$murmur3$Murmur3$multiplyBy, $Skinney$murmur3$Murmur3$c1, data.hash)))) : data.seed;
-	var h0 = acc ^ data.charsProcessed;
-	var h1 = A2($Skinney$murmur3$Murmur3$multiplyBy, 2246822507, h0 ^ (h0 >>> 16));
-	var h2 = A2($Skinney$murmur3$Murmur3$multiplyBy, 3266489909, h1 ^ (h1 >>> 13));
-	return (h2 ^ (h2 >>> 16)) >>> 0;
-};
-var $elm$core$String$foldl = _String_foldl;
-var $Skinney$murmur3$Murmur3$mix = F2(
-	function (h1, k1) {
-		return A2(
-			$Skinney$murmur3$Murmur3$multiplyBy,
-			5,
-			A2(
-				$Skinney$murmur3$Murmur3$rotlBy,
-				13,
-				h1 ^ A2(
-					$Skinney$murmur3$Murmur3$multiplyBy,
-					$Skinney$murmur3$Murmur3$c2,
-					A2(
-						$Skinney$murmur3$Murmur3$rotlBy,
-						15,
-						A2($Skinney$murmur3$Murmur3$multiplyBy, $Skinney$murmur3$Murmur3$c1, k1))))) + 3864292196;
-	});
-var $Skinney$murmur3$Murmur3$hashFold = F2(
-	function (c, data) {
-		var res = data.hash | ((255 & $elm$core$Char$toCode(c)) << data.shift);
-		var _v0 = data.shift;
-		if (_v0 === 24) {
-			return {
-				charsProcessed: data.charsProcessed + 1,
-				hash: 0,
-				seed: A2($Skinney$murmur3$Murmur3$mix, data.seed, res),
-				shift: 0
-			};
-		} else {
-			return {charsProcessed: data.charsProcessed + 1, hash: res, seed: data.seed, shift: data.shift + 8};
-		}
-	});
-var $Skinney$murmur3$Murmur3$hashString = F2(
-	function (seed, str) {
-		return $Skinney$murmur3$Murmur3$finalize(
-			A3(
-				$elm$core$String$foldl,
-				$Skinney$murmur3$Murmur3$hashFold,
-				A4($Skinney$murmur3$Murmur3$HashData, 0, seed, 0, 0),
-				str));
-	});
-var $elm$core$List$isEmpty = function (xs) {
-	if (!xs.b) {
-		return true;
-	} else {
-		return false;
-	}
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$serialize = function (value) {
-	switch (value.$) {
-		case 'EnumValue':
-			var enumValue = value.a;
-			return enumValue;
-		case 'Json':
-			var json = value.a;
-			return A2($elm$json$Json$Encode$encode, 0, json);
-		case 'List':
-			var values = value.a;
-			return '[' + (A2(
-				$elm$core$String$join,
-				', ',
-				A2($elm$core$List$map, $dillonkearns$elm_graphql$Graphql$Internal$Encode$serialize, values)) + ']');
-		default:
-			var keyValuePairs = value.a;
-			return '{' + (A2(
-				$elm$core$String$join,
-				', ',
-				A2(
-					$elm$core$List$map,
-					function (_v1) {
-						var key = _v1.a;
-						var objectValue = _v1.b;
-						return key + (': ' + $dillonkearns$elm_graphql$Graphql$Internal$Encode$serialize(objectValue));
-					},
-					keyValuePairs)) + '}');
-	}
-};
-var $dillonkearns$elm_graphql$Graphql$Document$Argument$argToString = function (_v0) {
-	var name = _v0.a;
-	var value = _v0.b;
-	return name + (': ' + $dillonkearns$elm_graphql$Graphql$Internal$Encode$serialize(value));
-};
-var $dillonkearns$elm_graphql$Graphql$Document$Argument$serialize = function (args) {
-	if (!args.b) {
-		return '';
-	} else {
-		var nonemptyArgs = args;
-		return '(' + (A2(
-			$elm$core$String$join,
-			', ',
-			A2($elm$core$List$map, $dillonkearns$elm_graphql$Graphql$Document$Argument$argToString, nonemptyArgs)) + ')');
-	}
-};
-var $elm$core$List$singleton = function (value) {
-	return _List_fromArray(
-		[value]);
-};
-var $dillonkearns$elm_graphql$Graphql$Document$Field$maybeAliasHash = function (field) {
-	return A2(
-		$elm$core$Maybe$map,
-		$Skinney$murmur3$Murmur3$hashString(0),
-		function () {
-			if (field.$ === 'Composite') {
-				var name = field.a;
-				var _arguments = field.b;
-				var children = field.c;
-				return $elm$core$List$isEmpty(_arguments) ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(
-					$dillonkearns$elm_graphql$Graphql$Document$Argument$serialize(_arguments));
-			} else {
-				var typeString = field.a.typeString;
-				var fieldName = field.a.fieldName;
-				var _arguments = field.b;
-				return (fieldName === '__typename') ? $elm$core$Maybe$Nothing : $elm$core$Maybe$Just(
-					$elm$core$String$concat(
-						A2(
-							$elm$core$List$append,
-							_List_fromArray(
-								[typeString]),
-							$elm$core$List$singleton(
-								$dillonkearns$elm_graphql$Graphql$Document$Argument$serialize(_arguments)))));
-			}
-		}());
-};
-var $dillonkearns$elm_graphql$Graphql$RawField$name = function (field) {
-	if (field.$ === 'Composite') {
-		var fieldName = field.a;
-		var argumentList = field.b;
-		var fieldList = field.c;
-		return fieldName;
-	} else {
-		var typeString = field.a.typeString;
-		var fieldName = field.a.fieldName;
-		var argumentList = field.b;
-		return fieldName;
-	}
-};
-var $dillonkearns$elm_graphql$Graphql$Document$Field$alias = function (field) {
-	return A2(
-		$elm$core$Maybe$map,
-		function (aliasHash) {
-			return _Utils_ap(
-				$dillonkearns$elm_graphql$Graphql$RawField$name(field),
-				$elm$core$String$fromInt(aliasHash));
-		},
-		$dillonkearns$elm_graphql$Graphql$Document$Field$maybeAliasHash(field));
-};
-var $dillonkearns$elm_graphql$Graphql$Document$Field$hashedAliasName = function (field) {
-	return A2(
-		$elm$core$Maybe$withDefault,
-		$dillonkearns$elm_graphql$Graphql$RawField$name(field),
-		$dillonkearns$elm_graphql$Graphql$Document$Field$alias(field));
-};
-var $dillonkearns$elm_graphql$Graphql$RawField$Leaf = F2(
-	function (a, b) {
-		return {$: 'Leaf', a: a, b: b};
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$leaf = F2(
-	function (details, args) {
-		return A2($dillonkearns$elm_graphql$Graphql$RawField$Leaf, details, args);
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$selectionForField = F4(
-	function (typeString, fieldName, args, decoder) {
-		var newLeaf = A2(
-			$dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$leaf,
-			{fieldName: fieldName, typeString: typeString},
-			args);
-		return A2(
-			$dillonkearns$elm_graphql$Graphql$SelectionSet$SelectionSet,
-			_List_fromArray(
-				[newLeaf]),
-			A2(
-				$elm$json$Json$Decode$field,
-				$dillonkearns$elm_graphql$Graphql$Document$Field$hashedAliasName(newLeaf),
-				decoder));
-	});
-var $author$project$Database$Object$Schulart$schulart = A4(
-	$dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$selectionForField,
-	'(Maybe String)',
-	'schulart',
-	_List_Nil,
-	$elm$json$Json$Decode$nullable($elm$json$Json$Decode$string));
-var $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent = {$: 'Absent'};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$Json = function (a) {
-	return {$: 'Json', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$bool = function (value) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$Json(
-		$elm$json$Json$Encode$bool(value));
-};
-var $author$project$Database$Scalar$Bundesland = function (a) {
-	return {$: 'Bundesland', a: a};
-};
-var $author$project$Database$Scalar$Date = function (a) {
-	return {$: 'Date', a: a};
-};
-var $author$project$Database$Scalar$Id = function (a) {
-	return {$: 'Id', a: a};
-};
-var $author$project$Database$Scalar$Ressourcenart = function (a) {
-	return {$: 'Ressourcenart', a: a};
-};
-var $elm$json$Json$Decode$float = _Json_decodeFloat;
-var $elm$core$String$fromFloat = _String_fromNumber;
-var $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$scalarDecoder = $elm$json$Json$Decode$oneOf(
-	_List_fromArray(
-		[
-			$elm$json$Json$Decode$string,
-			A2($elm$json$Json$Decode$map, $elm$core$String$fromFloat, $elm$json$Json$Decode$float),
-			A2($elm$json$Json$Decode$map, $elm$core$String$fromInt, $elm$json$Json$Decode$int),
-			A2(
-			$elm$json$Json$Decode$map,
-			function (bool) {
-				if (bool) {
-					return 'true';
-				} else {
-					return 'false';
-				}
-			},
-			$elm$json$Json$Decode$bool)
-		]));
-var $author$project$Database$Scalar$defaultCodecs = {
-	codecBundesland: {
-		decoder: A2($elm$json$Json$Decode$map, $author$project$Database$Scalar$Bundesland, $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$scalarDecoder),
-		encoder: function (_v0) {
-			var raw = _v0.a;
-			return $elm$json$Json$Encode$string(raw);
-		}
-	},
-	codecDate: {
-		decoder: A2($elm$json$Json$Decode$map, $author$project$Database$Scalar$Date, $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$scalarDecoder),
-		encoder: function (_v1) {
-			var raw = _v1.a;
-			return $elm$json$Json$Encode$string(raw);
-		}
-	},
-	codecId: {
-		decoder: A2($elm$json$Json$Decode$map, $author$project$Database$Scalar$Id, $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$scalarDecoder),
-		encoder: function (_v2) {
-			var raw = _v2.a;
-			return $elm$json$Json$Encode$string(raw);
-		}
-	},
-	codecRessourcenart: {
-		decoder: A2($elm$json$Json$Decode$map, $author$project$Database$Scalar$Ressourcenart, $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$scalarDecoder),
-		encoder: function (_v3) {
-			var raw = _v3.a;
-			return $elm$json$Json$Encode$string(raw);
-		}
-	}
-};
-var $author$project$Database$Scalar$Codecs = function (a) {
-	return {$: 'Codecs', a: a};
-};
-var $author$project$Database$Scalar$defineCodecs = function (definitions) {
-	return $author$project$Database$Scalar$Codecs(definitions);
-};
-var $author$project$Database$ScalarCodecs$codecs = $author$project$Database$Scalar$defineCodecs(
-	{codecBundesland: $author$project$Database$Scalar$defaultCodecs.codecBundesland, codecDate: $author$project$Database$Scalar$defaultCodecs.codecDate, codecId: $author$project$Database$Scalar$defaultCodecs.codecId, codecRessourcenart: $author$project$Database$Scalar$defaultCodecs.codecRessourcenart});
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$List = function (a) {
-	return {$: 'List', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$list = F2(
-	function (toValue, value) {
-		return $dillonkearns$elm_graphql$Graphql$Internal$Encode$List(
-			A2($elm$core$List$map, toValue, value));
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$Object = function (a) {
-	return {$: 'Object', a: a};
-};
-var $elm$core$List$maybeCons = F3(
-	function (f, mx, xs) {
-		var _v0 = f(mx);
-		if (_v0.$ === 'Just') {
-			var x = _v0.a;
-			return A2($elm$core$List$cons, x, xs);
-		} else {
-			return xs;
-		}
-	});
-var $elm$core$List$filterMap = F2(
-	function (f, xs) {
-		return A3(
-			$elm$core$List$foldr,
-			$elm$core$List$maybeCons(f),
-			_List_Nil,
-			xs);
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$maybeObject = function (maybeValues) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$Object(
-		A2(
-			$elm$core$List$filterMap,
-			function (_v0) {
-				var key = _v0.a;
-				var value = _v0.b;
-				if (value.$ === 'Just') {
-					var actualValue = value.a;
-					return $elm$core$Maybe$Just(
-						_Utils_Tuple2(key, actualValue));
-				} else {
-					return $elm$core$Maybe$Nothing;
-				}
-			},
-			maybeValues));
-};
-var $elm$json$Json$Encode$null = _Json_encodeNull;
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$null = $dillonkearns$elm_graphql$Graphql$Internal$Encode$Json($elm$json$Json$Encode$null);
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$optional = F2(
-	function (optionalValue, toValue) {
-		switch (optionalValue.$) {
-			case 'Present':
-				var value = optionalValue.a;
-				return $elm$core$Maybe$Just(
-					toValue(value));
-			case 'Absent':
-				return $elm$core$Maybe$Nothing;
-			default:
-				return $elm$core$Maybe$Just($dillonkearns$elm_graphql$Graphql$Internal$Encode$null);
-		}
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$fromJson = function (jsonValue) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$Json(jsonValue);
-};
-var $author$project$Database$Scalar$unwrapEncoder = F2(
-	function (getter, _v0) {
-		var unwrappedCodecs = _v0.a;
-		return A2(
-			$elm$core$Basics$composeR,
-			getter(unwrappedCodecs).encoder,
-			$dillonkearns$elm_graphql$Graphql$Internal$Encode$fromJson);
-	});
-var $author$project$Database$InputObject$encodeBundesland_comparison_exp = function (input) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$maybeObject(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'_eq',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.eq_,
-					A2(
-						$author$project$Database$Scalar$unwrapEncoder,
-						function ($) {
-							return $.codecBundesland;
-						},
-						$author$project$Database$ScalarCodecs$codecs))),
-				_Utils_Tuple2(
-				'_gt',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.gt_,
-					A2(
-						$author$project$Database$Scalar$unwrapEncoder,
-						function ($) {
-							return $.codecBundesland;
-						},
-						$author$project$Database$ScalarCodecs$codecs))),
-				_Utils_Tuple2(
-				'_gte',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.gte_,
-					A2(
-						$author$project$Database$Scalar$unwrapEncoder,
-						function ($) {
-							return $.codecBundesland;
-						},
-						$author$project$Database$ScalarCodecs$codecs))),
-				_Utils_Tuple2(
-				'_in',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.in_,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list(
-						A2(
-							$author$project$Database$Scalar$unwrapEncoder,
-							function ($) {
-								return $.codecBundesland;
-							},
-							$author$project$Database$ScalarCodecs$codecs)))),
-				_Utils_Tuple2(
-				'_is_null',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.is_null_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$bool)),
-				_Utils_Tuple2(
-				'_lt',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.lt_,
-					A2(
-						$author$project$Database$Scalar$unwrapEncoder,
-						function ($) {
-							return $.codecBundesland;
-						},
-						$author$project$Database$ScalarCodecs$codecs))),
-				_Utils_Tuple2(
-				'_lte',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.lte_,
-					A2(
-						$author$project$Database$Scalar$unwrapEncoder,
-						function ($) {
-							return $.codecBundesland;
-						},
-						$author$project$Database$ScalarCodecs$codecs))),
-				_Utils_Tuple2(
-				'_neq',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.neq_,
-					A2(
-						$author$project$Database$Scalar$unwrapEncoder,
-						function ($) {
-							return $.codecBundesland;
-						},
-						$author$project$Database$ScalarCodecs$codecs))),
-				_Utils_Tuple2(
-				'_nin',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.nin_,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list(
-						A2(
-							$author$project$Database$Scalar$unwrapEncoder,
-							function ($) {
-								return $.codecBundesland;
-							},
-							$author$project$Database$ScalarCodecs$codecs))))
-			]));
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$string = function (value) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$Json(
-		$elm$json$Json$Encode$string(value));
-};
-var $author$project$Database$InputObject$encodeString_comparison_exp = function (input) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$maybeObject(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'_eq',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.eq_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_gt',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.gt_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_gte',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.gte_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_ilike',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.ilike_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_in',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.in_,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list($dillonkearns$elm_graphql$Graphql$Internal$Encode$string))),
-				_Utils_Tuple2(
-				'_is_null',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.is_null_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$bool)),
-				_Utils_Tuple2(
-				'_like',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.like_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_lt',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.lt_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_lte',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.lte_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_neq',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.neq_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_nilike',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.nilike_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_nin',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.nin_,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list($dillonkearns$elm_graphql$Graphql$Internal$Encode$string))),
-				_Utils_Tuple2(
-				'_nlike',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.nlike_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_nsimilar',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.nsimilar_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string)),
-				_Utils_Tuple2(
-				'_similar',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.similar_, $dillonkearns$elm_graphql$Graphql$Internal$Encode$string))
-			]));
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$maybe = function (encoder) {
-	return A2(
-		$elm$core$Basics$composeR,
-		$elm$core$Maybe$map(encoder),
-		$elm$core$Maybe$withDefault($dillonkearns$elm_graphql$Graphql$Internal$Encode$null));
-};
-var $author$project$Database$InputObject$encodeSchulart_bool_exp = function (_v0) {
-	var input = _v0.a;
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$maybeObject(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'_and',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.and_,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list(
-						$dillonkearns$elm_graphql$Graphql$Internal$Encode$maybe($author$project$Database$InputObject$encodeSchulart_bool_exp)))),
-				_Utils_Tuple2(
-				'_not',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.not_, $author$project$Database$InputObject$encodeSchulart_bool_exp)),
-				_Utils_Tuple2(
-				'_or',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.or_,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list(
-						$dillonkearns$elm_graphql$Graphql$Internal$Encode$maybe($author$project$Database$InputObject$encodeSchulart_bool_exp)))),
-				_Utils_Tuple2(
-				'bundesland',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.bundesland, $author$project$Database$InputObject$encodeBundesland_comparison_exp)),
-				_Utils_Tuple2(
-				'schulart',
-				A2($dillonkearns$elm_graphql$Graphql$Internal$Encode$optional, input.schulart, $author$project$Database$InputObject$encodeString_comparison_exp))
-			]));
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$EnumValue = function (a) {
-	return {$: 'EnumValue', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$enum = F2(
-	function (enumToString, value) {
-		return $dillonkearns$elm_graphql$Graphql$Internal$Encode$EnumValue(
-			enumToString(value));
-	});
-var $author$project$Database$Enum$Order_by$toString = function (_enum) {
-	switch (_enum.$) {
-		case 'Asc':
-			return 'asc';
-		case 'Asc_nulls_first':
-			return 'asc_nulls_first';
-		case 'Asc_nulls_last':
-			return 'asc_nulls_last';
-		case 'Desc':
-			return 'desc';
-		case 'Desc_nulls_first':
-			return 'desc_nulls_first';
-		default:
-			return 'desc_nulls_last';
-	}
-};
-var $author$project$Database$InputObject$encodeSchulart_order_by = function (input) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$maybeObject(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'bundesland',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.bundesland,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$enum($author$project$Database$Enum$Order_by$toString))),
-				_Utils_Tuple2(
-				'schulart',
-				A2(
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$optional,
-					input.schulart,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$enum($author$project$Database$Enum$Order_by$toString)))
-			]));
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Encode$int = function (value) {
-	return $dillonkearns$elm_graphql$Graphql$Internal$Encode$Json(
-		$elm$json$Json$Encode$int(value));
-};
-var $dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$Argument = F2(
-	function (a, b) {
-		return {$: 'Argument', a: a, b: b};
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$optional = F3(
-	function (fieldName, maybeValue, toValue) {
-		switch (maybeValue.$) {
-			case 'Present':
-				var value = maybeValue.a;
-				return $elm$core$Maybe$Just(
-					A2(
-						$dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$Argument,
-						fieldName,
-						toValue(value)));
-			case 'Absent':
-				return $elm$core$Maybe$Nothing;
-			default:
-				return $elm$core$Maybe$Just(
-					A2($dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$Argument, fieldName, $dillonkearns$elm_graphql$Graphql$Internal$Encode$null));
-		}
-	});
-var $dillonkearns$elm_graphql$Graphql$RawField$Composite = F3(
-	function (a, b, c) {
-		return {$: 'Composite', a: a, b: b, c: c};
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$composite = F3(
-	function (fieldName, args, fields) {
-		return A3($dillonkearns$elm_graphql$Graphql$RawField$Composite, fieldName, args, fields);
-	});
-var $dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$selectionForCompositeField = F4(
-	function (fieldName, args, _v0, decoderTransform) {
-		var fields = _v0.a;
-		var decoder = _v0.b;
-		return A2(
-			$dillonkearns$elm_graphql$Graphql$SelectionSet$SelectionSet,
-			_List_fromArray(
-				[
-					A3($dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$composite, fieldName, args, fields)
-				]),
-			A2(
-				$elm$json$Json$Decode$field,
-				$dillonkearns$elm_graphql$Graphql$Document$Field$hashedAliasName(
-					A3($dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$composite, fieldName, args, fields)),
-				decoderTransform(decoder)));
-	});
-var $author$project$Database$Enum$Schulart_select_column$toString = function (_enum) {
-	if (_enum.$ === 'Bundesland') {
-		return 'bundesland';
-	} else {
-		return 'schulart';
-	}
-};
-var $author$project$Database$Query$schulart = F2(
-	function (fillInOptionals, object_) {
-		var filledInOptionals = fillInOptionals(
-			{distinct_on: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, limit: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, offset: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, order_by: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, where_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent});
-		var optionalArgs = A2(
-			$elm$core$List$filterMap,
-			$elm$core$Basics$identity,
-			_List_fromArray(
-				[
-					A3(
-					$dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$optional,
-					'distinct_on',
-					filledInOptionals.distinct_on,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list(
-						$dillonkearns$elm_graphql$Graphql$Internal$Encode$enum($author$project$Database$Enum$Schulart_select_column$toString))),
-					A3($dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$optional, 'limit', filledInOptionals.limit, $dillonkearns$elm_graphql$Graphql$Internal$Encode$int),
-					A3($dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$optional, 'offset', filledInOptionals.offset, $dillonkearns$elm_graphql$Graphql$Internal$Encode$int),
-					A3(
-					$dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$optional,
-					'order_by',
-					filledInOptionals.order_by,
-					$dillonkearns$elm_graphql$Graphql$Internal$Encode$list($author$project$Database$InputObject$encodeSchulart_order_by)),
-					A3($dillonkearns$elm_graphql$Graphql$Internal$Builder$Argument$optional, 'where', filledInOptionals.where_, $author$project$Database$InputObject$encodeSchulart_bool_exp)
-				]));
-		return A4(
-			$dillonkearns$elm_graphql$Graphql$Internal$Builder$Object$selectionForCompositeField,
-			'schulart',
-			optionalArgs,
-			object_,
-			A2($elm$core$Basics$composeR, $elm$core$Basics$identity, $elm$json$Json$Decode$list));
-	});
-var $dillonkearns$elm_graphql$Graphql$OptionalArgument$Present = function (a) {
-	return {$: 'Present', a: a};
-};
-var $author$project$Database$InputObject$Schulart_bool_exp = function (a) {
-	return {$: 'Schulart_bool_exp', a: a};
-};
-var $author$project$Database$InputObject$buildSchulart_bool_exp = function (fillOptionals) {
-	var optionals = fillOptionals(
-		{and_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, bundesland: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, not_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, or_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, schulart: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent});
-	return $author$project$Database$InputObject$Schulart_bool_exp(
-		{and_: optionals.and_, bundesland: optionals.bundesland, not_: optionals.not_, or_: optionals.or_, schulart: optionals.schulart});
-};
-var $author$project$Database$InputObject$buildBundesland_comparison_exp = function (fillOptionals) {
-	var optionals = fillOptionals(
-		{eq_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, gt_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, gte_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, in_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, is_null_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, lt_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, lte_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, neq_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent, nin_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Absent});
-	return {eq_: optionals.eq_, gt_: optionals.gt_, gte_: optionals.gte_, in_: optionals.in_, is_null_: optionals.is_null_, lt_: optionals.lt_, lte_: optionals.lte_, neq_: optionals.neq_, nin_: optionals.nin_};
-};
-var $author$project$Helpers$GraphqlRequests$equalToBundesland = function (string) {
-	return $dillonkearns$elm_graphql$Graphql$OptionalArgument$Present(
-		$author$project$Database$InputObject$buildBundesland_comparison_exp(
-			function (args) {
-				return _Utils_update(
-					args,
-					{
-						eq_: $dillonkearns$elm_graphql$Graphql$OptionalArgument$Present(
-							$author$project$Database$Scalar$Bundesland(string))
-					});
-			}));
-};
-var $author$project$Helpers$GraphqlRequests$whereBundesland = function (bundesland_) {
-	return $dillonkearns$elm_graphql$Graphql$OptionalArgument$Present(
-		$author$project$Database$InputObject$buildSchulart_bool_exp(
-			function (args) {
-				return _Utils_update(
-					args,
-					{
-						bundesland: $author$project$Helpers$GraphqlRequests$equalToBundesland(bundesland_)
-					});
-			}));
-};
-var $author$project$Helpers$GraphqlRequests$schulartOptionalArgument = F2(
-	function (bundesland, optionalArgs) {
-		return _Utils_update(
-			optionalArgs,
-			{
-				where_: $author$project$Helpers$GraphqlRequests$whereBundesland(bundesland)
-			});
-	});
-var $author$project$Helpers$GraphqlRequests$querySchulart = function (bundesland) {
-	return A2(
-		$author$project$Database$Query$schulart,
-		$author$project$Helpers$GraphqlRequests$schulartOptionalArgument(bundesland),
-		$dillonkearns$elm_graphql$Graphql$SelectionSet$nonNullOrFail($author$project$Database$Object$Schulart$schulart));
-};
-var $elm$http$Http$Request = function (a) {
-	return {$: 'Request', a: a};
-};
-var $elm$http$Http$State = F2(
-	function (reqs, subs) {
-		return {reqs: reqs, subs: subs};
-	});
-var $elm$http$Http$init = $elm$core$Task$succeed(
-	A2($elm$http$Http$State, $elm$core$Dict$empty, _List_Nil));
+var $krisajenkins$remotedata$RemoteData$Loading = {$: 'Loading'};
+var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $elm$http$Http$BadStatus_ = F2(
 	function (a, b) {
 		return {$: 'BadStatus_', a: a, b: b};
@@ -7036,6 +6051,93 @@ var $elm$core$Dict$update = F3(
 			return A2($elm$core$Dict$remove, targetKey, dictionary);
 		}
 	});
+var $elm$http$Http$expectStringResponse = F2(
+	function (toMsg, toResult) {
+		return A3(
+			_Http_expect,
+			'',
+			$elm$core$Basics$identity,
+			A2($elm$core$Basics$composeR, toResult, toMsg));
+	});
+var $elm$core$Result$mapError = F2(
+	function (f, result) {
+		if (result.$ === 'Ok') {
+			var v = result.a;
+			return $elm$core$Result$Ok(v);
+		} else {
+			var e = result.a;
+			return $elm$core$Result$Err(
+				f(e));
+		}
+	});
+var $elm$http$Http$BadBody = function (a) {
+	return {$: 'BadBody', a: a};
+};
+var $elm$http$Http$BadStatus = function (a) {
+	return {$: 'BadStatus', a: a};
+};
+var $elm$http$Http$BadUrl = function (a) {
+	return {$: 'BadUrl', a: a};
+};
+var $elm$http$Http$NetworkError = {$: 'NetworkError'};
+var $elm$http$Http$Timeout = {$: 'Timeout'};
+var $elm$http$Http$resolve = F2(
+	function (toResult, response) {
+		switch (response.$) {
+			case 'BadUrl_':
+				var url = response.a;
+				return $elm$core$Result$Err(
+					$elm$http$Http$BadUrl(url));
+			case 'Timeout_':
+				return $elm$core$Result$Err($elm$http$Http$Timeout);
+			case 'NetworkError_':
+				return $elm$core$Result$Err($elm$http$Http$NetworkError);
+			case 'BadStatus_':
+				var metadata = response.a;
+				return $elm$core$Result$Err(
+					$elm$http$Http$BadStatus(metadata.statusCode));
+			default:
+				var body = response.b;
+				return A2(
+					$elm$core$Result$mapError,
+					$elm$http$Http$BadBody,
+					toResult(body));
+		}
+	});
+var $elm$http$Http$expectJson = F2(
+	function (toMsg, decoder) {
+		return A2(
+			$elm$http$Http$expectStringResponse,
+			toMsg,
+			$elm$http$Http$resolve(
+				function (string) {
+					return A2(
+						$elm$core$Result$mapError,
+						$elm$json$Json$Decode$errorToString,
+						A2($elm$json$Json$Decode$decodeString, decoder, string));
+				}));
+	});
+var $krisajenkins$remotedata$RemoteData$Failure = function (a) {
+	return {$: 'Failure', a: a};
+};
+var $krisajenkins$remotedata$RemoteData$fromResult = function (result) {
+	if (result.$ === 'Err') {
+		var e = result.a;
+		return $krisajenkins$remotedata$RemoteData$Failure(e);
+	} else {
+		var x = result.a;
+		return $krisajenkins$remotedata$RemoteData$Success(x);
+	}
+};
+var $elm$http$Http$Request = function (a) {
+	return {$: 'Request', a: a};
+};
+var $elm$http$Http$State = F2(
+	function (reqs, subs) {
+		return {reqs: reqs, subs: subs};
+	});
+var $elm$http$Http$init = $elm$core$Task$succeed(
+	A2($elm$http$Http$State, $elm$core$Dict$empty, _List_Nil));
 var $elm$core$Process$kill = _Scheduler_kill;
 var $elm$core$Process$spawn = _Scheduler_spawn;
 var $elm$http$Http$updateReqs = F3(
@@ -7108,6 +6210,24 @@ var $elm$http$Http$onEffects = F4(
 			},
 			A3($elm$http$Http$updateReqs, router, cmds, state.reqs));
 	});
+var $elm$core$List$maybeCons = F3(
+	function (f, mx, xs) {
+		var _v0 = f(mx);
+		if (_v0.$ === 'Just') {
+			var x = _v0.a;
+			return A2($elm$core$List$cons, x, xs);
+		} else {
+			return xs;
+		}
+	});
+var $elm$core$List$filterMap = F2(
+	function (f, xs) {
+		return A3(
+			$elm$core$List$foldr,
+			$elm$core$List$maybeCons(f),
+			_List_Nil,
+			xs);
+	});
 var $elm$http$Http$maybeSend = F4(
 	function (router, desiredTracker, progress, _v0) {
 		var actualTracker = _v0.a;
@@ -7177,702 +6297,23 @@ var $elm$http$Http$request = function (r) {
 		$elm$http$Http$Request(
 			{allowCookiesFromOtherDomains: false, body: r.body, expect: r.expect, headers: r.headers, method: r.method, timeout: r.timeout, tracker: r.tracker, url: r.url}));
 };
-var $elm$http$Http$riskyRequest = function (r) {
-	return $elm$http$Http$command(
-		$elm$http$Http$Request(
-			{allowCookiesFromOtherDomains: true, body: r.body, expect: r.expect, headers: r.headers, method: r.method, timeout: r.timeout, tracker: r.tracker, url: r.url}));
+var $elm$http$Http$post = function (r) {
+	return $elm$http$Http$request(
+		{body: r.body, expect: r.expect, headers: _List_Nil, method: 'POST', timeout: $elm$core$Maybe$Nothing, tracker: $elm$core$Maybe$Nothing, url: r.url});
 };
-var $dillonkearns$elm_graphql$Graphql$Http$GraphqlError = F2(
-	function (a, b) {
-		return {$: 'GraphqlError', a: a, b: b};
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$HttpError = function (a) {
-	return {$: 'HttpError', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Http$convertResult = function (httpResult) {
-	if (httpResult.$ === 'Ok') {
-		var successOrError = httpResult.a;
-		if (successOrError.$ === 'Ok') {
-			var value = successOrError.a;
-			return $elm$core$Result$Ok(value);
-		} else {
-			var _v2 = successOrError.a;
-			var possiblyParsedData = _v2.a;
-			var error = _v2.b;
-			return $elm$core$Result$Err(
-				A2($dillonkearns$elm_graphql$Graphql$Http$GraphqlError, possiblyParsedData, error));
-		}
-	} else {
-		var httpError = httpResult.a;
-		return $elm$core$Result$Err(
-			$dillonkearns$elm_graphql$Graphql$Http$HttpError(httpError));
-	}
-};
-var $dillonkearns$elm_graphql$Graphql$Http$BadPayload = function (a) {
-	return {$: 'BadPayload', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Http$BadStatus = F2(
-	function (a, b) {
-		return {$: 'BadStatus', a: a, b: b};
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$BadUrl = function (a) {
-	return {$: 'BadUrl', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Http$NetworkError = {$: 'NetworkError'};
-var $dillonkearns$elm_graphql$Graphql$Http$Timeout = {$: 'Timeout'};
-var $elm$json$Json$Decode$decodeString = _Json_runOnString;
-var $elm$http$Http$expectStringResponse = F2(
-	function (toMsg, toResult) {
-		return A3(
-			_Http_expect,
-			'',
-			$elm$core$Basics$identity,
-			A2($elm$core$Basics$composeR, toResult, toMsg));
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$expectJson = F2(
-	function (toMsg, decoder) {
-		return A2(
-			$elm$http$Http$expectStringResponse,
-			toMsg,
-			function (response) {
-				switch (response.$) {
-					case 'BadUrl_':
-						var url = response.a;
-						return $elm$core$Result$Err(
-							$dillonkearns$elm_graphql$Graphql$Http$BadUrl(url));
-					case 'Timeout_':
-						return $elm$core$Result$Err($dillonkearns$elm_graphql$Graphql$Http$Timeout);
-					case 'NetworkError_':
-						return $elm$core$Result$Err($dillonkearns$elm_graphql$Graphql$Http$NetworkError);
-					case 'BadStatus_':
-						var metadata = response.a;
-						var body = response.b;
-						return $elm$core$Result$Err(
-							A2($dillonkearns$elm_graphql$Graphql$Http$BadStatus, metadata, body));
-					default:
-						var metadata = response.a;
-						var body = response.b;
-						var _v1 = A2($elm$json$Json$Decode$decodeString, decoder, body);
-						if (_v1.$ === 'Ok') {
-							var value = _v1.a;
-							return $elm$core$Result$Ok(value);
-						} else {
-							var err = _v1.a;
-							return $elm$core$Result$Err(
-								$dillonkearns$elm_graphql$Graphql$Http$BadPayload(err));
-						}
-				}
+var $elm$http$Http$stringBody = _Http_pair;
+var $author$project$Helpers$HttpRequests$makeRequest = F3(
+	function (request, decoder, msg) {
+		return $elm$http$Http$post(
+			{
+				body: A2($elm$http$Http$stringBody, 'text/plain', request),
+				expect: A2(
+					$elm$http$Http$expectJson,
+					A2($elm$core$Basics$composeR, $krisajenkins$remotedata$RemoteData$fromResult, msg),
+					decoder),
+				url: '/api/sql'
 			});
 	});
-var $dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Get = {$: 'Get'};
-var $dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Post = {$: 'Post'};
-var $elm$http$Http$emptyBody = _Http_emptyBody;
-var $elm$core$Basics$ge = _Utils_ge;
-var $elm$http$Http$jsonBody = function (value) {
-	return A2(
-		_Http_pair,
-		'application/json',
-		A2($elm$json$Json$Encode$encode, 0, value));
-};
-var $dillonkearns$elm_graphql$Graphql$Http$QueryHelper$maxLength = 2000;
-var $elm$core$Maybe$andThen = F2(
-	function (callback, maybeValue) {
-		if (maybeValue.$ === 'Just') {
-			var value = maybeValue.a;
-			return callback(value);
-		} else {
-			return $elm$core$Maybe$Nothing;
-		}
-	});
-var $elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
-var $elm$core$Basics$negate = function (n) {
-	return -n;
-};
-var $elm$core$String$dropRight = F2(
-	function (n, string) {
-		return (n < 1) ? string : A3($elm$core$String$slice, 0, -n, string);
-	});
-var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
-var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
-var $elm$core$Array$getHelp = F3(
-	function (shift, index, tree) {
-		getHelp:
-		while (true) {
-			var pos = $elm$core$Array$bitMask & (index >>> shift);
-			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_v0.$ === 'SubTree') {
-				var subTree = _v0.a;
-				var $temp$shift = shift - $elm$core$Array$shiftStep,
-					$temp$index = index,
-					$temp$tree = subTree;
-				shift = $temp$shift;
-				index = $temp$index;
-				tree = $temp$tree;
-				continue getHelp;
-			} else {
-				var values = _v0.a;
-				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
-			}
-		}
-	});
-var $elm$core$Array$tailIndex = function (len) {
-	return (len >>> 5) << 5;
-};
-var $elm$core$Array$get = F2(
-	function (index, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
-			index,
-			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
-			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
-			A3($elm$core$Array$getHelp, startShift, index, tree)));
-	});
-var $lukewestby$elm_string_interpolate$String$Interpolate$applyInterpolation = F2(
-	function (replacements, _v0) {
-		var match = _v0.match;
-		var ordinalString = A2(
-			$elm$core$Basics$composeL,
-			$elm$core$String$dropLeft(1),
-			$elm$core$String$dropRight(1))(match);
-		return A2(
-			$elm$core$Maybe$withDefault,
-			'',
-			A2(
-				$elm$core$Maybe$andThen,
-				function (value) {
-					return A2($elm$core$Array$get, value, replacements);
-				},
-				$elm$core$String$toInt(ordinalString)));
-	});
-var $elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
-			var jsArray = _v0.a;
-			var remainingItems = _v0.b;
-			if (_Utils_cmp(
-				$elm$core$Elm$JsArray$length(jsArray),
-				$elm$core$Array$branchFactor) < 0) {
-				return A2(
-					$elm$core$Array$builderToArray,
-					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					$elm$core$List$cons,
-					$elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
-		}
-	});
-var $elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return $elm$core$Array$empty;
-	} else {
-		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
-	}
-};
-var $elm$regex$Regex$Match = F4(
-	function (match, index, number, submatches) {
-		return {index: index, match: match, number: number, submatches: submatches};
-	});
-var $elm$regex$Regex$fromStringWith = _Regex_fromStringWith;
-var $elm$regex$Regex$fromString = function (string) {
-	return A2(
-		$elm$regex$Regex$fromStringWith,
-		{caseInsensitive: false, multiline: false},
-		string);
-};
-var $elm$regex$Regex$never = _Regex_never;
-var $lukewestby$elm_string_interpolate$String$Interpolate$interpolationRegex = A2(
-	$elm$core$Maybe$withDefault,
-	$elm$regex$Regex$never,
-	$elm$regex$Regex$fromString('\\{\\d+\\}'));
-var $elm$regex$Regex$replace = _Regex_replaceAtMost(_Regex_infinity);
-var $lukewestby$elm_string_interpolate$String$Interpolate$interpolate = F2(
-	function (string, args) {
-		var asArray = $elm$core$Array$fromList(args);
-		return A3(
-			$elm$regex$Regex$replace,
-			$lukewestby$elm_string_interpolate$String$Interpolate$interpolationRegex,
-			$lukewestby$elm_string_interpolate$String$Interpolate$applyInterpolation(asArray),
-			string);
-	});
-var $dillonkearns$elm_graphql$Graphql$Document$Indent$spaces = function (n) {
-	return (n > 0) ? (' ' + $dillonkearns$elm_graphql$Graphql$Document$Indent$spaces(n - 1)) : '';
-};
-var $dillonkearns$elm_graphql$Graphql$Document$Indent$generate = function (indentationLevel) {
-	return $dillonkearns$elm_graphql$Graphql$Document$Indent$spaces(indentationLevel * 2);
-};
-var $dillonkearns$elm_graphql$Graphql$RawField$typename = A2(
-	$dillonkearns$elm_graphql$Graphql$RawField$Leaf,
-	{fieldName: '__typename', typeString: ''},
-	_List_Nil);
-var $dillonkearns$elm_graphql$Graphql$Document$Field$nonemptyChildren = function (children) {
-	return $elm$core$List$isEmpty(children) ? A2($elm$core$List$cons, $dillonkearns$elm_graphql$Graphql$RawField$typename, children) : children;
-};
-var $dillonkearns$elm_graphql$Graphql$Document$Field$serialize = F3(
-	function (aliasName, mIndentationLevel, field) {
-		var prefix = function () {
-			if (aliasName.$ === 'Just') {
-				var aliasName_ = aliasName.a;
-				return _Utils_ap(
-					aliasName_,
-					function () {
-						if (mIndentationLevel.$ === 'Just') {
-							return ': ';
-						} else {
-							return ':';
-						}
-					}());
-			} else {
-				return '';
-			}
-		}();
-		return A2(
-			$elm$core$Maybe$map,
-			function (string) {
-				return _Utils_ap(
-					$dillonkearns$elm_graphql$Graphql$Document$Indent$generate(
-						A2($elm$core$Maybe$withDefault, 0, mIndentationLevel)),
-					_Utils_ap(prefix, string));
-			},
-			function () {
-				if (field.$ === 'Composite') {
-					var fieldName = field.a;
-					var args = field.b;
-					var children = field.c;
-					if (mIndentationLevel.$ === 'Nothing') {
-						return $elm$core$Maybe$Just(
-							(fieldName + ($dillonkearns$elm_graphql$Graphql$Document$Argument$serialize(args) + ('{' + A2($dillonkearns$elm_graphql$Graphql$Document$Field$serializeChildren, $elm$core$Maybe$Nothing, children)))) + '}');
-					} else {
-						var indentationLevel = mIndentationLevel.a;
-						return $elm$core$Maybe$Just(
-							(fieldName + ($dillonkearns$elm_graphql$Graphql$Document$Argument$serialize(args) + (' {\n' + A2(
-								$dillonkearns$elm_graphql$Graphql$Document$Field$serializeChildren,
-								$elm$core$Maybe$Just(indentationLevel),
-								children)))) + ('\n' + ($dillonkearns$elm_graphql$Graphql$Document$Indent$generate(indentationLevel) + '}')));
-					}
-				} else {
-					var fieldName = field.a.fieldName;
-					var args = field.b;
-					return $elm$core$Maybe$Just(
-						_Utils_ap(
-							fieldName,
-							$dillonkearns$elm_graphql$Graphql$Document$Argument$serialize(args)));
-				}
-			}());
-	});
-var $dillonkearns$elm_graphql$Graphql$Document$Field$serializeChildren = F2(
-	function (indentationLevel, children) {
-		return A2(
-			$elm$core$String$join,
-			function () {
-				if (indentationLevel.$ === 'Just') {
-					return '\n';
-				} else {
-					return ' ';
-				}
-			}(),
-			A2(
-				$elm$core$List$filterMap,
-				$elm$core$Basics$identity,
-				A2(
-					$elm$core$List$indexedMap,
-					F2(
-						function (index, field) {
-							return A3(
-								$dillonkearns$elm_graphql$Graphql$Document$Field$serialize,
-								$dillonkearns$elm_graphql$Graphql$Document$Field$alias(field),
-								A2(
-									$elm$core$Maybe$map,
-									$elm$core$Basics$add(1),
-									indentationLevel),
-								field);
-						}),
-					$dillonkearns$elm_graphql$Graphql$Document$Field$nonemptyChildren(children))));
-	});
-var $dillonkearns$elm_graphql$Graphql$Document$serialize = F2(
-	function (operationType, queries) {
-		return A2(
-			$lukewestby$elm_string_interpolate$String$Interpolate$interpolate,
-			'{0} {\n{1}\n}',
-			_List_fromArray(
-				[
-					operationType,
-					A2(
-					$dillonkearns$elm_graphql$Graphql$Document$Field$serializeChildren,
-					$elm$core$Maybe$Just(0),
-					queries)
-				]));
-	});
-var $dillonkearns$elm_graphql$Graphql$Document$serializeQuery = function (_v0) {
-	var fields = _v0.a;
-	var decoder_ = _v0.b;
-	return A2($dillonkearns$elm_graphql$Graphql$Document$serialize, 'query', fields);
-};
-var $dillonkearns$elm_graphql$Graphql$Document$serializeQueryForUrl = function (_v0) {
-	var fields = _v0.a;
-	var decoder_ = _v0.b;
-	return '{' + (A2($dillonkearns$elm_graphql$Graphql$Document$Field$serializeChildren, $elm$core$Maybe$Nothing, fields) + '}');
-};
-var $dillonkearns$elm_graphql$Graphql$Document$serializeQueryForUrlWithOperationName = F2(
-	function (operationName, _v0) {
-		var fields = _v0.a;
-		var decoder_ = _v0.b;
-		return 'query ' + (operationName + (' {' + (A2($dillonkearns$elm_graphql$Graphql$Document$Field$serializeChildren, $elm$core$Maybe$Nothing, fields) + '}')));
-	});
-var $dillonkearns$elm_graphql$Graphql$Document$serializeWithOperationName = F3(
-	function (operationType, operationName, queries) {
-		return A2(
-			$lukewestby$elm_string_interpolate$String$Interpolate$interpolate,
-			'{0} {1} {\n{2}\n}',
-			_List_fromArray(
-				[
-					operationType,
-					operationName,
-					A2(
-					$dillonkearns$elm_graphql$Graphql$Document$Field$serializeChildren,
-					$elm$core$Maybe$Just(0),
-					queries)
-				]));
-	});
-var $dillonkearns$elm_graphql$Graphql$Document$serializeQueryWithOperationName = F2(
-	function (operationName, _v0) {
-		var fields = _v0.a;
-		var decoder_ = _v0.b;
-		return A3($dillonkearns$elm_graphql$Graphql$Document$serializeWithOperationName, 'query', operationName, fields);
-	});
-var $elm$url$Url$percentEncode = _Url_percentEncode;
-var $dillonkearns$elm_graphql$Graphql$Http$QueryParams$replace = F2(
-	function (old, _new) {
-		return A2(
-			$elm$core$Basics$composeR,
-			$elm$core$String$split(old),
-			$elm$core$String$join(_new));
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$QueryParams$queryEscape = A2(
-	$elm$core$Basics$composeR,
-	$elm$url$Url$percentEncode,
-	A2($dillonkearns$elm_graphql$Graphql$Http$QueryParams$replace, '%20', '+'));
-var $dillonkearns$elm_graphql$Graphql$Http$QueryParams$queryPair = function (_v0) {
-	var key = _v0.a;
-	var value = _v0.b;
-	return $dillonkearns$elm_graphql$Graphql$Http$QueryParams$queryEscape(key) + ('=' + $dillonkearns$elm_graphql$Graphql$Http$QueryParams$queryEscape(value));
-};
-var $dillonkearns$elm_graphql$Graphql$Http$QueryParams$joinUrlEncoded = function (args) {
-	return A2(
-		$elm$core$String$join,
-		'&',
-		A2($elm$core$List$map, $dillonkearns$elm_graphql$Graphql$Http$QueryParams$queryPair, args));
-};
-var $dillonkearns$elm_graphql$Graphql$Http$QueryParams$urlWithQueryParams = F2(
-	function (queryParams, url) {
-		return $elm$core$List$isEmpty(queryParams) ? url : (url + ('?' + $dillonkearns$elm_graphql$Graphql$Http$QueryParams$joinUrlEncoded(queryParams)));
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$QueryHelper$build = F5(
-	function (forceMethod, url, queryParams, maybeOperationName, queryDocument) {
-		var serializedQueryForGetRequest = function () {
-			if (maybeOperationName.$ === 'Just') {
-				var operationName = maybeOperationName.a;
-				return A2($dillonkearns$elm_graphql$Graphql$Document$serializeQueryForUrlWithOperationName, operationName, queryDocument);
-			} else {
-				return $dillonkearns$elm_graphql$Graphql$Document$serializeQueryForUrl(queryDocument);
-			}
-		}();
-		var urlForGetRequest = A2(
-			$dillonkearns$elm_graphql$Graphql$Http$QueryParams$urlWithQueryParams,
-			_Utils_ap(
-				queryParams,
-				_List_fromArray(
-					[
-						_Utils_Tuple2('query', serializedQueryForGetRequest)
-					])),
-			url);
-		if (_Utils_eq(
-			forceMethod,
-			$elm$core$Maybe$Just($dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Post)) || ((_Utils_cmp(
-			$elm$core$String$length(urlForGetRequest),
-			$dillonkearns$elm_graphql$Graphql$Http$QueryHelper$maxLength) > -1) && (!_Utils_eq(
-			forceMethod,
-			$elm$core$Maybe$Just($dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Get))))) {
-			var serializedQuery = function () {
-				if (maybeOperationName.$ === 'Just') {
-					var operationName = maybeOperationName.a;
-					return A2($dillonkearns$elm_graphql$Graphql$Document$serializeQueryWithOperationName, operationName, queryDocument);
-				} else {
-					return $dillonkearns$elm_graphql$Graphql$Document$serializeQuery(queryDocument);
-				}
-			}();
-			return {
-				body: $elm$http$Http$jsonBody(
-					$elm$json$Json$Encode$object(
-						_List_fromArray(
-							[
-								_Utils_Tuple2(
-								'query',
-								$elm$json$Json$Encode$string(serializedQuery))
-							]))),
-				method: $dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Post,
-				url: A2($dillonkearns$elm_graphql$Graphql$Http$QueryParams$urlWithQueryParams, _List_Nil, url)
-			};
-		} else {
-			return {body: $elm$http$Http$emptyBody, method: $dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Get, url: urlForGetRequest};
-		}
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$GraphqlError$ParsedData = function (a) {
-	return {$: 'ParsedData', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Http$GraphqlError$UnparsedData = function (a) {
-	return {$: 'UnparsedData', a: a};
-};
-var $dillonkearns$elm_graphql$Graphql$Http$GraphqlError$GraphqlError = F3(
-	function (message, locations, details) {
-		return {details: details, locations: locations, message: message};
-	});
-var $elm$core$Dict$fromList = function (assocs) {
-	return A3(
-		$elm$core$List$foldl,
-		F2(
-			function (_v0, dict) {
-				var key = _v0.a;
-				var value = _v0.b;
-				return A3($elm$core$Dict$insert, key, value, dict);
-			}),
-		$elm$core$Dict$empty,
-		assocs);
-};
-var $elm$json$Json$Decode$keyValuePairs = _Json_decodeKeyValuePairs;
-var $elm$json$Json$Decode$dict = function (decoder) {
-	return A2(
-		$elm$json$Json$Decode$map,
-		$elm$core$Dict$fromList,
-		$elm$json$Json$Decode$keyValuePairs(decoder));
-};
-var $dillonkearns$elm_graphql$Graphql$Http$GraphqlError$Location = F2(
-	function (line, column) {
-		return {column: column, line: line};
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$GraphqlError$locationDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$dillonkearns$elm_graphql$Graphql$Http$GraphqlError$Location,
-	A2($elm$json$Json$Decode$field, 'line', $elm$json$Json$Decode$int),
-	A2($elm$json$Json$Decode$field, 'column', $elm$json$Json$Decode$int));
-var $elm$json$Json$Decode$map3 = _Json_map3;
-var $elm$json$Json$Decode$maybe = function (decoder) {
-	return $elm$json$Json$Decode$oneOf(
-		_List_fromArray(
-			[
-				A2($elm$json$Json$Decode$map, $elm$core$Maybe$Just, decoder),
-				$elm$json$Json$Decode$succeed($elm$core$Maybe$Nothing)
-			]));
-};
-var $elm$json$Json$Decode$value = _Json_decodeValue;
-var $dillonkearns$elm_graphql$Graphql$Http$GraphqlError$decoder = A2(
-	$elm$json$Json$Decode$field,
-	'errors',
-	$elm$json$Json$Decode$list(
-		A4(
-			$elm$json$Json$Decode$map3,
-			$dillonkearns$elm_graphql$Graphql$Http$GraphqlError$GraphqlError,
-			A2($elm$json$Json$Decode$field, 'message', $elm$json$Json$Decode$string),
-			$elm$json$Json$Decode$maybe(
-				A2(
-					$elm$json$Json$Decode$field,
-					'locations',
-					$elm$json$Json$Decode$list($dillonkearns$elm_graphql$Graphql$Http$GraphqlError$locationDecoder))),
-			A2(
-				$elm$json$Json$Decode$map,
-				$elm$core$Dict$remove('locations'),
-				A2(
-					$elm$json$Json$Decode$map,
-					$elm$core$Dict$remove('message'),
-					$elm$json$Json$Decode$dict($elm$json$Json$Decode$value))))));
-var $elm$core$Tuple$pair = F2(
-	function (a, b) {
-		return _Utils_Tuple2(a, b);
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$decodeErrorWithData = function (data) {
-	return A2(
-		$elm$json$Json$Decode$map,
-		$elm$core$Result$Err,
-		A2(
-			$elm$json$Json$Decode$map,
-			$elm$core$Tuple$pair(data),
-			$dillonkearns$elm_graphql$Graphql$Http$GraphqlError$decoder));
-};
-var $dillonkearns$elm_graphql$Graphql$Http$nullJsonValue = function (a) {
-	nullJsonValue:
-	while (true) {
-		var _v0 = A2($elm$json$Json$Decode$decodeString, $elm$json$Json$Decode$value, 'null');
-		if (_v0.$ === 'Ok') {
-			var value = _v0.a;
-			return value;
-		} else {
-			var $temp$a = _Utils_Tuple0;
-			a = $temp$a;
-			continue nullJsonValue;
-		}
-	}
-};
-var $dillonkearns$elm_graphql$Graphql$Http$errorDecoder = function (decoder) {
-	return $elm$json$Json$Decode$oneOf(
-		_List_fromArray(
-			[
-				A2(
-				$elm$json$Json$Decode$andThen,
-				$dillonkearns$elm_graphql$Graphql$Http$decodeErrorWithData,
-				A2($elm$json$Json$Decode$map, $dillonkearns$elm_graphql$Graphql$Http$GraphqlError$ParsedData, decoder)),
-				A2(
-				$elm$json$Json$Decode$andThen,
-				$dillonkearns$elm_graphql$Graphql$Http$decodeErrorWithData,
-				A2(
-					$elm$json$Json$Decode$map,
-					$dillonkearns$elm_graphql$Graphql$Http$GraphqlError$UnparsedData,
-					A2($elm$json$Json$Decode$field, 'data', $elm$json$Json$Decode$value))),
-				A2(
-				$elm$json$Json$Decode$andThen,
-				$dillonkearns$elm_graphql$Graphql$Http$decodeErrorWithData,
-				$elm$json$Json$Decode$succeed(
-					$dillonkearns$elm_graphql$Graphql$Http$GraphqlError$UnparsedData(
-						$dillonkearns$elm_graphql$Graphql$Http$nullJsonValue(_Utils_Tuple0))))
-			]));
-};
-var $dillonkearns$elm_graphql$Graphql$Http$decoderOrError = function (decoder) {
-	return $elm$json$Json$Decode$oneOf(
-		_List_fromArray(
-			[
-				$dillonkearns$elm_graphql$Graphql$Http$errorDecoder(decoder),
-				A2($elm$json$Json$Decode$map, $elm$core$Result$Ok, decoder)
-			]));
-};
-var $dillonkearns$elm_graphql$Graphql$Document$serializeMutation = function (_v0) {
-	var fields = _v0.a;
-	var decoder_ = _v0.b;
-	return A2($dillonkearns$elm_graphql$Graphql$Document$serialize, 'mutation', fields);
-};
-var $dillonkearns$elm_graphql$Graphql$Document$serializeMutationWithOperationName = F2(
-	function (operationName, _v0) {
-		var fields = _v0.a;
-		var decoder_ = _v0.b;
-		return A3($dillonkearns$elm_graphql$Graphql$Document$serializeWithOperationName, 'mutation', operationName, fields);
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$toReadyRequest = function (_v0) {
-	var request = _v0.a;
-	var _v1 = request.details;
-	if (_v1.$ === 'Query') {
-		var forcedRequestMethod = _v1.a;
-		var querySelectionSet = _v1.b;
-		var queryRequestDetails = A5(
-			$dillonkearns$elm_graphql$Graphql$Http$QueryHelper$build,
-			function () {
-				if (forcedRequestMethod.$ === 'Just') {
-					if (forcedRequestMethod.a.$ === 'AlwaysGet') {
-						var _v4 = forcedRequestMethod.a;
-						return $elm$core$Maybe$Just($dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Get);
-					} else {
-						var _v5 = forcedRequestMethod.a;
-						return $elm$core$Maybe$Nothing;
-					}
-				} else {
-					return $elm$core$Maybe$Just($dillonkearns$elm_graphql$Graphql$Http$QueryHelper$Post);
-				}
-			}(),
-			request.baseUrl,
-			request.queryParams,
-			request.operationName,
-			querySelectionSet);
-		return {
-			body: queryRequestDetails.body,
-			decoder: $dillonkearns$elm_graphql$Graphql$Http$decoderOrError(request.expect),
-			headers: request.headers,
-			method: function () {
-				var _v2 = queryRequestDetails.method;
-				if (_v2.$ === 'Get') {
-					return 'GET';
-				} else {
-					return 'Post';
-				}
-			}(),
-			timeout: request.timeout,
-			url: queryRequestDetails.url
-		};
-	} else {
-		var mutationSelectionSet = _v1.a;
-		var serializedMutation = function () {
-			var _v6 = request.operationName;
-			if (_v6.$ === 'Just') {
-				var operationName = _v6.a;
-				return A2($dillonkearns$elm_graphql$Graphql$Document$serializeMutationWithOperationName, operationName, mutationSelectionSet);
-			} else {
-				return $dillonkearns$elm_graphql$Graphql$Document$serializeMutation(mutationSelectionSet);
-			}
-		}();
-		return {
-			body: $elm$http$Http$jsonBody(
-				$elm$json$Json$Encode$object(
-					_List_fromArray(
-						[
-							_Utils_Tuple2(
-							'query',
-							$elm$json$Json$Encode$string(serializedMutation))
-						]))),
-			decoder: $dillonkearns$elm_graphql$Graphql$Http$decoderOrError(request.expect),
-			headers: request.headers,
-			method: 'POST',
-			timeout: request.timeout,
-			url: A2($dillonkearns$elm_graphql$Graphql$Http$QueryParams$urlWithQueryParams, request.queryParams, request.baseUrl)
-		};
-	}
-};
-var $dillonkearns$elm_graphql$Graphql$Http$toHttpRequestRecord = F2(
-	function (resultToMessage, fullRequest) {
-		var request = fullRequest.a;
-		return function (readyRequest) {
-			return {
-				body: readyRequest.body,
-				expect: A2(
-					$dillonkearns$elm_graphql$Graphql$Http$expectJson,
-					A2($elm$core$Basics$composeR, $dillonkearns$elm_graphql$Graphql$Http$convertResult, resultToMessage),
-					readyRequest.decoder),
-				headers: readyRequest.headers,
-				method: readyRequest.method,
-				timeout: readyRequest.timeout,
-				tracker: $elm$core$Maybe$Nothing,
-				url: readyRequest.url
-			};
-		}(
-			$dillonkearns$elm_graphql$Graphql$Http$toReadyRequest(fullRequest));
-	});
-var $dillonkearns$elm_graphql$Graphql$Http$send = F2(
-	function (resultToMessage, fullRequest) {
-		var request = fullRequest.a;
-		return (request.withCredentials ? $elm$http$Http$riskyRequest : $elm$http$Http$request)(
-			A2($dillonkearns$elm_graphql$Graphql$Http$toHttpRequestRecord, resultToMessage, fullRequest));
-	});
-var $author$project$Helpers$GraphqlRequests$makeSchulartRequest = function (bundesland) {
-	return A2(
-		$dillonkearns$elm_graphql$Graphql$Http$send,
-		A2($elm$core$Basics$composeR, $krisajenkins$remotedata$RemoteData$fromResult, $author$project$Messages$GotSchulartResponse),
-		A2(
-			$dillonkearns$elm_graphql$Graphql$Http$queryRequest,
-			'https://lernplattform-graphql.herokuapp.com/v1/graphql',
-			$author$project$Helpers$GraphqlRequests$querySchulart(bundesland)));
-};
 var $elm$core$Dict$member = F2(
 	function (key, dict) {
 		var _v0 = A2($elm$core$Dict$get, key, dict);
@@ -7920,17 +6361,34 @@ var $author$project$Update$update = F2(
 							klassenstufen: $elm$core$Set$empty,
 							schulart: $elm$core$Maybe$Nothing
 						}),
-					$author$project$Helpers$GraphqlRequests$makeSchulartRequest(bundesland));
+					A3(
+						$author$project$Helpers$HttpRequests$makeRequest,
+						'select distinct schulart from lehrplan where bundesland = \'' + (bundesland + '\';'),
+						$elm$json$Json$Decode$list(
+							A2($elm$json$Json$Decode$field, 'schulart', $elm$json$Json$Decode$string)),
+						$author$project$Messages$GotSchulartResponse));
 			case 'SetSchulart':
 				var schulart = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							klassenstufen: $elm$core$Set$empty,
-							schulart: $elm$core$Maybe$Just(schulart)
-						}),
-					$elm$core$Platform$Cmd$none);
+				var _v1 = model.bundesland;
+				if (_v1.$ === 'Nothing') {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				} else {
+					var bundesland = _v1.a;
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								availableKlassenstufe: $krisajenkins$remotedata$RemoteData$Loading,
+								klassenstufen: $elm$core$Set$empty,
+								schulart: $elm$core$Maybe$Just(schulart)
+							}),
+						A3(
+							$author$project$Helpers$HttpRequests$makeRequest,
+							'select distinct klassenstufe from lehrplan where bundesland = \'' + (bundesland + ('\' and schulart = \'' + (schulart + '\';'))),
+							$elm$json$Json$Decode$list(
+								A2($elm$json$Json$Decode$field, 'klassenstufe', $elm$json$Json$Decode$int)),
+							$author$project$Messages$GotKlassenstufeResponse));
+				}
 			case 'ToggleKlassenstufe':
 				var a = msg.a;
 				var newModel = _Utils_update(
@@ -7939,12 +6397,19 @@ var $author$project$Update$update = F2(
 						klassenstufen: A2($elm$core$Set$member, a, model.klassenstufen) ? A2($elm$core$Set$remove, a, model.klassenstufen) : A2($elm$core$Set$insert, a, model.klassenstufen)
 					});
 				return _Utils_Tuple2(newModel, $elm$core$Platform$Cmd$none);
-			default:
-				var response = msg.a;
+			case 'GotSchulartResponse':
+				var schulart = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{availableSchulart: response}),
+						{availableSchulart: schulart}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				var klassenstufe = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{availableKlassenstufe: klassenstufe}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -7963,6 +6428,7 @@ var $author$project$Helpers$LocalStorage$updateWithStorage = F2(
 						cmds
 					])));
 	});
+var $elm$json$Json$Decode$value = _Json_decodeValue;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -8427,14 +6893,21 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
+var $elm$core$List$sortBy = _List_sortBy;
+var $elm$core$List$sort = function (xs) {
+	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+};
 var $author$project$Components$Form$klassenstufen = function (model) {
 	return A2(
 		$author$project$Components$Loader$withLoader,
-		model.availableKlassenstufen,
-		function (availableKlassenstufen) {
+		model.availableKlassenstufe,
+		function (availableKlassenstufe) {
 			return A2(
 				$elm$html$Html$div,
-				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('btn-group')
+					]),
 				A2(
 					$elm$core$List$map,
 					function (b) {
@@ -8453,7 +6926,7 @@ var $author$project$Components$Form$klassenstufen = function (model) {
 									$elm$core$String$fromInt(b))
 								]));
 					},
-					availableKlassenstufen));
+					$elm$core$List$sort(availableKlassenstufe)));
 		});
 };
 var $author$project$Messages$SetSchulart = function (a) {

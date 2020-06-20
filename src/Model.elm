@@ -1,7 +1,6 @@
 module Model exposing (Model)
 
-import Graphql.Http
-import RemoteData exposing (RemoteData)
+import RemoteData exposing (WebData)
 import Set exposing (Set)
 
 
@@ -12,7 +11,7 @@ type alias Model =
     , schulart : Maybe String
     , klassenstufen : Set Int
     , fächer : List String
-    , availableBundesland : RemoteData (Graphql.Http.Error (List String)) (List String)
-    , availableSchulart : RemoteData (Graphql.Http.Error (List String)) (List String)
-    , availableKlassenstufen : RemoteData (Graphql.Http.Error (List Int)) (List Int)
+    , availableBundesland : WebData (List String)
+    , availableSchulart : WebData (List String)
+    , availableKlassenstufe : WebData (List Int)
     }

@@ -34,7 +34,7 @@ initialModel =
     , fächer = []
     , availableBundesland = Success availableBundesland
     , availableSchulart = NotAsked
-    , availableKlassenstufen = NotAsked
+    , availableKlassenstufe = NotAsked
     }
 
 

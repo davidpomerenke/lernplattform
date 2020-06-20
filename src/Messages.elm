@@ -1,7 +1,6 @@
 module Messages exposing (Msg(..))
 
-import Graphql.Http
-import RemoteData exposing (RemoteData)
+import RemoteData exposing (WebData)
 
 
 type Msg
@@ -10,4 +9,5 @@ type Msg
     | SetBundesland String
     | SetSchulart String
     | ToggleKlassenstufe Int
-    | GotSchulartResponse (RemoteData (Graphql.Http.Error (List String)) (List String))
+    | GotSchulartResponse (WebData (List String))
+    | GotKlassenstufeResponse (WebData (List Int))

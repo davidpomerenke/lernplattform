@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.2 (Ubuntu 12.2-2.pgdg16.04+1)
--- Dumped by pg_dump version 12.3 (Ubuntu 12.3-1.pgdg18.04+1)
+-- Dumped from database version 12.3
+-- Dumped by pg_dump version 12.2 (Ubuntu 12.2-4)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -94,10 +94,10 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: lehrplan; Type: TABLE; Schema: public; Owner: -
+-- Name: lehrplan_intern; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.lehrplan (
+CREATE TABLE public.lehrplan_intern (
     bundesland public.bundesland NOT NULL,
     schulart_intern character varying(500) NOT NULL,
     klassenstufe integer NOT NULL,
@@ -107,16 +107,29 @@ CREATE TABLE public.lehrplan (
 
 
 --
--- Name: lehrplan_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.lehrplan_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+CREATE TABLE public.schulartenbedeutung (
+    bundesland public.bundesland NOT NULL,
+    schulart character varying(500) NOT NULL,
+    schulart_intern character varying(500) NOT NULL
+);
+
+
+--
+-- Name: lehrplan; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW public.lehrplan AS
+ SELECT lehrplan_intern.lehrplanid,
+    lehrplan_intern.bundesland,
+    COALESCE(schulartenbedeutung.schulart, lehrplan_intern.schulart_intern) AS schulart,
+    lehrplan_intern.klassenstufe,
+    lehrplan_intern.fach
+   FROM (public.schulartenbedeutung
+     RIGHT JOIN public.lehrplan_intern USING (bundesland, schulart_intern))
+  WITH NO DATA;
 
 
 --
@@ -132,39 +145,6 @@ CREATE TABLE public.lehrplandetails (
     lehrplanelternid integer,
     lehrplanhierarchie character varying(20)
 );
-
-
---
--- Name: lehrplandetails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.lehrplandetails_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lehrplandetails_id_seq1; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.lehrplandetails_id_seq1
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lehrplandetails_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.lehrplandetails_id_seq1 OWNED BY public.lehrplandetails.lehrplanid;
 
 
 --
@@ -204,25 +184,14 @@ CREATE TABLE public.materialzuordnung (
 
 
 --
--- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.schulartenbedeutung (
-    bundesland public.bundesland NOT NULL,
-    schulart character varying(500) NOT NULL,
-    schulart_intern character varying(500) NOT NULL
-);
-
-
---
 -- Name: lernplattform; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW public.lernplattform AS
- SELECT lehrplan.bundesland,
-    COALESCE(schulartenbedeutung.schulart, lehrplan.schulart_intern) AS schulart,
-    lehrplan.klassenstufe,
-    lehrplan.fach,
+ SELECT lehrplan_intern.bundesland,
+    COALESCE(schulartenbedeutung.schulart, lehrplan_intern.schulart_intern) AS schulart,
+    lehrplan_intern.klassenstufe,
+    lehrplan_intern.fach,
     lehrplandetails.lehrplantitel,
     lehrplandetails.lehrplanbeschreibung,
     lehrplandetails.lehrplanquelle,
@@ -239,7 +208,7 @@ CREATE VIEW public.lernplattform AS
     material.materialeintragsdatum,
     material.materialtestdatum
    FROM (((public.schulartenbedeutung
-     RIGHT JOIN public.lehrplan USING (bundesland, schulart_intern))
+     RIGHT JOIN public.lehrplan_intern USING (bundesland, schulart_intern))
      JOIN public.lehrplandetails USING (lehrplanid))
      LEFT JOIN ((public.lehrplanzuordnung
      JOIN public.materialzuordnung USING (modul))
@@ -263,13 +232,6 @@ CREATE TABLE public.modulhierarchie (
     untermodul character varying(500) NOT NULL,
     "Übermodul" character varying(500) NOT NULL
 );
-
-
---
--- Name: lehrplandetails lehrplanid; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lehrplandetails ALTER COLUMN lehrplanid SET DEFAULT nextval('public.lehrplandetails_id_seq1'::regclass);
 
 
 --
@@ -321,10 +283,10 @@ ALTER TABLE ONLY public.materialzuordnung
 
 
 --
--- Name: lehrplan lehrplan_lehrplanid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: lehrplan_intern lehrplan_lehrplanid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.lehrplan
+ALTER TABLE ONLY public.lehrplan_intern
     ADD CONSTRAINT lehrplan_lehrplanid_fkey FOREIGN KEY (lehrplanid) REFERENCES public.lehrplandetails(lehrplanid) ON UPDATE CASCADE ON DELETE CASCADE;
 
 

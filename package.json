@@ -21,19 +21,16 @@
     "deutschland"
   ],
   "scripts": {
+    "start": "vercel dev",
     "elm:build": "elm make src/Main.elm --output=public/main.js",
-    "elm:graphql-api": "elm-graphql https://lernplattform-graphql.herokuapp.com/v1/graphql --base Database",
-    "gq:schema": "yarn --silent graphqurl https://lernplattform-graphql.herokuapp.com/v1/graphql --introspect > datenbank/schema.graphql",
-    "pg": "yarn heroku pg:psql postgresql-slippery-92508 --app lernplattform-api",
+    "pg": "bash datenbank/connect.sh",
+    "pg:backup": "bash datenbank/backup.sh",
     "pg:schema": "bash datenbank/dump-schema.sh",
-    "pg:backup": "bash datenbank/backup.sh"
+    "gq:schema": "yarn --silent graphqurl https://lernplattform-graphql.herokuapp.com/v1/graphql --introspect > datenbank/schema.graphql"
   },
   "devDependencies": {
-    "@dillonkearns/elm-graphql": "^4.0.3",
     "cheerio": "^1.0.0-rc.3",
     "graphqurl": "^0.3.3",
-    "heroku": "^7.39.2",
-    "now-cli": "^0.0.0",
     "pg-escape": "^0.2.0",
     "sqlutils": "^1.2.0",
     "sync-request": "^6.1.0"

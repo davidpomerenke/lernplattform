@@ -1,15 +1,15 @@
 port module Helpers.LocalStorage exposing (initWithStorage, updateWithStorage)
 
+import Helpers.Data exposing (availableBundesland)
 import Json.Decode as D
 import Json.Decode.Extra as D
 import Json.Decode.Pipeline exposing (hardcoded, required)
 import Json.Encode as E
 import Messages exposing (Msg)
 import Model exposing (Model)
+import RemoteData exposing (RemoteData(..))
 import Set
 import Update exposing (update)
-import Helpers.Data exposing (availableBundesland)
-import RemoteData exposing (RemoteData(..))
 
 
 initWithStorage : Model -> List (Cmd Msg) -> D.Value -> ( Model, Cmd Msg )
