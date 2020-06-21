@@ -112,51 +112,54 @@ fächer model =
     div []
         (List.map
             (\klassenstufe ->
-                withLoader
-                    (Maybe.withDefault NotAsked
-                        (Dict.get klassenstufe model.availableFachByKlassenstufe)
-                    )
-                    (\fächer_ ->
-                        div
-                            [ class
-                                (if Dict.size model.availableFachByKlassenstufe > 1 then
-                                    "border rounded-lg my-2 p-4"
+                div
+                    [ class
+                        (if Dict.size model.availableFachByKlassenstufe > 1 then
+                            "border rounded-lg my-2 p-4"
 
-                                 else
-                                    ""
+                         else
+                            ""
+                        )
+                    ]
+                    ([ if Dict.size model.availableFachByKlassenstufe > 1 then
+                        h5 [] [ text (String.fromInt klassenstufe ++ ". Klasse") ]
+
+                       else
+                        text ""
+                     ]
+                        ++ [ withLoader
+                                (Maybe.withDefault NotAsked
+                                    (Dict.get klassenstufe model.availableFachByKlassenstufe)
                                 )
-                            ]
-                            ([ if Dict.size model.availableFachByKlassenstufe > 1 then
-                                h5 [] [ text (String.fromInt klassenstufe ++ ". Klasse") ]
+                                (\fächer_ ->
+                                    div
+                                        []
+                                        (fächer_
+                                            |> List.sort
+                                            |> List.map
+                                                (\fach ->
+                                                    button
+                                                        [ onClick (ToggleFach ( klassenstufe, fach ))
+                                                        , class
+                                                            ("fach btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3"
+                                                                ++ (if
+                                                                        Set.member fach
+                                                                            (Maybe.withDefault Set.empty
+                                                                                (Dict.get klassenstufe model.fächerByKlassenstufe)
+                                                                            )
+                                                                    then
+                                                                        " bg-primary text-light"
 
-                               else
-                                text ""
-                             ]
-                                ++ (fächer_
-                                        |> List.sort
-                                        |> List.map
-                                            (\fach ->
-                                                button
-                                                    [ onClick (ToggleFach ( klassenstufe, fach ))
-                                                    , class
-                                                        ("fach btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3"
-                                                            ++ (if
-                                                                    Set.member fach
-                                                                        (Maybe.withDefault Set.empty
-                                                                            (Dict.get klassenstufe model.fächerByKlassenstufe)
-                                                                        )
-                                                                then
-                                                                    " bg-primary text-light"
-
-                                                                else
-                                                                    ""
-                                                               )
-                                                        )
-                                                    ]
-                                                    [ text fach ]
-                                            )
-                                   )
-                            )
+                                                                    else
+                                                                        ""
+                                                                   )
+                                                            )
+                                                        ]
+                                                        [ text fach ]
+                                                )
+                                        )
+                                )
+                           ]
                     )
             )
             (Dict.keys model.availableFachByKlassenstufe)

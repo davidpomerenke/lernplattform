@@ -7127,57 +7127,63 @@ var $author$project$Components$Form$fächer = function (model) {
 			$elm$core$List$map,
 			function (klassenstufe) {
 				return A2(
-					$author$project$Components$Loader$withLoader,
-					A2(
-						$elm$core$Maybe$withDefault,
-						$krisajenkins$remotedata$RemoteData$NotAsked,
-						A2($elm$core$Dict$get, klassenstufe, model.availableFachByKlassenstufe)),
-					function (fächer_) {
-						return A2(
-							$elm$html$Html$div,
-							_List_fromArray(
-								[
-									$elm$html$Html$Attributes$class(
-									($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? 'border rounded-lg my-2 p-4' : '')
-								]),
-							_Utils_ap(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class(
+							($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? 'border rounded-lg my-2 p-4' : '')
+						]),
+					_Utils_ap(
+						_List_fromArray(
+							[
+								($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? A2(
+								$elm$html$Html$h5,
+								_List_Nil,
 								_List_fromArray(
 									[
-										($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? A2(
-										$elm$html$Html$h5,
-										_List_Nil,
-										_List_fromArray(
-											[
-												$elm$html$Html$text(
-												$elm$core$String$fromInt(klassenstufe) + '. Klasse')
-											])) : $elm$html$Html$text('')
-									]),
+										$elm$html$Html$text(
+										$elm$core$String$fromInt(klassenstufe) + '. Klasse')
+									])) : $elm$html$Html$text('')
+							]),
+						_List_fromArray(
+							[
 								A2(
-									$elm$core$List$map,
-									function (fach) {
-										return A2(
-											$elm$html$Html$button,
-											_List_fromArray(
-												[
-													$elm$html$Html$Events$onClick(
-													$author$project$Messages$ToggleFach(
-														_Utils_Tuple2(klassenstufe, fach))),
-													$elm$html$Html$Attributes$class(
-													'fach btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3' + (A2(
-														$elm$core$Set$member,
-														fach,
-														A2(
-															$elm$core$Maybe$withDefault,
-															$elm$core$Set$empty,
-															A2($elm$core$Dict$get, klassenstufe, model.fächerByKlassenstufe))) ? ' bg-primary text-light' : ''))
-												]),
-											_List_fromArray(
-												[
-													$elm$html$Html$text(fach)
-												]));
-									},
-									$elm$core$List$sort(fächer_))));
-					});
+								$author$project$Components$Loader$withLoader,
+								A2(
+									$elm$core$Maybe$withDefault,
+									$krisajenkins$remotedata$RemoteData$NotAsked,
+									A2($elm$core$Dict$get, klassenstufe, model.availableFachByKlassenstufe)),
+								function (fächer_) {
+									return A2(
+										$elm$html$Html$div,
+										_List_Nil,
+										A2(
+											$elm$core$List$map,
+											function (fach) {
+												return A2(
+													$elm$html$Html$button,
+													_List_fromArray(
+														[
+															$elm$html$Html$Events$onClick(
+															$author$project$Messages$ToggleFach(
+																_Utils_Tuple2(klassenstufe, fach))),
+															$elm$html$Html$Attributes$class(
+															'fach btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3' + (A2(
+																$elm$core$Set$member,
+																fach,
+																A2(
+																	$elm$core$Maybe$withDefault,
+																	$elm$core$Set$empty,
+																	A2($elm$core$Dict$get, klassenstufe, model.fächerByKlassenstufe))) ? ' bg-primary text-light' : ''))
+														]),
+													_List_fromArray(
+														[
+															$elm$html$Html$text(fach)
+														]));
+											},
+											$elm$core$List$sort(fächer_)));
+								})
+							])));
 			},
 			$elm$core$Dict$keys(model.availableFachByKlassenstufe)));
 };
