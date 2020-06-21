@@ -1,6 +1,7 @@
 module Components.Form exposing (form)
 
 import Components.Loader exposing (withLoader)
+import Dict
 import Helpers.Data exposing (compareSchularten)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -22,15 +23,20 @@ form model =
                         [ class "col-auto my-2" ]
                         [ bundesland model ]
                     , div
-                        [ hidden (model.bundesland == Nothing), class "col-auto my-2" ]
+                        [ class "col-auto my-2" ]
                         [ schulart model ]
                     , div
-                        [ hidden (model.schulart == Nothing), class "btn-group col-auto my-2" ]
+                        [ class "btn-group col-auto my-2" ]
                         [ klassenstufen model ]
                     ]
-                , button
-                    [ class "btn btn-success my-2" ]
-                    [ text "Material anzeigen" ]
+                , fächer model
+                , if List.any (\fächer_ -> Set.size fächer_ > 0) (Dict.values model.fächerByKlassenstufe) then
+                    button
+                        [ class "btn btn-success my-2" ]
+                        [ text "Material anzeigen" ]
+
+                  else
+                    text ""
                 , div
                     [ hidden True, class "alert alert-success p-2" ]
                     [ text "Die Auswahl wurde erfolgreich im Browser gespeichert." ]
@@ -67,7 +73,7 @@ klassenstufen model =
                                 [ onClick (ToggleKlassenstufe b)
                                 , class
                                     ("klassenstufe btn btn-light border border-primary "
-                                        ++ (if Set.member b model.klassenstufen then
+                                        ++ (if Dict.member b model.fächerByKlassenstufe then
                                                 "bg-primary text-white"
 
                                             else
@@ -98,4 +104,60 @@ select name options val msg =
                     ++ List.map (\b -> option [ selected (Just b == val) ] [ text b ])
                         (List.sortWith compareSchularten options_)
                 )
+        )
+
+
+fächer : Model -> Html Msg
+fächer model =
+    div []
+        (List.map
+            (\klassenstufe ->
+                withLoader
+                    (Maybe.withDefault NotAsked
+                        (Dict.get klassenstufe model.availableFachByKlassenstufe)
+                    )
+                    (\fächer_ ->
+                        div
+                            [ class
+                                (if Dict.size model.availableFachByKlassenstufe > 1 then
+                                    "border rounded-lg my-2 p-4"
+
+                                 else
+                                    ""
+                                )
+                            ]
+                            ([ if Dict.size model.availableFachByKlassenstufe > 1 then
+                                h5 [] [ text (String.fromInt klassenstufe ++ ". Klasse") ]
+
+                               else
+                                text ""
+                             ]
+                                ++ (fächer_
+                                        |> List.sort
+                                        |> List.map
+                                            (\fach ->
+                                                button
+                                                    [ onClick (ToggleFach ( klassenstufe, fach ))
+                                                    , class
+                                                        ("fach btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3"
+                                                            ++ (if
+                                                                    Set.member fach
+                                                                        (Maybe.withDefault Set.empty
+                                                                            (Dict.get klassenstufe model.fächerByKlassenstufe)
+                                                                        )
+                                                                then
+                                                                    " bg-primary text-light"
+
+                                                                else
+                                                                    ""
+                                                               )
+                                                        )
+                                                    ]
+                                                    [ text fach ]
+                                            )
+                                   )
+                            )
+                    )
+            )
+            (Dict.keys model.availableFachByKlassenstufe)
         )

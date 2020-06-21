@@ -1,5 +1,6 @@
 port module Helpers.LocalStorage exposing (initWithStorage, updateWithStorage)
 
+import Dict
 import Helpers.Data exposing (availableBundesland)
 import Json.Decode as D
 import Json.Decode.Extra as D
@@ -8,7 +9,6 @@ import Json.Encode as E
 import Messages exposing (Msg)
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(..))
-import Set
 import Update exposing (update)
 
 
@@ -56,7 +56,7 @@ encode model =
         , ( "showForm", E.bool model.showForm )
         , ( "bundesland", E.string (Maybe.withDefault "" model.bundesland) )
         , ( "schulart", E.string (Maybe.withDefault "" model.schulart) )
-        , ( "klassenstufen", E.list E.int (Set.toList model.klassenstufen) )
+        , ( "fächerByklassenstufe", E.dict String.fromInt (E.set E.string) model.fächerByKlassenstufe )
         ]
 
 
@@ -67,8 +67,8 @@ decoder =
         |> required "showForm" D.bool
         |> required "bundesland" (D.nullable D.string)
         |> required "schulart" (D.nullable D.string)
-        |> required "klassenstufen" (D.set D.int)
-        |> hardcoded []
+        |> required "fächerByKlassenstufe" (D.dict2 D.int (D.set D.string))
         |> hardcoded (Success availableBundesland)
         |> hardcoded NotAsked
         |> hardcoded NotAsked
+        |> hardcoded Dict.empty

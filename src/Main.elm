@@ -6,9 +6,9 @@ import Helpers.LocalStorage exposing (initWithStorage, updateWithStorage)
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 import RemoteData exposing (RemoteData(..))
-import Set
 import Update exposing (update)
 import View exposing (view)
+import Dict
 
 
 main =
@@ -30,11 +30,11 @@ initialModel =
     , showForm = True
     , bundesland = Nothing
     , schulart = Nothing
-    , klassenstufen = Set.empty
-    , fächer = []
+    , fächerByKlassenstufe = Dict.empty
     , availableBundesland = Success availableBundesland
     , availableSchulart = NotAsked
     , availableKlassenstufe = NotAsked
+    , availableFachByKlassenstufe = Dict.empty
     }
 
 

@@ -5322,8 +5322,8 @@ var $elm$browser$Browser$element = _Browser_element;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $author$project$Model$Model = F9(
-	function (showDevWarning, showForm, bundesland, schulart, klassenstufen, fächer, availableBundesland, availableSchulart, availableKlassenstufe) {
-		return {availableBundesland: availableBundesland, availableKlassenstufe: availableKlassenstufe, availableSchulart: availableSchulart, bundesland: bundesland, fächer: fächer, klassenstufen: klassenstufen, schulart: schulart, showDevWarning: showDevWarning, showForm: showForm};
+	function (showDevWarning, showForm, bundesland, schulart, fächerByKlassenstufe, availableBundesland, availableSchulart, availableKlassenstufe, availableFachByKlassenstufe) {
+		return {availableBundesland: availableBundesland, availableFachByKlassenstufe: availableFachByKlassenstufe, availableKlassenstufe: availableKlassenstufe, availableSchulart: availableSchulart, bundesland: bundesland, fächerByKlassenstufe: fächerByKlassenstufe, schulart: schulart, showDevWarning: showDevWarning, showForm: showForm};
 	});
 var $krisajenkins$remotedata$RemoteData$NotAsked = {$: 'NotAsked'};
 var $krisajenkins$remotedata$RemoteData$Success = function (a) {
@@ -5332,38 +5332,16 @@ var $krisajenkins$remotedata$RemoteData$Success = function (a) {
 var $author$project$Helpers$Data$availableBundesland = _List_fromArray(
 	['Baden-Württemberg', 'Bayern']);
 var $elm$json$Json$Decode$bool = _Json_decodeBool;
+var $elm$json$Json$Decode$andThen = _Json_andThen;
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
 		return g(
 			f(x));
 	});
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded = A2($elm$core$Basics$composeR, $elm$json$Json$Decode$succeed, $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom);
-var $elm$json$Json$Decode$int = _Json_decodeInt;
-var $elm$json$Json$Decode$null = _Json_decodeNull;
-var $elm$json$Json$Decode$oneOf = _Json_oneOf;
-var $elm$json$Json$Decode$nullable = function (decoder) {
-	return $elm$json$Json$Decode$oneOf(
-		_List_fromArray(
-			[
-				$elm$json$Json$Decode$null($elm$core$Maybe$Nothing),
-				A2($elm$json$Json$Decode$map, $elm$core$Maybe$Just, decoder)
-			]));
-};
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
-	function (key, valDecoder, decoder) {
-		return A2(
-			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom,
-			A2($elm$json$Json$Decode$field, key, valDecoder),
-			decoder);
-	});
-var $elm$core$Set$Set_elm_builtin = function (a) {
-	return {$: 'Set_elm_builtin', a: a};
-};
+var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
-var $elm$core$Set$empty = $elm$core$Set$Set_elm_builtin($elm$core$Dict$empty);
+var $elm$json$Json$Decode$fail = _Json_fail;
 var $elm$core$Dict$Black = {$: 'Black'};
 var $elm$core$Dict$RBNode_elm_builtin = F5(
 	function (a, b, c, d, e) {
@@ -5473,6 +5451,65 @@ var $elm$core$Dict$insert = F3(
 			return x;
 		}
 	});
+var $elm_community$json_extra$Json$Decode$Extra$decodeDictFromTuples = F2(
+	function (keyDecoder, tuples) {
+		if (!tuples.b) {
+			return $elm$json$Json$Decode$succeed($elm$core$Dict$empty);
+		} else {
+			var _v1 = tuples.a;
+			var strKey = _v1.a;
+			var value = _v1.b;
+			var rest = tuples.b;
+			var _v2 = A2($elm$json$Json$Decode$decodeString, keyDecoder, strKey);
+			if (_v2.$ === 'Ok') {
+				var key = _v2.a;
+				return A2(
+					$elm$json$Json$Decode$andThen,
+					A2(
+						$elm$core$Basics$composeR,
+						A2($elm$core$Dict$insert, key, value),
+						$elm$json$Json$Decode$succeed),
+					A2($elm_community$json_extra$Json$Decode$Extra$decodeDictFromTuples, keyDecoder, rest));
+			} else {
+				var error = _v2.a;
+				return $elm$json$Json$Decode$fail(
+					$elm$json$Json$Decode$errorToString(error));
+			}
+		}
+	});
+var $elm$json$Json$Decode$keyValuePairs = _Json_decodeKeyValuePairs;
+var $elm_community$json_extra$Json$Decode$Extra$dict2 = F2(
+	function (keyDecoder, valueDecoder) {
+		return A2(
+			$elm$json$Json$Decode$andThen,
+			$elm_community$json_extra$Json$Decode$Extra$decodeDictFromTuples(keyDecoder),
+			$elm$json$Json$Decode$keyValuePairs(valueDecoder));
+	});
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded = A2($elm$core$Basics$composeR, $elm$json$Json$Decode$succeed, $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom);
+var $elm$json$Json$Decode$int = _Json_decodeInt;
+var $elm$json$Json$Decode$null = _Json_decodeNull;
+var $elm$json$Json$Decode$oneOf = _Json_oneOf;
+var $elm$json$Json$Decode$nullable = function (decoder) {
+	return $elm$json$Json$Decode$oneOf(
+		_List_fromArray(
+			[
+				$elm$json$Json$Decode$null($elm$core$Maybe$Nothing),
+				A2($elm$json$Json$Decode$map, $elm$core$Maybe$Just, decoder)
+			]));
+};
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
+	function (key, valDecoder, decoder) {
+		return A2(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom,
+			A2($elm$json$Json$Decode$field, key, valDecoder),
+			decoder);
+	});
+var $elm$core$Set$Set_elm_builtin = function (a) {
+	return {$: 'Set_elm_builtin', a: a};
+};
+var $elm$core$Set$empty = $elm$core$Set$Set_elm_builtin($elm$core$Dict$empty);
 var $elm$core$Set$insert = F2(
 	function (key, _v0) {
 		var dict = _v0.a;
@@ -5492,20 +5529,23 @@ var $elm_community$json_extra$Json$Decode$Extra$set = function (decoder) {
 var $elm$json$Json$Decode$string = _Json_decodeString;
 var $author$project$Helpers$LocalStorage$decoder = A2(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
-	$krisajenkins$remotedata$RemoteData$NotAsked,
+	$elm$core$Dict$empty,
 	A2(
 		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
 		$krisajenkins$remotedata$RemoteData$NotAsked,
 		A2(
 			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
-			$krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableBundesland),
+			$krisajenkins$remotedata$RemoteData$NotAsked,
 			A2(
 				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
-				_List_Nil,
+				$krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableBundesland),
 				A3(
 					$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-					'klassenstufen',
-					$elm_community$json_extra$Json$Decode$Extra$set($elm$json$Json$Decode$int),
+					'fächerByKlassenstufe',
+					A2(
+						$elm_community$json_extra$Json$Decode$Extra$dict2,
+						$elm$json$Json$Decode$int,
+						$elm_community$json_extra$Json$Decode$Extra$set($elm$json$Json$Decode$string)),
 					A3(
 						$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 						'schulart',
@@ -5540,11 +5580,11 @@ var $author$project$Helpers$LocalStorage$initWithStorage = F3(
 var $author$project$Main$initialCommands = _List_Nil;
 var $author$project$Main$initialModel = {
 	availableBundesland: $krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableBundesland),
+	availableFachByKlassenstufe: $elm$core$Dict$empty,
 	availableKlassenstufe: $krisajenkins$remotedata$RemoteData$NotAsked,
 	availableSchulart: $krisajenkins$remotedata$RemoteData$NotAsked,
 	bundesland: $elm$core$Maybe$Nothing,
-	fächer: _List_Nil,
-	klassenstufen: $elm$core$Set$empty,
+	fächerByKlassenstufe: $elm$core$Dict$empty,
 	schulart: $elm$core$Maybe$Nothing,
 	showDevWarning: true,
 	showForm: true
@@ -5552,15 +5592,46 @@ var $author$project$Main$initialModel = {
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $elm$json$Json$Encode$bool = _Json_wrap;
-var $elm$json$Json$Encode$int = _Json_wrap;
-var $elm$json$Json$Encode$list = F2(
-	function (func, entries) {
+var $elm$core$Dict$foldl = F3(
+	function (func, acc, dict) {
+		foldl:
+		while (true) {
+			if (dict.$ === 'RBEmpty_elm_builtin') {
+				return acc;
+			} else {
+				var key = dict.b;
+				var value = dict.c;
+				var left = dict.d;
+				var right = dict.e;
+				var $temp$func = func,
+					$temp$acc = A3(
+					func,
+					key,
+					value,
+					A3($elm$core$Dict$foldl, func, acc, left)),
+					$temp$dict = right;
+				func = $temp$func;
+				acc = $temp$acc;
+				dict = $temp$dict;
+				continue foldl;
+			}
+		}
+	});
+var $elm$json$Json$Encode$dict = F3(
+	function (toKey, toValue, dictionary) {
 		return _Json_wrap(
 			A3(
-				$elm$core$List$foldl,
-				_Json_addEntry(func),
-				_Json_emptyArray(_Utils_Tuple0),
-				entries));
+				$elm$core$Dict$foldl,
+				F3(
+					function (key, value, obj) {
+						return A3(
+							_Json_addField,
+							toKey(key),
+							toValue(value),
+							obj);
+					}),
+				_Json_emptyObject(_Utils_Tuple0),
+				dictionary));
 	});
 var $elm$json$Json$Encode$object = function (pairs) {
 	return _Json_wrap(
@@ -5575,6 +5646,27 @@ var $elm$json$Json$Encode$object = function (pairs) {
 			_Json_emptyObject(_Utils_Tuple0),
 			pairs));
 };
+var $elm$core$Set$foldl = F3(
+	function (func, initialState, _v0) {
+		var dict = _v0.a;
+		return A3(
+			$elm$core$Dict$foldl,
+			F3(
+				function (key, _v1, state) {
+					return A2(func, key, state);
+				}),
+			initialState,
+			dict);
+	});
+var $elm$json$Json$Encode$set = F2(
+	function (func, entries) {
+		return _Json_wrap(
+			A3(
+				$elm$core$Set$foldl,
+				_Json_addEntry(func),
+				_Json_emptyArray(_Utils_Tuple0),
+				entries));
+	});
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
@@ -5604,14 +5696,18 @@ var $author$project$Helpers$LocalStorage$encode = function (model) {
 				$elm$json$Json$Encode$string(
 					A2($elm$core$Maybe$withDefault, '', model.schulart))),
 				_Utils_Tuple2(
-				'klassenstufen',
-				A2(
-					$elm$json$Json$Encode$list,
-					$elm$json$Json$Encode$int,
-					$elm$core$Set$toList(model.klassenstufen)))
+				'fächerByklassenstufe',
+				A3(
+					$elm$json$Json$Encode$dict,
+					$elm$core$String$fromInt,
+					$elm$json$Json$Encode$set($elm$json$Json$Encode$string),
+					model.fächerByKlassenstufe))
 			]));
 };
 var $author$project$Helpers$LocalStorage$setStorage = _Platform_outgoingPort('setStorage', $elm$core$Basics$identity);
+var $author$project$Messages$GotFachResponse = function (a) {
+	return {$: 'GotFachResponse', a: a};
+};
 var $author$project$Messages$GotKlassenstufeResponse = function (a) {
 	return {$: 'GotKlassenstufeResponse', a: a};
 };
@@ -5619,7 +5715,6 @@ var $author$project$Messages$GotSchulartResponse = function (a) {
 	return {$: 'GotSchulartResponse', a: a};
 };
 var $krisajenkins$remotedata$RemoteData$Loading = {$: 'Loading'};
-var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $elm$http$Http$BadStatus_ = F2(
 	function (a, b) {
 		return {$: 'BadStatus_', a: a, b: b};
@@ -6356,9 +6451,11 @@ var $author$project$Update$update = F2(
 					_Utils_update(
 						model,
 						{
+							availableFachByKlassenstufe: $elm$core$Dict$empty,
+							availableKlassenstufe: $krisajenkins$remotedata$RemoteData$NotAsked,
 							availableSchulart: $krisajenkins$remotedata$RemoteData$Loading,
 							bundesland: $elm$core$Maybe$Just(bundesland),
-							klassenstufen: $elm$core$Set$empty,
+							fächerByKlassenstufe: $elm$core$Dict$empty,
 							schulart: $elm$core$Maybe$Nothing
 						}),
 					A3(
@@ -6366,7 +6463,10 @@ var $author$project$Update$update = F2(
 						'select distinct schulart from lehrplan where bundesland = \'' + (bundesland + '\';'),
 						$elm$json$Json$Decode$list(
 							A2($elm$json$Json$Decode$field, 'schulart', $elm$json$Json$Decode$string)),
-						$author$project$Messages$GotSchulartResponse));
+						function (schulart) {
+							return $author$project$Messages$GotSchulartResponse(
+								{bundesland: bundesland, schulart: schulart});
+						}));
 			case 'SetSchulart':
 				var schulart = msg.a;
 				var _v1 = model.bundesland;
@@ -6378,8 +6478,9 @@ var $author$project$Update$update = F2(
 						_Utils_update(
 							model,
 							{
+								availableFachByKlassenstufe: $elm$core$Dict$empty,
 								availableKlassenstufe: $krisajenkins$remotedata$RemoteData$Loading,
-								klassenstufen: $elm$core$Set$empty,
+								fächerByKlassenstufe: $elm$core$Dict$empty,
 								schulart: $elm$core$Maybe$Just(schulart)
 							}),
 						A3(
@@ -6387,29 +6488,109 @@ var $author$project$Update$update = F2(
 							'select distinct klassenstufe from lehrplan where bundesland = \'' + (bundesland + ('\' and schulart = \'' + (schulart + '\';'))),
 							$elm$json$Json$Decode$list(
 								A2($elm$json$Json$Decode$field, 'klassenstufe', $elm$json$Json$Decode$int)),
-							$author$project$Messages$GotKlassenstufeResponse));
+							function (klassenstufe) {
+								return $author$project$Messages$GotKlassenstufeResponse(
+									{bundesland: bundesland, klassenstufe: klassenstufe, schulart: schulart});
+							}));
 				}
 			case 'ToggleKlassenstufe':
-				var a = msg.a;
-				var newModel = _Utils_update(
-					model,
-					{
-						klassenstufen: A2($elm$core$Set$member, a, model.klassenstufen) ? A2($elm$core$Set$remove, a, model.klassenstufen) : A2($elm$core$Set$insert, a, model.klassenstufen)
-					});
-				return _Utils_Tuple2(newModel, $elm$core$Platform$Cmd$none);
+				var klassenstufe = msg.a;
+				var _v2 = model.bundesland;
+				if (_v2.$ === 'Nothing') {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				} else {
+					var bundesland = _v2.a;
+					var _v3 = model.schulart;
+					if (_v3.$ === 'Nothing') {
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					} else {
+						var schulart = _v3.a;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									availableFachByKlassenstufe: A2($elm$core$Dict$member, klassenstufe, model.availableFachByKlassenstufe) ? A2($elm$core$Dict$remove, klassenstufe, model.availableFachByKlassenstufe) : A3($elm$core$Dict$insert, klassenstufe, $krisajenkins$remotedata$RemoteData$Loading, model.availableFachByKlassenstufe),
+									fächerByKlassenstufe: A2($elm$core$Dict$member, klassenstufe, model.fächerByKlassenstufe) ? A2($elm$core$Dict$remove, klassenstufe, model.fächerByKlassenstufe) : A3($elm$core$Dict$insert, klassenstufe, $elm$core$Set$empty, model.fächerByKlassenstufe)
+								}),
+							A2($elm$core$Dict$member, klassenstufe, model.fächerByKlassenstufe) ? $elm$core$Platform$Cmd$none : A3(
+								$author$project$Helpers$HttpRequests$makeRequest,
+								'select distinct fach from lehrplan where bundesland = \'' + (bundesland + ('\' and schulart = \'' + (schulart + ('\' and klassenstufe = \'' + ($elm$core$String$fromInt(klassenstufe) + '\';'))))),
+								$elm$json$Json$Decode$list(
+									A2($elm$json$Json$Decode$field, 'fach', $elm$json$Json$Decode$string)),
+								function (fächer) {
+									return $author$project$Messages$GotFachResponse(
+										{bundesland: bundesland, fächer: fächer, klassenstufe: klassenstufe, schulart: schulart});
+								}));
+					}
+				}
+			case 'ToggleFach':
+				var _v4 = msg.a;
+				var klassenstufe = _v4.a;
+				var fach = _v4.b;
+				var _v5 = model.bundesland;
+				if (_v5.$ === 'Nothing') {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				} else {
+					var bundesland = _v5.a;
+					var _v6 = model.schulart;
+					if (_v6.$ === 'Nothing') {
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					} else {
+						var schulart = _v6.a;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									fächerByKlassenstufe: A3(
+										$elm$core$Dict$update,
+										klassenstufe,
+										function (v) {
+											if (v.$ === 'Nothing') {
+												return $elm$core$Maybe$Just($elm$core$Set$empty);
+											} else {
+												var fächer = v.a;
+												return A2($elm$core$Set$member, fach, fächer) ? $elm$core$Maybe$Just(
+													A2($elm$core$Set$remove, fach, fächer)) : $elm$core$Maybe$Just(
+													A2($elm$core$Set$insert, fach, fächer));
+											}
+										},
+										model.fächerByKlassenstufe)
+								}),
+							$elm$core$Platform$Cmd$none);
+					}
+				}
 			case 'GotSchulartResponse':
-				var schulart = msg.a;
+				var response = msg.a;
 				return _Utils_Tuple2(
-					_Utils_update(
+					_Utils_eq(
+						$elm$core$Maybe$Just(response.bundesland),
+						model.bundesland) ? _Utils_update(
 						model,
-						{availableSchulart: schulart}),
+						{availableSchulart: response.schulart}) : model,
+					$elm$core$Platform$Cmd$none);
+			case 'GotKlassenstufeResponse':
+				var response = msg.a;
+				return _Utils_Tuple2(
+					(_Utils_eq(
+						$elm$core$Maybe$Just(response.bundesland),
+						model.bundesland) && _Utils_eq(
+						$elm$core$Maybe$Just(response.schulart),
+						model.schulart)) ? _Utils_update(
+						model,
+						{availableKlassenstufe: response.klassenstufe}) : model,
 					$elm$core$Platform$Cmd$none);
 			default:
-				var klassenstufe = msg.a;
+				var response = msg.a;
 				return _Utils_Tuple2(
-					_Utils_update(
+					(_Utils_eq(
+						$elm$core$Maybe$Just(response.bundesland),
+						model.bundesland) && (_Utils_eq(
+						$elm$core$Maybe$Just(response.schulart),
+						model.schulart) && A2($elm$core$Dict$member, response.klassenstufe, model.fächerByKlassenstufe))) ? _Utils_update(
 						model,
-						{availableKlassenstufe: klassenstufe}),
+						{
+							availableFachByKlassenstufe: A3($elm$core$Dict$insert, response.klassenstufe, response.fächer, model.availableFachByKlassenstufe)
+						}) : model,
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -6709,6 +6890,27 @@ var $author$project$Components$Footer$footer = A2(
 				[$author$project$Components$Footer$datenschutzModal]))
 		]));
 var $author$project$Messages$ShowForm = {$: 'ShowForm'};
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
 var $author$project$Messages$SetBundesland = function (a) {
 	return {$: 'SetBundesland', a: a};
 };
@@ -6874,8 +7076,8 @@ var $author$project$Components$Form$select = F4(
 var $author$project$Components$Form$bundesland = function (model) {
 	return A4($author$project$Components$Form$select, 'Bundesland', model.availableBundesland, model.bundesland, $author$project$Messages$SetBundesland);
 };
-var $author$project$Messages$ToggleKlassenstufe = function (a) {
-	return {$: 'ToggleKlassenstufe', a: a};
+var $author$project$Messages$ToggleFach = function (a) {
+	return {$: 'ToggleFach', a: a};
 };
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
@@ -6893,9 +7095,94 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
+var $elm$core$Dict$sizeHelp = F2(
+	function (n, dict) {
+		sizeHelp:
+		while (true) {
+			if (dict.$ === 'RBEmpty_elm_builtin') {
+				return n;
+			} else {
+				var left = dict.d;
+				var right = dict.e;
+				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
+					$temp$dict = left;
+				n = $temp$n;
+				dict = $temp$dict;
+				continue sizeHelp;
+			}
+		}
+	});
+var $elm$core$Dict$size = function (dict) {
+	return A2($elm$core$Dict$sizeHelp, 0, dict);
+};
 var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+};
+var $author$project$Components$Form$fächer = function (model) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		A2(
+			$elm$core$List$map,
+			function (klassenstufe) {
+				return A2(
+					$author$project$Components$Loader$withLoader,
+					A2(
+						$elm$core$Maybe$withDefault,
+						$krisajenkins$remotedata$RemoteData$NotAsked,
+						A2($elm$core$Dict$get, klassenstufe, model.availableFachByKlassenstufe)),
+					function (fächer_) {
+						return A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class(
+									($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? 'border rounded-lg my-2 p-4' : '')
+								]),
+							_Utils_ap(
+								_List_fromArray(
+									[
+										($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? A2(
+										$elm$html$Html$h5,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$elm$html$Html$text(
+												$elm$core$String$fromInt(klassenstufe) + '. Klasse')
+											])) : $elm$html$Html$text('')
+									]),
+								A2(
+									$elm$core$List$map,
+									function (fach) {
+										return A2(
+											$elm$html$Html$button,
+											_List_fromArray(
+												[
+													$elm$html$Html$Events$onClick(
+													$author$project$Messages$ToggleFach(
+														_Utils_Tuple2(klassenstufe, fach))),
+													$elm$html$Html$Attributes$class(
+													'fach btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3' + (A2(
+														$elm$core$Set$member,
+														fach,
+														A2(
+															$elm$core$Maybe$withDefault,
+															$elm$core$Set$empty,
+															A2($elm$core$Dict$get, klassenstufe, model.fächerByKlassenstufe))) ? ' bg-primary text-light' : ''))
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text(fach)
+												]));
+									},
+									$elm$core$List$sort(fächer_))));
+					});
+			},
+			$elm$core$Dict$keys(model.availableFachByKlassenstufe)));
+};
+var $author$project$Messages$ToggleKlassenstufe = function (a) {
+	return {$: 'ToggleKlassenstufe', a: a};
 };
 var $author$project$Components$Form$klassenstufen = function (model) {
 	return A2(
@@ -6918,7 +7205,7 @@ var $author$project$Components$Form$klassenstufen = function (model) {
 									$elm$html$Html$Events$onClick(
 									$author$project$Messages$ToggleKlassenstufe(b)),
 									$elm$html$Html$Attributes$class(
-									'klassenstufe btn btn-light border border-primary ' + (A2($elm$core$Set$member, b, model.klassenstufen) ? 'bg-primary text-white' : 'text-primary'))
+									'klassenstufe btn btn-light border border-primary ' + (A2($elm$core$Dict$member, b, model.fächerByKlassenstufe) ? 'bg-primary text-white' : 'text-primary'))
 								]),
 							_List_fromArray(
 								[
@@ -6934,6 +7221,20 @@ var $author$project$Messages$SetSchulart = function (a) {
 };
 var $author$project$Components$Form$schulart = function (model) {
 	return A4($author$project$Components$Form$select, 'Schulart', model.availableSchulart, model.schulart, $author$project$Messages$SetSchulart);
+};
+var $elm$core$Set$size = function (_v0) {
+	var dict = _v0.a;
+	return $elm$core$Dict$size(dict);
+};
+var $elm$core$Dict$values = function (dict) {
+	return A3(
+		$elm$core$Dict$foldr,
+		F3(
+			function (key, value, valueList) {
+				return A2($elm$core$List$cons, value, valueList);
+			}),
+		_List_Nil,
+		dict);
 };
 var $author$project$Components$Form$form = function (model) {
 	return A2(
@@ -6971,8 +7272,6 @@ var $author$project$Components$Form$form = function (model) {
 								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$hidden(
-										_Utils_eq(model.bundesland, $elm$core$Maybe$Nothing)),
 										$elm$html$Html$Attributes$class('col-auto my-2')
 									]),
 								_List_fromArray(
@@ -6983,8 +7282,6 @@ var $author$project$Components$Form$form = function (model) {
 								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$hidden(
-										_Utils_eq(model.schulart, $elm$core$Maybe$Nothing)),
 										$elm$html$Html$Attributes$class('btn-group col-auto my-2')
 									]),
 								_List_fromArray(
@@ -6992,7 +7289,13 @@ var $author$project$Components$Form$form = function (model) {
 										$author$project$Components$Form$klassenstufen(model)
 									]))
 							])),
+						$author$project$Components$Form$fächer(model),
 						A2(
+						$elm$core$List$any,
+						function (fächer_) {
+							return $elm$core$Set$size(fächer_) > 0;
+						},
+						$elm$core$Dict$values(model.fächerByKlassenstufe)) ? A2(
 						$elm$html$Html$button,
 						_List_fromArray(
 							[
@@ -7001,7 +7304,7 @@ var $author$project$Components$Form$form = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$text('Material anzeigen')
-							])),
+							])) : $elm$html$Html$text(''),
 						A2(
 						$elm$html$Html$div,
 						_List_fromArray(

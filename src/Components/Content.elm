@@ -1,14 +1,15 @@
 module Components.Content exposing (content)
 
+import Debug
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 
 
-content: Model -> Html Msg
+content : Model -> Html Msg
 content model =
-    div [] []
+    div [] [ ]
 
 
 
