@@ -1,8 +1,8 @@
-<div align="center"><img src="bilder/logo-mittel.png"></div>
-
 # Lernplattform für Deutschland
 
 [![Discord](https://img.shields.io/discord/696395974343655484?color=%23738ADB&label=discord)](https://discord.gg/EUUyrK4)
+
+![](public/img/logo-mittel.png)
 
 ## Die Idee
 
