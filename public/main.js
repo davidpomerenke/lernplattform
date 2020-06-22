@@ -6893,8 +6893,260 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
+var $elm$html$Html$h5 = _VirtualDom_node('h5');
+var $elm$core$List$sortBy = _List_sortBy;
+var $elm$core$List$sort = function (xs) {
+	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+};
+var $elm$html$Html$a = _VirtualDom_node('a');
+var $elm$html$Html$b = _VirtualDom_node('b');
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $elm$html$Html$i = _VirtualDom_node('i');
+var $elm$html$Html$p = _VirtualDom_node('p');
+var $elm$html$Html$small = _VirtualDom_node('small');
+var $elm$html$Html$span = _VirtualDom_node('span');
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Components$Content$material = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$class('col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 p-1')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('card'),
+					A2($elm$html$Html$Attributes$style, 'height', '100%')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('card-body'),
+							A2($elm$html$Html$Attributes$style, 'position', 'relative')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$span,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('badge badge-info')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('${material.materialart}')
+								])),
+							A2(
+							$elm$html$Html$h5,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('card-title')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Titel')
+								])),
+							A2(
+							$elm$html$Html$p,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('card-text')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('${material materialbeschreibung}')
+								])),
+							A2(
+							$elm$html$Html$small,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('text-muted')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('${material.link}'),
+											$elm$html$Html$Attributes$target('_blank'),
+											$elm$html$Html$Attributes$class('stretched-link')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text('${material.link'),
+											A2(
+											$elm$html$Html$i,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('fas fa-external-link-alt')
+												]),
+											_List_Nil)
+										]))
+								]))
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('card-footer d-flex justify-content-between')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$i,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('far fa-thumbs-up fa-flip-horizontal text-success'),
+									A2($elm$html$Html$Attributes$style, 'font-size', 'x-large'),
+									A2($elm$html$Html$Attributes$style, 'cursor', 'pointer')
+								]),
+							_List_Nil),
+							A2(
+							$elm$html$Html$b,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('100')
+								])),
+							A2(
+							$elm$html$Html$i,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('far fa-thumbs-down text-danger'),
+									A2($elm$html$Html$Attributes$style, 'font-size', 'x-large'),
+									A2($elm$html$Html$Attributes$style, 'cursor', 'pointer')
+								]),
+							_List_Nil)
+						]))
+				]))
+		]));
+var $author$project$Components$Content$subject = F3(
+	function (class_, subject_, model) {
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('border rounded-lg my-2 p-4')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$h5,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm$html$Html$text(subject_)
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('p-1 d-flex flex-wrap')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$button,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('form_title lehrplantitel btn btn-outline-primary rounded-pill m-1 p-0 px-3 abs hierarchie-${hierarchie}')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$small,
+											_List_Nil,
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Titel')
+												]))
+										]))
+								])),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('p-1 d-flex flex-wrap')
+								]),
+							_List_fromArray(
+								[$author$project$Components$Content$material]))
+						]))
+				]));
+	});
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$Components$Content$subjects = function (model) {
+	var _v0 = model.user;
+	if (_v0.$ === 'Nothing') {
+		return $elm$html$Html$text('Fehler');
+	} else {
+		var user = _v0.a;
+		return A2(
+			$elm$html$Html$div,
+			_List_Nil,
+			A2(
+				$elm$core$List$map,
+				function (class_) {
+					return A2(
+						$elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$h5,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										$elm$core$String$fromInt(class_) + '. Klasse')
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_Nil,
+								A2(
+									$elm$core$List$map,
+									function (subject_) {
+										return A3($author$project$Components$Content$subject, class_, subject_, model);
+									},
+									$elm$core$List$sort(
+										$elm$core$Set$toList(
+											A2(
+												$elm$core$Maybe$withDefault,
+												$elm$core$Set$empty,
+												A2($elm$core$Dict$get, class_, user.subjectsByClass))))))
+							]));
+				},
+				$elm$core$Dict$keys(user.subjectsByClass)));
+	}
+};
 var $author$project$Components$Content$content = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -6911,10 +7163,10 @@ var $author$project$Components$Content$content = function (model) {
 				_List_fromArray(
 					[
 						$elm$html$Html$text('Auswahl ändern')
-					]))
+					])),
+				$author$project$Components$Content$subjects(model)
 			]));
 };
-var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$virtual_dom$VirtualDom$attribute = F2(
 	function (key, value) {
 		return A2(
@@ -6924,14 +7176,7 @@ var $elm$virtual_dom$VirtualDom$attribute = F2(
 	});
 var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
 var $elm$html$Html$br = _VirtualDom_node('br');
-var $elm$html$Html$Attributes$href = function (url) {
-	return A2(
-		$elm$html$Html$Attributes$stringProperty,
-		'href',
-		_VirtualDom_noJavaScriptUri(url));
-};
 var $elm$html$Html$li = _VirtualDom_node('li');
-var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
 var $elm$html$Html$ul = _VirtualDom_node('ul');
 var $author$project$Components$Footer$datenschutzModalText = A2(
 	$elm$html$Html$ul,
@@ -6974,7 +7219,6 @@ var $author$project$Components$Footer$datenschutzModalText = A2(
 					$elm$html$Html$text('.')
 				]))
 		]));
-var $elm$html$Html$h5 = _VirtualDom_node('h5');
 var $elm$html$Html$Attributes$boolProperty = F2(
 	function (key, bool) {
 		return A2(
@@ -7110,8 +7354,6 @@ var $author$project$Components$Footer$datenschutzModal = A2(
 				]))
 		]));
 var $elm$html$Html$footer = _VirtualDom_node('footer');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Components$Footer$footer = A2(
 	$elm$html$Html$footer,
 	_List_fromArray(
@@ -7181,10 +7423,6 @@ var $author$project$Components$Footer$footer = A2(
 var $author$project$Messages$SaveUserData = {$: 'SaveUserData'};
 var $author$project$Messages$ToggleClass = function (a) {
 	return {$: 'ToggleClass', a: a};
-};
-var $elm$core$List$sortBy = _List_sortBy;
-var $elm$core$List$sort = function (xs) {
-	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
 var $author$project$Components$Loader$withLoader = F2(
 	function (dynamicContent, html) {
@@ -7372,15 +7610,6 @@ var $elm_community$list_extra$List$Extra$elemIndex = function (x) {
 };
 var $author$project$Helpers$Data$schoolOrder = _List_fromArray(
 	['Grundschule', 'Hauptschule', 'Werkrealschule', 'Realschule (Grundlegendes Niveau)', 'Realschule (Mittleres Niveau)', 'Realschule', 'Wirtschaftsschule', 'Fachoberschule', 'Berufsoberschule', 'Gymnasium', 'Gemeinschaftsschule (Grundlegendes Niveau)', 'Gemeinschaftsschule (Mittleres Niveau)', 'Gemeinschaftsschule (Erweitertes Niveau)', 'Gemeinschaftsschule (Oberstufe)', 'Förderschule emotionale und soziale Entwicklung', 'Förderschule geistige Entwicklung', 'Förderschule Hören', 'Förderschule körperliche und motorische Entwicklung', 'Förderschule Lernen', 'Förderschule Sehen', 'Förderschule Sprache']);
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var $author$project$Helpers$Data$compareSchools = F2(
 	function (a, b) {
 		return A2(
@@ -7551,7 +7780,6 @@ var $author$project$Components$Form$formView = function (form) {
 };
 var $author$project$Messages$HideDevWarning = {$: 'HideDevWarning'};
 var $elm$core$Basics$not = _Basics_not;
-var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Components$Header$devWarning = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -7583,7 +7811,6 @@ var $author$project$Components$Header$devWarning = function (model) {
 			]));
 };
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
-var $elm$html$Html$p = _VirtualDom_node('p');
 var $author$project$Components$Header$header = function (model) {
 	return A2(
 		$elm$html$Html$div,
