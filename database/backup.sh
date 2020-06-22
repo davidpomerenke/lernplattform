@@ -6,4 +6,4 @@ pg_dump  \
   --username=anonymous \
   --dbname=lernplattform \
   --exclude-schema "hdb_*" \
-  --file datenbank/backups/$(date +%Y-%m-%d.%H:%M).sql;
+  --file database/backups/$(date +%Y-%m-%d.%H:%M).sql;

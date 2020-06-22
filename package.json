@@ -23,10 +23,10 @@
   "scripts": {
     "start": "vercel dev",
     "elm:build": "elm make src/Main.elm --output=public/main.js",
-    "pg": "bash datenbank/connect.sh",
-    "pg:backup": "bash datenbank/backup.sh",
-    "pg:schema": "bash datenbank/dump-schema.sh",
-    "gq:schema": "yarn --silent graphqurl https://lernplattform-graphql.herokuapp.com/v1/graphql --introspect > datenbank/schema.graphql"
+    "pg": "bash database/connect.sh",
+    "pg:backup": "bash database/backup.sh",
+    "pg:schema": "bash database/dump-schema.sh",
+    "gq:schema": "yarn --silent graphqurl https://lernplattform-graphql.herokuapp.com/v1/graphql --introspect > database/schema.graphql"
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.3",

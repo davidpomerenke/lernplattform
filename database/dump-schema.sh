@@ -9,7 +9,7 @@ pg_dump  \
   --exclude-schema "hdb_*" \
   --no-owner \
   --no-privileges \
-  --file datenbank/schema.sql;
+  --file database/schema.sql;
 # role is readonly, password safe to be published
 PGPASSWORD='notreallyapassword' \
 pg_dump  \
@@ -17,7 +17,7 @@ pg_dump  \
   --port=5432 \
   --username=anonymous \
   --dbname=lernplattform \
-  --table=schulartenbedeutung \
+  --table=school_aliases \
   --no-owner \
   --no-privileges \
-  --file datenbank/tabelle-schulartenbedeutung.sql;
+  --file database/school-aliases.sql;

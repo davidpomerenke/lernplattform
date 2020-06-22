@@ -4,5 +4,5 @@ elm-stuff/
 .now
 *.log
 lehrplan-ausleser/*.sql
-datenbank/backups/
-datenbank/connect-admin.sh
+database/backups/
+database/connect-admin.sh

@@ -21,21 +21,21 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: schulartenbedeutung; Type: TABLE; Schema: public; Owner: -
+-- Name: school_aliases; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.schulartenbedeutung (
-    bundesland public.bundesland NOT NULL,
-    schulart character varying(500) NOT NULL,
-    schulart_intern character varying(500) NOT NULL
+CREATE TABLE public.school_aliases (
+    region public.bundesland NOT NULL,
+    school character varying(500) NOT NULL,
+    school_internal character varying(500) NOT NULL
 );
 
 
 --
--- Data for Name: schulartenbedeutung; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: school_aliases; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.schulartenbedeutung (bundesland, schulart, schulart_intern) FROM stdin;
+COPY public.school_aliases (region, school, school_internal) FROM stdin;
 Baden-Württemberg	Werkrealschule	Hauptschule
 Baden-Württemberg	Realschule (Grundlegendes Niveau)	Hauptschule
 Baden-Württemberg	Realschule (Mittleres Niveau)	Realschule
@@ -48,11 +48,11 @@ Bayern	Mittelschule	Hauptschule
 
 
 --
--- Name: schulartenbedeutung schulartenbedeutung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: school_aliases schulartenbedeutung_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.schulartenbedeutung
-    ADD CONSTRAINT schulartenbedeutung_pkey PRIMARY KEY (bundesland, schulart);
+ALTER TABLE ONLY public.school_aliases
+    ADD CONSTRAINT schulartenbedeutung_pkey PRIMARY KEY (region, school);
 
 
 --
