@@ -4,12 +4,25 @@ import RemoteData exposing (WebData)
 
 
 type Msg
-    = HideDevWarning
-    | ShowForm
-    | SetBundesland String
-    | SetSchulart String
-    | ToggleKlassenstufe Int
-    | ToggleFach ( Int, String )
-    | GotSchulartResponse { bundesland : String, schulart : WebData (List String) }
-    | GotKlassenstufeResponse { bundesland : String, schulart : String, klassenstufe : WebData (List Int) }
-    | GotFachResponse { bundesland : String, schulart : String, klassenstufe : Int, fächer : WebData (List String) }
+    = EditUserData
+    | SaveUserData
+    | SetRegion String
+    | SetSchool String
+    | ToggleClass Int
+    | ToggleSubject ( Int, String )
+    | GotSchoolResponse
+        { region : String
+        , school : WebData (List String)
+        }
+    | GotClassResponse
+        { region : String
+        , school : String
+        , classes : WebData (List Int)
+        }
+    | GotSubjectResponse
+        { region : String
+        , school : String
+        , class : Int
+        , subjects : WebData (List String)
+        }
+    | HideDevWarning

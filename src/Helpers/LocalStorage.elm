@@ -1,13 +1,10 @@
 port module Helpers.LocalStorage exposing (initWithStorage, updateWithStorage)
 
-import Dict
-import Helpers.Data exposing (availableBundesland)
 import Json.Decode as D
 import Json.Decode.Extra as D
-import Json.Decode.Pipeline exposing (hardcoded, required)
 import Json.Encode as E
 import Messages exposing (Msg)
-import Model exposing (Model)
+import Model exposing (Model, Page(..), User)
 import RemoteData exposing (RemoteData(..))
 import Update exposing (update)
 
@@ -52,23 +49,41 @@ updateWithStorage msg oldModel =
 encode : Model -> E.Value
 encode model =
     E.object
-        [ ( "showDevWarning", E.bool model.showDevWarning )
-        , ( "showForm", E.bool model.showForm )
-        , ( "bundesland", E.string (Maybe.withDefault "" model.bundesland) )
-        , ( "schulart", E.string (Maybe.withDefault "" model.schulart) )
-        , ( "fächerByklassenstufe", E.dict String.fromInt (E.set E.string) model.fächerByKlassenstufe )
+        [ ( "user"
+          , case model.user of
+                Nothing ->
+                    E.null
+
+                Just user ->
+                    E.object
+                        [ ( "region", E.string user.region )
+                        , ( "school", E.string user.school )
+                        , ( "subjectsByClass", E.dict String.fromInt (E.set E.string) user.subjectsByClass )
+                        ]
+          )
+        , ( "page"
+          , case model.page of
+                Form _ ->
+                    E.string "Form"
+
+                Content ->
+                    E.string "Content"
+          )
+        , ( "showDevWarning", E.bool model.showDevWarning )
         ]
 
 
 decoder : D.Decoder Model
 decoder =
-    D.succeed Model
-        |> required "showDevWarning" D.bool
-        |> required "showForm" D.bool
-        |> required "bundesland" (D.nullable D.string)
-        |> required "schulart" (D.nullable D.string)
-        |> required "fächerByKlassenstufe" (D.dict2 D.int (D.set D.string))
-        |> hardcoded (Success availableBundesland)
-        |> hardcoded NotAsked
-        |> hardcoded NotAsked
-        |> hardcoded Dict.empty
+    D.map3 Model
+        (D.field "user"
+            (D.nullable
+                (D.map3 User
+                    (D.field "region" D.string)
+                    (D.field "school" D.string)
+                    (D.field "subjectsByClass" (D.dict2 D.int (D.set D.string)))
+                )
+            )
+        )
+        (D.field "page" (D.succeed Content))
+        (D.field "showDevWarning" D.bool)

@@ -1,4 +1,4 @@
-module Helpers.Data exposing (availableBundesland, compareSchularten)
+module Helpers.Data exposing (availableRegions, compareSchools)
 
 import List.Extra exposing (elemIndex)
 import Maybe exposing (withDefault)
@@ -9,8 +9,8 @@ import Maybe exposing (withDefault)
 -- whereas other data needs only be available after some user interaction
 
 
-availableBundesland : List String
-availableBundesland =
+availableRegions : List String
+availableRegions =
     [ "Baden-Württemberg"
     , "Bayern"
     ]
@@ -22,8 +22,8 @@ availableBundesland =
 -- than it is to implement as an SQL table
 
 
-schulartenOrder : List String
-schulartenOrder =
+schoolOrder : List String
+schoolOrder =
     [ "Grundschule"
     , "Hauptschule"
     , "Werkrealschule"
@@ -48,8 +48,8 @@ schulartenOrder =
     ]
 
 
-compareSchularten : String -> String -> Order
-compareSchularten a b =
+compareSchools : String -> String -> Order
+compareSchools a b =
     compare
-        (withDefault 0 (elemIndex a schulartenOrder))
-        (withDefault 1 (elemIndex b schulartenOrder))
+        (withDefault 0 (elemIndex a schoolOrder))
+        (withDefault 1 (elemIndex b schoolOrder))

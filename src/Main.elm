@@ -1,16 +1,17 @@
 module Main exposing (main)
 
 import Browser
-import Helpers.Data exposing (availableBundesland)
-import Helpers.LocalStorage exposing (initWithStorage, updateWithStorage)
-import Messages exposing (Msg(..))
-import Model exposing (Model)
-import RemoteData exposing (RemoteData(..))
-import Update exposing (update)
-import View exposing (view)
 import Dict
+import Helpers.Data
+import Helpers.LocalStorage exposing (initWithStorage, updateWithStorage)
+import Json.Decode
+import Messages exposing (Msg(..))
+import Model exposing (FormData, Model, Page(..))
+import RemoteData exposing (RemoteData(..))
+import View exposing (view)
 
 
+main : Program Json.Decode.Value Model Msg
 main =
     Browser.element
         { init = initWithStorage initialModel initialCommands
@@ -26,15 +27,21 @@ main =
 
 initialModel : Model
 initialModel =
-    { showDevWarning = True
-    , showForm = True
-    , bundesland = Nothing
-    , schulart = Nothing
-    , fächerByKlassenstufe = Dict.empty
-    , availableBundesland = Success availableBundesland
-    , availableSchulart = NotAsked
-    , availableKlassenstufe = NotAsked
-    , availableFachByKlassenstufe = Dict.empty
+    { user = Nothing
+    , page = Form initialFormData
+    , showDevWarning = True
+    }
+
+
+initialFormData : FormData
+initialFormData =
+    { region = Nothing
+    , school = Nothing
+    , subjectsByClass = Dict.empty
+    , availableRegions = Success Helpers.Data.availableRegions
+    , availableSchools = NotAsked
+    , availableClasses = NotAsked
+    , availableSubjectsByClass = Dict.empty
     }
 
 

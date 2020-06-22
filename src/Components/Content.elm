@@ -1,15 +1,19 @@
 module Components.Content exposing (content)
 
-import Debug
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Messages exposing (Msg(..))
 import Model exposing (Model)
 
 
 content : Model -> Html Msg
 content model =
-    div [] [ ]
+    div []
+        [ button
+            [ onClick EditUserData, class "btn btn-warning my-2" ]
+            [ text "Auswahl ändern" ]
+        ]
 
 
 

@@ -1,10 +1,11 @@
 module Update exposing (update)
 
 import Dict
+import Helpers.Data
 import Helpers.HttpRequests exposing (makeRequest)
 import Json.Decode exposing (field, int, list, string)
 import Messages exposing (Msg(..))
-import Model exposing (Model)
+import Model exposing (Model, Page(..))
 import RemoteData exposing (RemoteData(..))
 import Set
 
@@ -12,168 +13,324 @@ import Set
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        EditUserData ->
+            case model.user of
+                Nothing ->
+                    ( model, Cmd.none )
+
+                Just user ->
+                    let
+                        newModel =
+                            { model
+                                | page =
+                                    Form
+                                        { region = Just user.region
+                                        , school = Just user.school
+                                        , subjectsByClass = user.subjectsByClass
+                                        , availableRegions = Success Helpers.Data.availableRegions
+                                        , availableSchools = Loading
+                                        , availableClasses = Loading
+                                        , availableSubjectsByClass = Dict.fromList (List.map (\k -> ( k, Loading )) (Dict.keys user.subjectsByClass))
+                                        }
+                            }
+                    in
+                    ( newModel
+                    , requestFormData newModel
+                    )
+
+        SaveUserData ->
+            ( case model.page of
+                Content ->
+                    model
+
+                Form form ->
+                    case form.region of
+                        Nothing ->
+                            model
+
+                        Just region ->
+                            case form.school of
+                                Nothing ->
+                                    model
+
+                                Just school ->
+                                    if List.any (\classes -> Set.size classes > 0) (Dict.values form.subjectsByClass) then
+                                        { model
+                                            | page = Content
+                                            , user =
+                                                Just
+                                                    { region = region
+                                                    , school = school
+                                                    , subjectsByClass = form.subjectsByClass
+                                                    }
+                                        }
+
+                                    else
+                                        model
+            , Cmd.none
+            )
+
+        SetRegion region ->
+            ( { model
+                | page =
+                    case model.page of
+                        Content ->
+                            Content
+
+                        Form form ->
+                            Form
+                                { form
+                                    | region = Just region
+                                    , school = Nothing
+                                    , subjectsByClass = Dict.empty
+                                    , availableSchools = Loading
+                                    , availableClasses = NotAsked
+                                    , availableSubjectsByClass = Dict.empty
+                                }
+              }
+            , requestAvailableSchools region
+            )
+
+        SetSchool school ->
+            case model.page of
+                Content ->
+                    ( model, Cmd.none )
+
+                Form form ->
+                    case form.region of
+                        Nothing ->
+                            ( model, Cmd.none )
+
+                        Just region ->
+                            ( { model
+                                | page =
+                                    Form
+                                        { form
+                                            | school = Just school
+                                            , subjectsByClass = Dict.empty
+                                            , availableClasses = Loading
+                                            , availableSubjectsByClass = Dict.empty
+                                        }
+                              }
+                            , requestAvailableClasses region school
+                            )
+
+        ToggleClass class ->
+            case model.page of
+                Content ->
+                    ( model, Cmd.none )
+
+                Form form ->
+                    case form.region of
+                        Nothing ->
+                            ( model, Cmd.none )
+
+                        Just region ->
+                            case form.school of
+                                Nothing ->
+                                    ( model, Cmd.none )
+
+                                Just school ->
+                                    ( { model
+                                        | page =
+                                            Form
+                                                { form
+                                                    | subjectsByClass =
+                                                        if Dict.member class form.subjectsByClass then
+                                                            Dict.remove class form.subjectsByClass
+
+                                                        else
+                                                            Dict.insert class Set.empty form.subjectsByClass
+                                                    , availableSubjectsByClass =
+                                                        if Dict.member class form.availableSubjectsByClass then
+                                                            Dict.remove class form.availableSubjectsByClass
+
+                                                        else
+                                                            Dict.insert class Loading form.availableSubjectsByClass
+                                                }
+                                      }
+                                    , if Dict.member class form.subjectsByClass then
+                                        Cmd.none
+
+                                      else
+                                        requestAvailableSubjects region school class
+                                    )
+
+        ToggleSubject ( class, subject ) ->
+            case model.page of
+                Content ->
+                    ( model, Cmd.none )
+
+                Form form ->
+                    case form.region of
+                        Nothing ->
+                            ( model, Cmd.none )
+
+                        Just _ ->
+                            case form.school of
+                                Nothing ->
+                                    ( model, Cmd.none )
+
+                                Just _ ->
+                                    ( { model
+                                        | page =
+                                            Form
+                                                { form
+                                                    | subjectsByClass =
+                                                        Dict.update class
+                                                            (\v ->
+                                                                case v of
+                                                                    Nothing ->
+                                                                        Just Set.empty
+
+                                                                    Just subjects ->
+                                                                        if Set.member subject subjects then
+                                                                            Just (Set.remove subject subjects)
+
+                                                                        else
+                                                                            Just (Set.insert subject subjects)
+                                                            )
+                                                            form.subjectsByClass
+                                                }
+                                      }
+                                    , Cmd.none
+                                    )
+
+        GotSchoolResponse response ->
+            ( case model.page of
+                Content ->
+                    model
+
+                Form form ->
+                    if Just response.region == form.region then
+                        { model | page = Form { form | availableSchools = response.school } }
+
+                    else
+                        model
+            , Cmd.none
+            )
+
+        GotClassResponse response ->
+            ( case model.page of
+                Content ->
+                    model
+
+                Form form ->
+                    if Just response.region == form.region && Just response.school == form.school then
+                        { model | page = Form { form | availableClasses = response.classes } }
+
+                    else
+                        model
+            , Cmd.none
+            )
+
+        GotSubjectResponse response ->
+            ( case model.page of
+                Content ->
+                    model
+
+                Form form ->
+                    if
+                        Just response.region
+                            == form.region
+                            && Just response.school
+                            == form.school
+                            && Dict.member response.class form.subjectsByClass
+                    then
+                        { model
+                            | page =
+                                Form
+                                    { form
+                                        | availableSubjectsByClass =
+                                            Dict.insert response.class response.subjects form.availableSubjectsByClass
+                                    }
+                        }
+
+                    else
+                        model
+            , Cmd.none
+            )
+
         HideDevWarning ->
             ( { model | showDevWarning = False }, Cmd.none )
 
-        ShowForm ->
-            ( { model | showForm = True }, Cmd.none )
 
-        SetBundesland bundesland ->
-            ( { model
-                | bundesland = Just bundesland
-                , schulart = Nothing
-                , fächerByKlassenstufe = Dict.empty
-                , availableSchulart = Loading
-                , availableKlassenstufe = NotAsked
-                , availableFachByKlassenstufe = Dict.empty
-              }
-            , makeRequest
-                ("select distinct schulart from lehrplan where bundesland = '" ++ bundesland ++ "';")
-                (list (field "schulart" string))
-                (\schulart -> GotSchulartResponse { bundesland = bundesland, schulart = schulart })
-            )
+requestFormData : Model -> Cmd Msg
+requestFormData model =
+    case model.page of
+        Content ->
+            Cmd.none
 
-        SetSchulart schulart ->
-            case model.bundesland of
+        Form form ->
+            case form.region of
                 Nothing ->
-                    ( model, Cmd.none )
+                    Cmd.none
 
-                Just bundesland ->
-                    ( { model
-                        | schulart = Just schulart
-                        , fächerByKlassenstufe = Dict.empty
-                        , availableKlassenstufe = Loading
-                        , availableFachByKlassenstufe = Dict.empty
-                      }
-                    , makeRequest
-                        ("select distinct klassenstufe from lehrplan where bundesland = '"
-                            ++ bundesland
-                            ++ "' and schulart = '"
-                            ++ schulart
-                            ++ "';"
-                        )
-                        (list (field "klassenstufe" int))
-                        (\klassenstufe ->
-                            GotKlassenstufeResponse
-                                { bundesland = bundesland
-                                , schulart = schulart
-                                , klassenstufe = klassenstufe
-                                }
-                        )
-                    )
-
-        ToggleKlassenstufe klassenstufe ->
-            case model.bundesland of
-                Nothing ->
-                    ( model, Cmd.none )
-
-                Just bundesland ->
-                    case model.schulart of
+                Just region ->
+                    case form.school of
                         Nothing ->
-                            ( model, Cmd.none )
+                            requestAvailableSchools region
 
-                        Just schulart ->
-                            ( { model
-                                | fächerByKlassenstufe =
-                                    if Dict.member klassenstufe model.fächerByKlassenstufe then
-                                        Dict.remove klassenstufe model.fächerByKlassenstufe
-
-                                    else
-                                        Dict.insert klassenstufe Set.empty model.fächerByKlassenstufe
-                                , availableFachByKlassenstufe =
-                                    if Dict.member klassenstufe model.availableFachByKlassenstufe then
-                                        Dict.remove klassenstufe model.availableFachByKlassenstufe
-
-                                    else
-                                        Dict.insert klassenstufe Loading model.availableFachByKlassenstufe
-                              }
-                            , if Dict.member klassenstufe model.fächerByKlassenstufe then
-                                Cmd.none
-
-                              else
-                                makeRequest
-                                    ("select distinct fach from lehrplan where bundesland = '"
-                                        ++ bundesland
-                                        ++ "' and schulart = '"
-                                        ++ schulart
-                                        ++ "' and klassenstufe = '"
-                                        ++ String.fromInt klassenstufe
-                                        ++ "';"
-                                    )
-                                    (list (field "fach" string))
-                                    (\fächer ->
-                                        GotFachResponse
-                                            { bundesland = bundesland
-                                            , schulart = schulart
-                                            , klassenstufe = klassenstufe
-                                            , fächer = fächer
-                                            }
-                                    )
-                            )
-
-        ToggleFach ( klassenstufe, fach ) ->
-            case model.bundesland of
-                Nothing ->
-                    ( model, Cmd.none )
-
-                Just bundesland ->
-                    case model.schulart of
-                        Nothing ->
-                            ( model, Cmd.none )
-
-                        Just schulart ->
-                            ( { model
-                                | fächerByKlassenstufe =
-                                    Dict.update klassenstufe
-                                        (\v ->
-                                            case v of
-                                                Nothing ->
-                                                    Just Set.empty
-
-                                                Just fächer ->
-                                                    if Set.member fach fächer then
-                                                        Just (Set.remove fach fächer)
-
-                                                    else
-                                                        Just (Set.insert fach fächer)
+                        Just school ->
+                            Cmd.batch
+                                ([ requestAvailableSchools region
+                                 , requestAvailableClasses region school
+                                 ]
+                                    ++ List.map
+                                        (\class ->
+                                            requestAvailableSubjects
+                                                region
+                                                school
+                                                class
                                         )
-                                        model.fächerByKlassenstufe
-                              }
-                            , Cmd.none
-                            )
+                                        (Dict.keys form.subjectsByClass)
+                                )
 
-        GotSchulartResponse response ->
-            ( if Just response.bundesland == model.bundesland then
-                { model | availableSchulart = response.schulart }
 
-              else
-                model
-            , Cmd.none
-            )
+requestAvailableSchools : String -> Cmd Msg
+requestAvailableSchools region =
+    makeRequest
+        ("select distinct school from curriculum where region = '" ++ region ++ "';")
+        (list (field "school" string))
+        (\school -> GotSchoolResponse { region = region, school = school })
 
-        GotKlassenstufeResponse response ->
-            ( if Just response.bundesland == model.bundesland && Just response.schulart == model.schulart then
-                { model | availableKlassenstufe = response.klassenstufe }
 
-              else
-                model
-            , Cmd.none
-            )
-
-        GotFachResponse response ->
-            ( if
-                Just response.bundesland
-                    == model.bundesland
-                    && Just response.schulart
-                    == model.schulart
-                    && Dict.member response.klassenstufe model.fächerByKlassenstufe
-              then
-                { model
-                    | availableFachByKlassenstufe =
-                        Dict.insert response.klassenstufe response.fächer model.availableFachByKlassenstufe
+requestAvailableClasses : String -> String -> Cmd Msg
+requestAvailableClasses region school =
+    makeRequest
+        ("select distinct class from curriculum where region = '"
+            ++ region
+            ++ "' and school = '"
+            ++ school
+            ++ "';"
+        )
+        (list (field "class" int))
+        (\classes ->
+            GotClassResponse
+                { region = region
+                , school = school
+                , classes = classes
                 }
+        )
 
-              else
-                model
-            , Cmd.none
-            )
+
+requestAvailableSubjects : String -> String -> Int -> Cmd Msg
+requestAvailableSubjects region school class =
+    makeRequest
+        ("select distinct subject from curriculum where region = '"
+            ++ region
+            ++ "' and school = '"
+            ++ school
+            ++ "' and class = '"
+            ++ String.fromInt class
+            ++ "';"
+        )
+        (list (field "subject" string))
+        (\subjects ->
+            GotSubjectResponse
+                { region = region
+                , school = school
+                , class = class
+                , subjects = subjects
+                }
+        )

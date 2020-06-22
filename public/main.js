@@ -5321,16 +5321,15 @@ var $elm$core$Task$perform = F2(
 var $elm$browser$Browser$element = _Browser_element;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$json$Json$Decode$decodeValue = _Json_run;
-var $author$project$Model$Model = F9(
-	function (showDevWarning, showForm, bundesland, schulart, fächerByKlassenstufe, availableBundesland, availableSchulart, availableKlassenstufe, availableFachByKlassenstufe) {
-		return {availableBundesland: availableBundesland, availableFachByKlassenstufe: availableFachByKlassenstufe, availableKlassenstufe: availableKlassenstufe, availableSchulart: availableSchulart, bundesland: bundesland, fächerByKlassenstufe: fächerByKlassenstufe, schulart: schulart, showDevWarning: showDevWarning, showForm: showForm};
+var $author$project$Model$Content = {$: 'Content'};
+var $author$project$Model$Model = F3(
+	function (user, page, showDevWarning) {
+		return {page: page, showDevWarning: showDevWarning, user: user};
 	});
-var $krisajenkins$remotedata$RemoteData$NotAsked = {$: 'NotAsked'};
-var $krisajenkins$remotedata$RemoteData$Success = function (a) {
-	return {$: 'Success', a: a};
-};
-var $author$project$Helpers$Data$availableBundesland = _List_fromArray(
-	['Baden-Württemberg', 'Bayern']);
+var $author$project$Model$User = F3(
+	function (region, school, subjectsByClass) {
+		return {region: region, school: school, subjectsByClass: subjectsByClass};
+	});
 var $elm$json$Json$Decode$bool = _Json_decodeBool;
 var $elm$json$Json$Decode$andThen = _Json_andThen;
 var $elm$core$Basics$composeR = F3(
@@ -5485,9 +5484,9 @@ var $elm_community$json_extra$Json$Decode$Extra$dict2 = F2(
 			$elm_community$json_extra$Json$Decode$Extra$decodeDictFromTuples(keyDecoder),
 			$elm$json$Json$Decode$keyValuePairs(valueDecoder));
 	});
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded = A2($elm$core$Basics$composeR, $elm$json$Json$Decode$succeed, $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom);
+var $elm$json$Json$Decode$field = _Json_decodeField;
 var $elm$json$Json$Decode$int = _Json_decodeInt;
+var $elm$json$Json$Decode$map3 = _Json_map3;
 var $elm$json$Json$Decode$null = _Json_decodeNull;
 var $elm$json$Json$Decode$oneOf = _Json_oneOf;
 var $elm$json$Json$Decode$nullable = function (decoder) {
@@ -5498,14 +5497,6 @@ var $elm$json$Json$Decode$nullable = function (decoder) {
 				A2($elm$json$Json$Decode$map, $elm$core$Maybe$Just, decoder)
 			]));
 };
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
-	function (key, valDecoder, decoder) {
-		return A2(
-			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom,
-			A2($elm$json$Json$Decode$field, key, valDecoder),
-			decoder);
-	});
 var $elm$core$Set$Set_elm_builtin = function (a) {
 	return {$: 'Set_elm_builtin', a: a};
 };
@@ -5527,42 +5518,30 @@ var $elm_community$json_extra$Json$Decode$Extra$set = function (decoder) {
 		$elm$json$Json$Decode$list(decoder));
 };
 var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Helpers$LocalStorage$decoder = A2(
-	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
-	$elm$core$Dict$empty,
+var $author$project$Helpers$LocalStorage$decoder = A4(
+	$elm$json$Json$Decode$map3,
+	$author$project$Model$Model,
 	A2(
-		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
-		$krisajenkins$remotedata$RemoteData$NotAsked,
-		A2(
-			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
-			$krisajenkins$remotedata$RemoteData$NotAsked,
-			A2(
-				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$hardcoded,
-				$krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableBundesland),
-				A3(
-					$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-					'fächerByKlassenstufe',
+		$elm$json$Json$Decode$field,
+		'user',
+		$elm$json$Json$Decode$nullable(
+			A4(
+				$elm$json$Json$Decode$map3,
+				$author$project$Model$User,
+				A2($elm$json$Json$Decode$field, 'region', $elm$json$Json$Decode$string),
+				A2($elm$json$Json$Decode$field, 'school', $elm$json$Json$Decode$string),
+				A2(
+					$elm$json$Json$Decode$field,
+					'subjectsByClass',
 					A2(
 						$elm_community$json_extra$Json$Decode$Extra$dict2,
 						$elm$json$Json$Decode$int,
-						$elm_community$json_extra$Json$Decode$Extra$set($elm$json$Json$Decode$string)),
-					A3(
-						$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-						'schulart',
-						$elm$json$Json$Decode$nullable($elm$json$Json$Decode$string),
-						A3(
-							$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-							'bundesland',
-							$elm$json$Json$Decode$nullable($elm$json$Json$Decode$string),
-							A3(
-								$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-								'showForm',
-								$elm$json$Json$Decode$bool,
-								A3(
-									$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-									'showDevWarning',
-									$elm$json$Json$Decode$bool,
-									$elm$json$Json$Decode$succeed($author$project$Model$Model))))))))));
+						$elm_community$json_extra$Json$Decode$Extra$set($elm$json$Json$Decode$string)))))),
+	A2(
+		$elm$json$Json$Decode$field,
+		'page',
+		$elm$json$Json$Decode$succeed($author$project$Model$Content)),
+	A2($elm$json$Json$Decode$field, 'showDevWarning', $elm$json$Json$Decode$bool));
 var $author$project$Helpers$LocalStorage$initWithStorage = F3(
 	function (initialModel, commands, flags) {
 		return _Utils_Tuple2(
@@ -5578,16 +5557,28 @@ var $author$project$Helpers$LocalStorage$initWithStorage = F3(
 			$elm$core$Platform$Cmd$batch(commands));
 	});
 var $author$project$Main$initialCommands = _List_Nil;
+var $author$project$Model$Form = function (a) {
+	return {$: 'Form', a: a};
+};
+var $krisajenkins$remotedata$RemoteData$NotAsked = {$: 'NotAsked'};
+var $krisajenkins$remotedata$RemoteData$Success = function (a) {
+	return {$: 'Success', a: a};
+};
+var $author$project$Helpers$Data$availableRegions = _List_fromArray(
+	['Baden-Württemberg', 'Bayern']);
+var $author$project$Main$initialFormData = {
+	availableClasses: $krisajenkins$remotedata$RemoteData$NotAsked,
+	availableRegions: $krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableRegions),
+	availableSchools: $krisajenkins$remotedata$RemoteData$NotAsked,
+	availableSubjectsByClass: $elm$core$Dict$empty,
+	region: $elm$core$Maybe$Nothing,
+	school: $elm$core$Maybe$Nothing,
+	subjectsByClass: $elm$core$Dict$empty
+};
 var $author$project$Main$initialModel = {
-	availableBundesland: $krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableBundesland),
-	availableFachByKlassenstufe: $elm$core$Dict$empty,
-	availableKlassenstufe: $krisajenkins$remotedata$RemoteData$NotAsked,
-	availableSchulart: $krisajenkins$remotedata$RemoteData$NotAsked,
-	bundesland: $elm$core$Maybe$Nothing,
-	fächerByKlassenstufe: $elm$core$Dict$empty,
-	schulart: $elm$core$Maybe$Nothing,
+	page: $author$project$Model$Form($author$project$Main$initialFormData),
 	showDevWarning: true,
-	showForm: true
+	user: $elm$core$Maybe$Nothing
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
@@ -5633,6 +5624,7 @@ var $elm$json$Json$Encode$dict = F3(
 				_Json_emptyObject(_Utils_Tuple0),
 				dictionary));
 	});
+var $elm$json$Json$Encode$null = _Json_encodeNull;
 var $elm$json$Json$Encode$object = function (pairs) {
 	return _Json_wrap(
 		A3(
@@ -5668,80 +5660,87 @@ var $elm$json$Json$Encode$set = F2(
 				entries));
 	});
 var $elm$json$Json$Encode$string = _Json_wrap;
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var $author$project$Helpers$LocalStorage$encode = function (model) {
 	return $elm$json$Json$Encode$object(
 		_List_fromArray(
 			[
 				_Utils_Tuple2(
+				'user',
+				function () {
+					var _v0 = model.user;
+					if (_v0.$ === 'Nothing') {
+						return $elm$json$Json$Encode$null;
+					} else {
+						var user = _v0.a;
+						return $elm$json$Json$Encode$object(
+							_List_fromArray(
+								[
+									_Utils_Tuple2(
+									'region',
+									$elm$json$Json$Encode$string(user.region)),
+									_Utils_Tuple2(
+									'school',
+									$elm$json$Json$Encode$string(user.school)),
+									_Utils_Tuple2(
+									'subjectsByClass',
+									A3(
+										$elm$json$Json$Encode$dict,
+										$elm$core$String$fromInt,
+										$elm$json$Json$Encode$set($elm$json$Json$Encode$string),
+										user.subjectsByClass))
+								]));
+					}
+				}()),
+				_Utils_Tuple2(
+				'page',
+				function () {
+					var _v1 = model.page;
+					if (_v1.$ === 'Form') {
+						return $elm$json$Json$Encode$string('Form');
+					} else {
+						return $elm$json$Json$Encode$string('Content');
+					}
+				}()),
+				_Utils_Tuple2(
 				'showDevWarning',
-				$elm$json$Json$Encode$bool(model.showDevWarning)),
-				_Utils_Tuple2(
-				'showForm',
-				$elm$json$Json$Encode$bool(model.showForm)),
-				_Utils_Tuple2(
-				'bundesland',
-				$elm$json$Json$Encode$string(
-					A2($elm$core$Maybe$withDefault, '', model.bundesland))),
-				_Utils_Tuple2(
-				'schulart',
-				$elm$json$Json$Encode$string(
-					A2($elm$core$Maybe$withDefault, '', model.schulart))),
-				_Utils_Tuple2(
-				'fächerByklassenstufe',
-				A3(
-					$elm$json$Json$Encode$dict,
-					$elm$core$String$fromInt,
-					$elm$json$Json$Encode$set($elm$json$Json$Encode$string),
-					model.fächerByKlassenstufe))
+				$elm$json$Json$Encode$bool(model.showDevWarning))
 			]));
 };
 var $author$project$Helpers$LocalStorage$setStorage = _Platform_outgoingPort('setStorage', $elm$core$Basics$identity);
-var $author$project$Messages$GotFachResponse = function (a) {
-	return {$: 'GotFachResponse', a: a};
-};
-var $author$project$Messages$GotKlassenstufeResponse = function (a) {
-	return {$: 'GotKlassenstufeResponse', a: a};
-};
-var $author$project$Messages$GotSchulartResponse = function (a) {
-	return {$: 'GotSchulartResponse', a: a};
-};
 var $krisajenkins$remotedata$RemoteData$Loading = {$: 'Loading'};
-var $elm$http$Http$BadStatus_ = F2(
-	function (a, b) {
-		return {$: 'BadStatus_', a: a, b: b};
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
 	});
-var $elm$http$Http$BadUrl_ = function (a) {
-	return {$: 'BadUrl_', a: a};
+var $elm$core$Dict$fromList = function (assocs) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (_v0, dict) {
+				var key = _v0.a;
+				var value = _v0.b;
+				return A3($elm$core$Dict$insert, key, value, dict);
+			}),
+		$elm$core$Dict$empty,
+		assocs);
 };
-var $elm$http$Http$GoodStatus_ = F2(
-	function (a, b) {
-		return {$: 'GoodStatus_', a: a, b: b};
-	});
-var $elm$http$Http$NetworkError_ = {$: 'NetworkError_'};
-var $elm$http$Http$Receiving = function (a) {
-	return {$: 'Receiving', a: a};
-};
-var $elm$http$Http$Sending = function (a) {
-	return {$: 'Sending', a: a};
-};
-var $elm$http$Http$Timeout_ = {$: 'Timeout_'};
-var $elm$core$Maybe$isJust = function (maybe) {
-	if (maybe.$ === 'Just') {
-		return true;
-	} else {
-		return false;
-	}
-};
-var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var $elm$core$Dict$get = F2(
 	function (targetKey, dict) {
 		get:
@@ -5773,6 +5772,21 @@ var $elm$core$Dict$get = F2(
 			}
 		}
 	});
+var $elm$core$Dict$member = F2(
+	function (key, dict) {
+		var _v0 = A2($elm$core$Dict$get, key, dict);
+		if (_v0.$ === 'Just') {
+			return true;
+		} else {
+			return false;
+		}
+	});
+var $elm$core$Set$member = F2(
+	function (key, _v0) {
+		var dict = _v0.a;
+		return A2($elm$core$Dict$member, key, dict);
+	});
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$core$Dict$getMin = function (dict) {
 	getMin:
 	while (true) {
@@ -6135,6 +6149,42 @@ var $elm$core$Dict$remove = F2(
 			return x;
 		}
 	});
+var $elm$core$Set$remove = F2(
+	function (key, _v0) {
+		var dict = _v0.a;
+		return $elm$core$Set$Set_elm_builtin(
+			A2($elm$core$Dict$remove, key, dict));
+	});
+var $author$project$Messages$GotClassResponse = function (a) {
+	return {$: 'GotClassResponse', a: a};
+};
+var $elm$http$Http$BadStatus_ = F2(
+	function (a, b) {
+		return {$: 'BadStatus_', a: a, b: b};
+	});
+var $elm$http$Http$BadUrl_ = function (a) {
+	return {$: 'BadUrl_', a: a};
+};
+var $elm$http$Http$GoodStatus_ = F2(
+	function (a, b) {
+		return {$: 'GoodStatus_', a: a, b: b};
+	});
+var $elm$http$Http$NetworkError_ = {$: 'NetworkError_'};
+var $elm$http$Http$Receiving = function (a) {
+	return {$: 'Receiving', a: a};
+};
+var $elm$http$Http$Sending = function (a) {
+	return {$: 'Sending', a: a};
+};
+var $elm$http$Http$Timeout_ = {$: 'Timeout_'};
+var $elm$core$Maybe$isJust = function (maybe) {
+	if (maybe.$ === 'Just') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var $elm$core$Dict$update = F3(
 	function (targetKey, alter, dictionary) {
 		var _v0 = alter(
@@ -6409,188 +6459,393 @@ var $author$project$Helpers$HttpRequests$makeRequest = F3(
 				url: '/api/sql'
 			});
 	});
-var $elm$core$Dict$member = F2(
-	function (key, dict) {
-		var _v0 = A2($elm$core$Dict$get, key, dict);
-		if (_v0.$ === 'Just') {
-			return true;
+var $author$project$Update$requestAvailableClasses = F2(
+	function (region, school) {
+		return A3(
+			$author$project$Helpers$HttpRequests$makeRequest,
+			'select distinct class from curriculum where region = \'' + (region + ('\' and school = \'' + (school + '\';'))),
+			$elm$json$Json$Decode$list(
+				A2($elm$json$Json$Decode$field, 'class', $elm$json$Json$Decode$int)),
+			function (classes) {
+				return $author$project$Messages$GotClassResponse(
+					{classes: classes, region: region, school: school});
+			});
+	});
+var $author$project$Messages$GotSchoolResponse = function (a) {
+	return {$: 'GotSchoolResponse', a: a};
+};
+var $author$project$Update$requestAvailableSchools = function (region) {
+	return A3(
+		$author$project$Helpers$HttpRequests$makeRequest,
+		'select distinct school from curriculum where region = \'' + (region + '\';'),
+		$elm$json$Json$Decode$list(
+			A2($elm$json$Json$Decode$field, 'school', $elm$json$Json$Decode$string)),
+		function (school) {
+			return $author$project$Messages$GotSchoolResponse(
+				{region: region, school: school});
+		});
+};
+var $author$project$Messages$GotSubjectResponse = function (a) {
+	return {$: 'GotSubjectResponse', a: a};
+};
+var $author$project$Update$requestAvailableSubjects = F3(
+	function (region, school, _class) {
+		return A3(
+			$author$project$Helpers$HttpRequests$makeRequest,
+			'select distinct subject from curriculum where region = \'' + (region + ('\' and school = \'' + (school + ('\' and class = \'' + ($elm$core$String$fromInt(_class) + '\';'))))),
+			$elm$json$Json$Decode$list(
+				A2($elm$json$Json$Decode$field, 'subject', $elm$json$Json$Decode$string)),
+			function (subjects) {
+				return $author$project$Messages$GotSubjectResponse(
+					{_class: _class, region: region, school: school, subjects: subjects});
+			});
+	});
+var $author$project$Update$requestFormData = function (model) {
+	var _v0 = model.page;
+	if (_v0.$ === 'Content') {
+		return $elm$core$Platform$Cmd$none;
+	} else {
+		var form = _v0.a;
+		var _v1 = form.region;
+		if (_v1.$ === 'Nothing') {
+			return $elm$core$Platform$Cmd$none;
 		} else {
-			return false;
+			var region = _v1.a;
+			var _v2 = form.school;
+			if (_v2.$ === 'Nothing') {
+				return $author$project$Update$requestAvailableSchools(region);
+			} else {
+				var school = _v2.a;
+				return $elm$core$Platform$Cmd$batch(
+					_Utils_ap(
+						_List_fromArray(
+							[
+								$author$project$Update$requestAvailableSchools(region),
+								A2($author$project$Update$requestAvailableClasses, region, school)
+							]),
+						A2(
+							$elm$core$List$map,
+							function (_class) {
+								return A3($author$project$Update$requestAvailableSubjects, region, school, _class);
+							},
+							$elm$core$Dict$keys(form.subjectsByClass))));
+			}
+		}
+	}
+};
+var $elm$core$Dict$sizeHelp = F2(
+	function (n, dict) {
+		sizeHelp:
+		while (true) {
+			if (dict.$ === 'RBEmpty_elm_builtin') {
+				return n;
+			} else {
+				var left = dict.d;
+				var right = dict.e;
+				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
+					$temp$dict = left;
+				n = $temp$n;
+				dict = $temp$dict;
+				continue sizeHelp;
+			}
 		}
 	});
-var $elm$core$Set$member = F2(
-	function (key, _v0) {
-		var dict = _v0.a;
-		return A2($elm$core$Dict$member, key, dict);
-	});
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $elm$core$Set$remove = F2(
-	function (key, _v0) {
-		var dict = _v0.a;
-		return $elm$core$Set$Set_elm_builtin(
-			A2($elm$core$Dict$remove, key, dict));
-	});
+var $elm$core$Dict$size = function (dict) {
+	return A2($elm$core$Dict$sizeHelp, 0, dict);
+};
+var $elm$core$Set$size = function (_v0) {
+	var dict = _v0.a;
+	return $elm$core$Dict$size(dict);
+};
+var $elm$core$Dict$values = function (dict) {
+	return A3(
+		$elm$core$Dict$foldr,
+		F3(
+			function (key, value, valueList) {
+				return A2($elm$core$List$cons, value, valueList);
+			}),
+		_List_Nil,
+		dict);
+};
 var $author$project$Update$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'HideDevWarning':
+			case 'EditUserData':
+				var _v1 = model.user;
+				if (_v1.$ === 'Nothing') {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				} else {
+					var user = _v1.a;
+					var newModel = _Utils_update(
+						model,
+						{
+							page: $author$project$Model$Form(
+								{
+									availableClasses: $krisajenkins$remotedata$RemoteData$Loading,
+									availableRegions: $krisajenkins$remotedata$RemoteData$Success($author$project$Helpers$Data$availableRegions),
+									availableSchools: $krisajenkins$remotedata$RemoteData$Loading,
+									availableSubjectsByClass: $elm$core$Dict$fromList(
+										A2(
+											$elm$core$List$map,
+											function (k) {
+												return _Utils_Tuple2(k, $krisajenkins$remotedata$RemoteData$Loading);
+											},
+											$elm$core$Dict$keys(user.subjectsByClass))),
+									region: $elm$core$Maybe$Just(user.region),
+									school: $elm$core$Maybe$Just(user.school),
+									subjectsByClass: user.subjectsByClass
+								})
+						});
+					return _Utils_Tuple2(
+						newModel,
+						$author$project$Update$requestFormData(newModel));
+				}
+			case 'SaveUserData':
+				return _Utils_Tuple2(
+					function () {
+						var _v2 = model.page;
+						if (_v2.$ === 'Content') {
+							return model;
+						} else {
+							var form = _v2.a;
+							var _v3 = form.region;
+							if (_v3.$ === 'Nothing') {
+								return model;
+							} else {
+								var region = _v3.a;
+								var _v4 = form.school;
+								if (_v4.$ === 'Nothing') {
+									return model;
+								} else {
+									var school = _v4.a;
+									return A2(
+										$elm$core$List$any,
+										function (classes) {
+											return $elm$core$Set$size(classes) > 0;
+										},
+										$elm$core$Dict$values(form.subjectsByClass)) ? _Utils_update(
+										model,
+										{
+											page: $author$project$Model$Content,
+											user: $elm$core$Maybe$Just(
+												{region: region, school: school, subjectsByClass: form.subjectsByClass})
+										}) : model;
+								}
+							}
+						}
+					}(),
+					$elm$core$Platform$Cmd$none);
+			case 'SetRegion':
+				var region = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							page: function () {
+								var _v5 = model.page;
+								if (_v5.$ === 'Content') {
+									return $author$project$Model$Content;
+								} else {
+									var form = _v5.a;
+									return $author$project$Model$Form(
+										_Utils_update(
+											form,
+											{
+												availableClasses: $krisajenkins$remotedata$RemoteData$NotAsked,
+												availableSchools: $krisajenkins$remotedata$RemoteData$Loading,
+												availableSubjectsByClass: $elm$core$Dict$empty,
+												region: $elm$core$Maybe$Just(region),
+												school: $elm$core$Maybe$Nothing,
+												subjectsByClass: $elm$core$Dict$empty
+											}));
+								}
+							}()
+						}),
+					$author$project$Update$requestAvailableSchools(region));
+			case 'SetSchool':
+				var school = msg.a;
+				var _v6 = model.page;
+				if (_v6.$ === 'Content') {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				} else {
+					var form = _v6.a;
+					var _v7 = form.region;
+					if (_v7.$ === 'Nothing') {
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					} else {
+						var region = _v7.a;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									page: $author$project$Model$Form(
+										_Utils_update(
+											form,
+											{
+												availableClasses: $krisajenkins$remotedata$RemoteData$Loading,
+												availableSubjectsByClass: $elm$core$Dict$empty,
+												school: $elm$core$Maybe$Just(school),
+												subjectsByClass: $elm$core$Dict$empty
+											}))
+								}),
+							A2($author$project$Update$requestAvailableClasses, region, school));
+					}
+				}
+			case 'ToggleClass':
+				var _class = msg.a;
+				var _v8 = model.page;
+				if (_v8.$ === 'Content') {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				} else {
+					var form = _v8.a;
+					var _v9 = form.region;
+					if (_v9.$ === 'Nothing') {
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					} else {
+						var region = _v9.a;
+						var _v10 = form.school;
+						if (_v10.$ === 'Nothing') {
+							return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+						} else {
+							var school = _v10.a;
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										page: $author$project$Model$Form(
+											_Utils_update(
+												form,
+												{
+													availableSubjectsByClass: A2($elm$core$Dict$member, _class, form.availableSubjectsByClass) ? A2($elm$core$Dict$remove, _class, form.availableSubjectsByClass) : A3($elm$core$Dict$insert, _class, $krisajenkins$remotedata$RemoteData$Loading, form.availableSubjectsByClass),
+													subjectsByClass: A2($elm$core$Dict$member, _class, form.subjectsByClass) ? A2($elm$core$Dict$remove, _class, form.subjectsByClass) : A3($elm$core$Dict$insert, _class, $elm$core$Set$empty, form.subjectsByClass)
+												}))
+									}),
+								A2($elm$core$Dict$member, _class, form.subjectsByClass) ? $elm$core$Platform$Cmd$none : A3($author$project$Update$requestAvailableSubjects, region, school, _class));
+						}
+					}
+				}
+			case 'ToggleSubject':
+				var _v11 = msg.a;
+				var _class = _v11.a;
+				var subject = _v11.b;
+				var _v12 = model.page;
+				if (_v12.$ === 'Content') {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				} else {
+					var form = _v12.a;
+					var _v13 = form.region;
+					if (_v13.$ === 'Nothing') {
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					} else {
+						var _v14 = form.school;
+						if (_v14.$ === 'Nothing') {
+							return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+						} else {
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										page: $author$project$Model$Form(
+											_Utils_update(
+												form,
+												{
+													subjectsByClass: A3(
+														$elm$core$Dict$update,
+														_class,
+														function (v) {
+															if (v.$ === 'Nothing') {
+																return $elm$core$Maybe$Just($elm$core$Set$empty);
+															} else {
+																var subjects = v.a;
+																return A2($elm$core$Set$member, subject, subjects) ? $elm$core$Maybe$Just(
+																	A2($elm$core$Set$remove, subject, subjects)) : $elm$core$Maybe$Just(
+																	A2($elm$core$Set$insert, subject, subjects));
+															}
+														},
+														form.subjectsByClass)
+												}))
+									}),
+								$elm$core$Platform$Cmd$none);
+						}
+					}
+				}
+			case 'GotSchoolResponse':
+				var response = msg.a;
+				return _Utils_Tuple2(
+					function () {
+						var _v16 = model.page;
+						if (_v16.$ === 'Content') {
+							return model;
+						} else {
+							var form = _v16.a;
+							return _Utils_eq(
+								$elm$core$Maybe$Just(response.region),
+								form.region) ? _Utils_update(
+								model,
+								{
+									page: $author$project$Model$Form(
+										_Utils_update(
+											form,
+											{availableSchools: response.school}))
+								}) : model;
+						}
+					}(),
+					$elm$core$Platform$Cmd$none);
+			case 'GotClassResponse':
+				var response = msg.a;
+				return _Utils_Tuple2(
+					function () {
+						var _v17 = model.page;
+						if (_v17.$ === 'Content') {
+							return model;
+						} else {
+							var form = _v17.a;
+							return (_Utils_eq(
+								$elm$core$Maybe$Just(response.region),
+								form.region) && _Utils_eq(
+								$elm$core$Maybe$Just(response.school),
+								form.school)) ? _Utils_update(
+								model,
+								{
+									page: $author$project$Model$Form(
+										_Utils_update(
+											form,
+											{availableClasses: response.classes}))
+								}) : model;
+						}
+					}(),
+					$elm$core$Platform$Cmd$none);
+			case 'GotSubjectResponse':
+				var response = msg.a;
+				return _Utils_Tuple2(
+					function () {
+						var _v18 = model.page;
+						if (_v18.$ === 'Content') {
+							return model;
+						} else {
+							var form = _v18.a;
+							return (_Utils_eq(
+								$elm$core$Maybe$Just(response.region),
+								form.region) && (_Utils_eq(
+								$elm$core$Maybe$Just(response.school),
+								form.school) && A2($elm$core$Dict$member, response._class, form.subjectsByClass))) ? _Utils_update(
+								model,
+								{
+									page: $author$project$Model$Form(
+										_Utils_update(
+											form,
+											{
+												availableSubjectsByClass: A3($elm$core$Dict$insert, response._class, response.subjects, form.availableSubjectsByClass)
+											}))
+								}) : model;
+						}
+					}(),
+					$elm$core$Platform$Cmd$none);
+			default:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{showDevWarning: false}),
-					$elm$core$Platform$Cmd$none);
-			case 'ShowForm':
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{showForm: true}),
-					$elm$core$Platform$Cmd$none);
-			case 'SetBundesland':
-				var bundesland = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							availableFachByKlassenstufe: $elm$core$Dict$empty,
-							availableKlassenstufe: $krisajenkins$remotedata$RemoteData$NotAsked,
-							availableSchulart: $krisajenkins$remotedata$RemoteData$Loading,
-							bundesland: $elm$core$Maybe$Just(bundesland),
-							fächerByKlassenstufe: $elm$core$Dict$empty,
-							schulart: $elm$core$Maybe$Nothing
-						}),
-					A3(
-						$author$project$Helpers$HttpRequests$makeRequest,
-						'select distinct schulart from lehrplan where bundesland = \'' + (bundesland + '\';'),
-						$elm$json$Json$Decode$list(
-							A2($elm$json$Json$Decode$field, 'schulart', $elm$json$Json$Decode$string)),
-						function (schulart) {
-							return $author$project$Messages$GotSchulartResponse(
-								{bundesland: bundesland, schulart: schulart});
-						}));
-			case 'SetSchulart':
-				var schulart = msg.a;
-				var _v1 = model.bundesland;
-				if (_v1.$ === 'Nothing') {
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-				} else {
-					var bundesland = _v1.a;
-					return _Utils_Tuple2(
-						_Utils_update(
-							model,
-							{
-								availableFachByKlassenstufe: $elm$core$Dict$empty,
-								availableKlassenstufe: $krisajenkins$remotedata$RemoteData$Loading,
-								fächerByKlassenstufe: $elm$core$Dict$empty,
-								schulart: $elm$core$Maybe$Just(schulart)
-							}),
-						A3(
-							$author$project$Helpers$HttpRequests$makeRequest,
-							'select distinct klassenstufe from lehrplan where bundesland = \'' + (bundesland + ('\' and schulart = \'' + (schulart + '\';'))),
-							$elm$json$Json$Decode$list(
-								A2($elm$json$Json$Decode$field, 'klassenstufe', $elm$json$Json$Decode$int)),
-							function (klassenstufe) {
-								return $author$project$Messages$GotKlassenstufeResponse(
-									{bundesland: bundesland, klassenstufe: klassenstufe, schulart: schulart});
-							}));
-				}
-			case 'ToggleKlassenstufe':
-				var klassenstufe = msg.a;
-				var _v2 = model.bundesland;
-				if (_v2.$ === 'Nothing') {
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-				} else {
-					var bundesland = _v2.a;
-					var _v3 = model.schulart;
-					if (_v3.$ === 'Nothing') {
-						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-					} else {
-						var schulart = _v3.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{
-									availableFachByKlassenstufe: A2($elm$core$Dict$member, klassenstufe, model.availableFachByKlassenstufe) ? A2($elm$core$Dict$remove, klassenstufe, model.availableFachByKlassenstufe) : A3($elm$core$Dict$insert, klassenstufe, $krisajenkins$remotedata$RemoteData$Loading, model.availableFachByKlassenstufe),
-									fächerByKlassenstufe: A2($elm$core$Dict$member, klassenstufe, model.fächerByKlassenstufe) ? A2($elm$core$Dict$remove, klassenstufe, model.fächerByKlassenstufe) : A3($elm$core$Dict$insert, klassenstufe, $elm$core$Set$empty, model.fächerByKlassenstufe)
-								}),
-							A2($elm$core$Dict$member, klassenstufe, model.fächerByKlassenstufe) ? $elm$core$Platform$Cmd$none : A3(
-								$author$project$Helpers$HttpRequests$makeRequest,
-								'select distinct fach from lehrplan where bundesland = \'' + (bundesland + ('\' and schulart = \'' + (schulart + ('\' and klassenstufe = \'' + ($elm$core$String$fromInt(klassenstufe) + '\';'))))),
-								$elm$json$Json$Decode$list(
-									A2($elm$json$Json$Decode$field, 'fach', $elm$json$Json$Decode$string)),
-								function (fächer) {
-									return $author$project$Messages$GotFachResponse(
-										{bundesland: bundesland, fächer: fächer, klassenstufe: klassenstufe, schulart: schulart});
-								}));
-					}
-				}
-			case 'ToggleFach':
-				var _v4 = msg.a;
-				var klassenstufe = _v4.a;
-				var fach = _v4.b;
-				var _v5 = model.bundesland;
-				if (_v5.$ === 'Nothing') {
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-				} else {
-					var bundesland = _v5.a;
-					var _v6 = model.schulart;
-					if (_v6.$ === 'Nothing') {
-						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-					} else {
-						var schulart = _v6.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{
-									fächerByKlassenstufe: A3(
-										$elm$core$Dict$update,
-										klassenstufe,
-										function (v) {
-											if (v.$ === 'Nothing') {
-												return $elm$core$Maybe$Just($elm$core$Set$empty);
-											} else {
-												var fächer = v.a;
-												return A2($elm$core$Set$member, fach, fächer) ? $elm$core$Maybe$Just(
-													A2($elm$core$Set$remove, fach, fächer)) : $elm$core$Maybe$Just(
-													A2($elm$core$Set$insert, fach, fächer));
-											}
-										},
-										model.fächerByKlassenstufe)
-								}),
-							$elm$core$Platform$Cmd$none);
-					}
-				}
-			case 'GotSchulartResponse':
-				var response = msg.a;
-				return _Utils_Tuple2(
-					_Utils_eq(
-						$elm$core$Maybe$Just(response.bundesland),
-						model.bundesland) ? _Utils_update(
-						model,
-						{availableSchulart: response.schulart}) : model,
-					$elm$core$Platform$Cmd$none);
-			case 'GotKlassenstufeResponse':
-				var response = msg.a;
-				return _Utils_Tuple2(
-					(_Utils_eq(
-						$elm$core$Maybe$Just(response.bundesland),
-						model.bundesland) && _Utils_eq(
-						$elm$core$Maybe$Just(response.schulart),
-						model.schulart)) ? _Utils_update(
-						model,
-						{availableKlassenstufe: response.klassenstufe}) : model,
-					$elm$core$Platform$Cmd$none);
-			default:
-				var response = msg.a;
-				return _Utils_Tuple2(
-					(_Utils_eq(
-						$elm$core$Maybe$Just(response.bundesland),
-						model.bundesland) && (_Utils_eq(
-						$elm$core$Maybe$Just(response.schulart),
-						model.schulart) && A2($elm$core$Dict$member, response.klassenstufe, model.fächerByKlassenstufe))) ? _Utils_update(
-						model,
-						{
-							availableFachByKlassenstufe: A3($elm$core$Dict$insert, response.klassenstufe, response.fächer, model.availableFachByKlassenstufe)
-						}) : model,
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -6618,9 +6873,46 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $author$project$Messages$EditUserData = {$: 'EditUserData'};
+var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$Components$Content$content = function (model) {
-	return A2($elm$html$Html$div, _List_Nil, _List_Nil);
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$button,
+				_List_fromArray(
+					[
+						$elm$html$Html$Events$onClick($author$project$Messages$EditUserData),
+						$elm$html$Html$Attributes$class('btn btn-warning my-2')
+					]),
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Auswahl ändern')
+					]))
+			]));
 };
 var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$virtual_dom$VirtualDom$attribute = F2(
@@ -6631,7 +6923,6 @@ var $elm$virtual_dom$VirtualDom$attribute = F2(
 			_VirtualDom_noJavaScriptOrHtmlUri(value));
 	});
 var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
-var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
@@ -6641,8 +6932,6 @@ var $elm$html$Html$Attributes$href = function (url) {
 };
 var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$ul = _VirtualDom_node('ul');
 var $author$project$Components$Footer$datenschutzModalText = A2(
 	$elm$html$Html$ul,
@@ -6889,74 +7178,69 @@ var $author$project$Components$Footer$footer = A2(
 			_List_fromArray(
 				[$author$project$Components$Footer$datenschutzModal]))
 		]));
-var $author$project$Messages$ShowForm = {$: 'ShowForm'};
-var $elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
-				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
-				}
-			}
+var $author$project$Messages$SaveUserData = {$: 'SaveUserData'};
+var $author$project$Messages$ToggleClass = function (a) {
+	return {$: 'ToggleClass', a: a};
+};
+var $elm$core$List$sortBy = _List_sortBy;
+var $elm$core$List$sort = function (xs) {
+	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+};
+var $author$project$Components$Loader$withLoader = F2(
+	function (dynamicContent, html) {
+		switch (dynamicContent.$) {
+			case 'NotAsked':
+				return $elm$html$Html$text('');
+			case 'Failure':
+				return $elm$html$Html$text('Fehler!');
+			case 'Loading':
+				return A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('loader')
+						]),
+					_List_Nil);
+			default:
+				var a = dynamicContent.a;
+				return html(a);
 		}
 	});
-var $author$project$Messages$SetBundesland = function (a) {
-	return {$: 'SetBundesland', a: a};
+var $author$project$Components$Form$selectClasses = function (form) {
+	return A2(
+		$author$project$Components$Loader$withLoader,
+		form.availableClasses,
+		function (availableClasses) {
+			return A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('btn-group')
+					]),
+				A2(
+					$elm$core$List$map,
+					function (b) {
+						return A2(
+							$elm$html$Html$button,
+							_List_fromArray(
+								[
+									$elm$html$Html$Events$onClick(
+									$author$project$Messages$ToggleClass(b)),
+									$elm$html$Html$Attributes$class(
+									'form_class btn btn-light border border-primary ' + (A2($elm$core$Dict$member, b, form.subjectsByClass) ? 'bg-primary text-white' : 'text-primary'))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(
+									$elm$core$String$fromInt(b))
+								]));
+					},
+					$elm$core$List$sort(availableClasses)));
+		});
 };
-var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
-	function (index, predicate, list) {
-		findIndexHelp:
-		while (true) {
-			if (!list.b) {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (predicate(x)) {
-					return $elm$core$Maybe$Just(index);
-				} else {
-					var $temp$index = index + 1,
-						$temp$predicate = predicate,
-						$temp$list = xs;
-					index = $temp$index;
-					predicate = $temp$predicate;
-					list = $temp$list;
-					continue findIndexHelp;
-				}
-			}
-		}
-	});
-var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
-var $elm_community$list_extra$List$Extra$elemIndex = function (x) {
-	return $elm_community$list_extra$List$Extra$findIndex(
-		$elm$core$Basics$eq(x));
+var $author$project$Messages$SetRegion = function (a) {
+	return {$: 'SetRegion', a: a};
 };
-var $author$project$Helpers$Data$schulartenOrder = _List_fromArray(
-	['Grundschule', 'Hauptschule', 'Werkrealschule', 'Realschule (Grundlegendes Niveau)', 'Realschule (Mittleres Niveau)', 'Realschule', 'Wirtschaftsschule', 'Fachoberschule', 'Berufsoberschule', 'Gymnasium', 'Gemeinschaftsschule (Grundlegendes Niveau)', 'Gemeinschaftsschule (Mittleres Niveau)', 'Gemeinschaftsschule (Erweitertes Niveau)', 'Gemeinschaftsschule (Oberstufe)', 'Förderschule emotionale und soziale Entwicklung', 'Förderschule geistige Entwicklung', 'Förderschule Hören', 'Förderschule körperliche und motorische Entwicklung', 'Förderschule Lernen', 'Förderschule Sehen', 'Förderschule Sprache']);
-var $author$project$Helpers$Data$compareSchularten = F2(
-	function (a, b) {
-		return A2(
-			$elm$core$Basics$compare,
-			A2(
-				$elm$core$Maybe$withDefault,
-				0,
-				A2($elm_community$list_extra$List$Extra$elemIndex, a, $author$project$Helpers$Data$schulartenOrder)),
-			A2(
-				$elm$core$Maybe$withDefault,
-				1,
-				A2($elm_community$list_extra$List$Extra$elemIndex, b, $author$project$Helpers$Data$schulartenOrder)));
-	});
 var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
 var $elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
@@ -6964,7 +7248,6 @@ var $elm$html$Html$Events$alwaysStop = function (x) {
 var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
 	return {$: 'MayStopPropagation', a: a};
 };
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $elm$html$Html$Events$stopPropagationOn = F2(
 	function (event, decoder) {
 		return A2(
@@ -6994,28 +7277,8 @@ var $elm$html$Html$option = _VirtualDom_node('option');
 var $elm$html$Html$select = _VirtualDom_node('select');
 var $elm$html$Html$Attributes$selected = $elm$html$Html$Attributes$boolProperty('selected');
 var $elm$core$List$sortWith = _List_sortWith;
-var $author$project$Components$Loader$withLoader = F2(
-	function (dynamicContent, html) {
-		switch (dynamicContent.$) {
-			case 'NotAsked':
-				return $elm$html$Html$text('');
-			case 'Failure':
-				return $elm$html$Html$text('Fehler!');
-			case 'Loading':
-				return A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('loader')
-						]),
-					_List_Nil);
-			default:
-				var a = dynamicContent.a;
-				return html(a);
-		}
-	});
-var $author$project$Components$Form$select = F4(
-	function (name, options, val, msg) {
+var $author$project$Components$Form$select = F5(
+	function (name, options, comparator, val, msg) {
 		return A2(
 			$author$project$Components$Loader$withLoader,
 			options,
@@ -7070,79 +7333,120 @@ var $author$project$Components$Form$select = F4(
 											$elm$html$Html$text(b)
 										]));
 							},
-							A2($elm$core$List$sortWith, $author$project$Helpers$Data$compareSchularten, options_))));
+							A2($elm$core$List$sortWith, comparator, options_))));
 			});
 	});
-var $author$project$Components$Form$bundesland = function (model) {
-	return A4($author$project$Components$Form$select, 'Bundesland', model.availableBundesland, model.bundesland, $author$project$Messages$SetBundesland);
+var $author$project$Components$Form$selectRegion = function (form) {
+	return A5($author$project$Components$Form$select, 'Bundesland', form.availableRegions, $elm$core$Basics$compare, form.region, $author$project$Messages$SetRegion);
 };
-var $author$project$Messages$ToggleFach = function (a) {
-	return {$: 'ToggleFach', a: a};
+var $author$project$Messages$SetSchool = function (a) {
+	return {$: 'SetSchool', a: a};
 };
-var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
-};
-var $elm$html$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			$elm$virtual_dom$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
-var $elm$html$Html$Events$onClick = function (msg) {
-	return A2(
-		$elm$html$Html$Events$on,
-		'click',
-		$elm$json$Json$Decode$succeed(msg));
-};
-var $elm$core$Dict$sizeHelp = F2(
-	function (n, dict) {
-		sizeHelp:
+var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
+	function (index, predicate, list) {
+		findIndexHelp:
 		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return n;
+			if (!list.b) {
+				return $elm$core$Maybe$Nothing;
 			} else {
-				var left = dict.d;
-				var right = dict.e;
-				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
-					$temp$dict = left;
-				n = $temp$n;
-				dict = $temp$dict;
-				continue sizeHelp;
+				var x = list.a;
+				var xs = list.b;
+				if (predicate(x)) {
+					return $elm$core$Maybe$Just(index);
+				} else {
+					var $temp$index = index + 1,
+						$temp$predicate = predicate,
+						$temp$list = xs;
+					index = $temp$index;
+					predicate = $temp$predicate;
+					list = $temp$list;
+					continue findIndexHelp;
+				}
 			}
 		}
 	});
-var $elm$core$Dict$size = function (dict) {
-	return A2($elm$core$Dict$sizeHelp, 0, dict);
+var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
+var $elm_community$list_extra$List$Extra$elemIndex = function (x) {
+	return $elm_community$list_extra$List$Extra$findIndex(
+		$elm$core$Basics$eq(x));
 };
-var $elm$core$List$sortBy = _List_sortBy;
-var $elm$core$List$sort = function (xs) {
-	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+var $author$project$Helpers$Data$schoolOrder = _List_fromArray(
+	['Grundschule', 'Hauptschule', 'Werkrealschule', 'Realschule (Grundlegendes Niveau)', 'Realschule (Mittleres Niveau)', 'Realschule', 'Wirtschaftsschule', 'Fachoberschule', 'Berufsoberschule', 'Gymnasium', 'Gemeinschaftsschule (Grundlegendes Niveau)', 'Gemeinschaftsschule (Mittleres Niveau)', 'Gemeinschaftsschule (Erweitertes Niveau)', 'Gemeinschaftsschule (Oberstufe)', 'Förderschule emotionale und soziale Entwicklung', 'Förderschule geistige Entwicklung', 'Förderschule Hören', 'Förderschule körperliche und motorische Entwicklung', 'Förderschule Lernen', 'Förderschule Sehen', 'Förderschule Sprache']);
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$Helpers$Data$compareSchools = F2(
+	function (a, b) {
+		return A2(
+			$elm$core$Basics$compare,
+			A2(
+				$elm$core$Maybe$withDefault,
+				0,
+				A2($elm_community$list_extra$List$Extra$elemIndex, a, $author$project$Helpers$Data$schoolOrder)),
+			A2(
+				$elm$core$Maybe$withDefault,
+				1,
+				A2($elm_community$list_extra$List$Extra$elemIndex, b, $author$project$Helpers$Data$schoolOrder)));
+	});
+var $author$project$Components$Form$selectSchool = function (form) {
+	return A5($author$project$Components$Form$select, 'Schulart', form.availableSchools, $author$project$Helpers$Data$compareSchools, form.school, $author$project$Messages$SetSchool);
 };
-var $author$project$Components$Form$fächer = function (model) {
+var $author$project$Messages$ToggleSubject = function (a) {
+	return {$: 'ToggleSubject', a: a};
+};
+var $author$project$Components$Form$buttonSubject = F3(
+	function (class_, subject, form) {
+		return A2(
+			$elm$html$Html$button,
+			_List_fromArray(
+				[
+					$elm$html$Html$Events$onClick(
+					$author$project$Messages$ToggleSubject(
+						_Utils_Tuple2(class_, subject))),
+					$elm$html$Html$Attributes$class(
+					'form_subject btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3' + (A2(
+						$elm$core$Set$member,
+						subject,
+						A2(
+							$elm$core$Maybe$withDefault,
+							$elm$core$Set$empty,
+							A2($elm$core$Dict$get, class_, form.subjectsByClass))) ? ' bg-primary text-light' : ''))
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text(subject)
+				]));
+	});
+var $author$project$Components$Form$selectSubjects = function (form) {
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
 		A2(
 			$elm$core$List$map,
-			function (klassenstufe) {
+			function (class_) {
 				return A2(
 					$elm$html$Html$div,
 					_List_fromArray(
 						[
 							$elm$html$Html$Attributes$class(
-							($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? 'border rounded-lg my-2 p-4' : '')
+							($elm$core$Dict$size(form.availableSubjectsByClass) > 1) ? 'border rounded-lg my-2 p-4' : '')
 						]),
 					_Utils_ap(
 						_List_fromArray(
 							[
-								($elm$core$Dict$size(model.availableFachByKlassenstufe) > 1) ? A2(
+								($elm$core$Dict$size(form.availableSubjectsByClass) > 1) ? A2(
 								$elm$html$Html$h5,
 								_List_Nil,
 								_List_fromArray(
 									[
 										$elm$html$Html$text(
-										$elm$core$String$fromInt(klassenstufe) + '. Klasse')
+										$elm$core$String$fromInt(class_) + '. Klasse')
 									])) : $elm$html$Html$text('')
 							]),
 						_List_fromArray(
@@ -7152,107 +7456,33 @@ var $author$project$Components$Form$fächer = function (model) {
 								A2(
 									$elm$core$Maybe$withDefault,
 									$krisajenkins$remotedata$RemoteData$NotAsked,
-									A2($elm$core$Dict$get, klassenstufe, model.availableFachByKlassenstufe)),
+									A2($elm$core$Dict$get, class_, form.availableSubjectsByClass)),
 								function (fächer_) {
 									return A2(
 										$elm$html$Html$div,
 										_List_Nil,
 										A2(
 											$elm$core$List$map,
-											function (fach) {
-												return A2(
-													$elm$html$Html$button,
-													_List_fromArray(
-														[
-															$elm$html$Html$Events$onClick(
-															$author$project$Messages$ToggleFach(
-																_Utils_Tuple2(klassenstufe, fach))),
-															$elm$html$Html$Attributes$class(
-															'fach btn btn-outline-primary rounded-pill my-2 mr-2 py-1 px-3' + (A2(
-																$elm$core$Set$member,
-																fach,
-																A2(
-																	$elm$core$Maybe$withDefault,
-																	$elm$core$Set$empty,
-																	A2($elm$core$Dict$get, klassenstufe, model.fächerByKlassenstufe))) ? ' bg-primary text-light' : ''))
-														]),
-													_List_fromArray(
-														[
-															$elm$html$Html$text(fach)
-														]));
+											function (subject) {
+												return A3($author$project$Components$Form$buttonSubject, class_, subject, form);
 											},
 											$elm$core$List$sort(fächer_)));
 								})
 							])));
 			},
-			$elm$core$Dict$keys(model.availableFachByKlassenstufe)));
+			$elm$core$Dict$keys(form.availableSubjectsByClass)));
 };
-var $author$project$Messages$ToggleKlassenstufe = function (a) {
-	return {$: 'ToggleKlassenstufe', a: a};
-};
-var $author$project$Components$Form$klassenstufen = function (model) {
-	return A2(
-		$author$project$Components$Loader$withLoader,
-		model.availableKlassenstufe,
-		function (availableKlassenstufe) {
-			return A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('btn-group')
-					]),
-				A2(
-					$elm$core$List$map,
-					function (b) {
-						return A2(
-							$elm$html$Html$button,
-							_List_fromArray(
-								[
-									$elm$html$Html$Events$onClick(
-									$author$project$Messages$ToggleKlassenstufe(b)),
-									$elm$html$Html$Attributes$class(
-									'klassenstufe btn btn-light border border-primary ' + (A2($elm$core$Dict$member, b, model.fächerByKlassenstufe) ? 'bg-primary text-white' : 'text-primary'))
-								]),
-							_List_fromArray(
-								[
-									$elm$html$Html$text(
-									$elm$core$String$fromInt(b))
-								]));
-					},
-					$elm$core$List$sort(availableKlassenstufe)));
-		});
-};
-var $author$project$Messages$SetSchulart = function (a) {
-	return {$: 'SetSchulart', a: a};
-};
-var $author$project$Components$Form$schulart = function (model) {
-	return A4($author$project$Components$Form$select, 'Schulart', model.availableSchulart, model.schulart, $author$project$Messages$SetSchulart);
-};
-var $elm$core$Set$size = function (_v0) {
-	var dict = _v0.a;
-	return $elm$core$Dict$size(dict);
-};
-var $elm$core$Dict$values = function (dict) {
-	return A3(
-		$elm$core$Dict$foldr,
-		F3(
-			function (key, value, valueList) {
-				return A2($elm$core$List$cons, value, valueList);
-			}),
-		_List_Nil,
-		dict);
-};
-var $author$project$Components$Form$form = function (model) {
+var $author$project$Components$Form$formView = function (form) {
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
 		_List_fromArray(
 			[
-				model.showForm ? A2(
+				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$id('auswahl')
+						$elm$html$Html$Attributes$class('form-row')
 					]),
 				_List_fromArray(
 					[
@@ -7260,81 +7490,63 @@ var $author$project$Components$Form$form = function (model) {
 						$elm$html$Html$div,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$class('form-row')
+								$elm$html$Html$Attributes$class('col-auto my-2')
 							]),
 						_List_fromArray(
 							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('col-auto my-2')
-									]),
-								_List_fromArray(
-									[
-										$author$project$Components$Form$bundesland(model)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('col-auto my-2')
-									]),
-								_List_fromArray(
-									[
-										$author$project$Components$Form$schulart(model)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('btn-group col-auto my-2')
-									]),
-								_List_fromArray(
-									[
-										$author$project$Components$Form$klassenstufen(model)
-									]))
+								$author$project$Components$Form$selectRegion(form)
 							])),
-						$author$project$Components$Form$fächer(model),
 						A2(
-						$elm$core$List$any,
-						function (fächer_) {
-							return $elm$core$Set$size(fächer_) > 0;
-						},
-						$elm$core$Dict$values(model.fächerByKlassenstufe)) ? A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-auto my-2')
+							]),
+						_List_fromArray(
+							[
+								$author$project$Components$Form$selectSchool(form)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('btn-group col-auto my-2')
+							]),
+						_List_fromArray(
+							[
+								$author$project$Components$Form$selectClasses(form)
+							]))
+					])),
+				$author$project$Components$Form$selectSubjects(form),
+				A2(
+				$elm$core$List$any,
+				function (subjects) {
+					return $elm$core$Set$size(subjects) > 0;
+				},
+				$elm$core$Dict$values(form.subjectsByClass)) ? A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
 						$elm$html$Html$button,
 						_List_fromArray(
 							[
+								$elm$html$Html$Events$onClick($author$project$Messages$SaveUserData),
 								$elm$html$Html$Attributes$class('btn btn-success my-2')
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Material anzeigen')
-							])) : $elm$html$Html$text(''),
+								$elm$html$Html$text('Speichern')
+							])),
 						A2(
 						$elm$html$Html$div,
+						_List_Nil,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$hidden(true),
-								$elm$html$Html$Attributes$class('alert alert-success p-2')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Die Auswahl wurde erfolgreich im Browser gespeichert.')
+								$elm$html$Html$text('Die Daten werden nur in Deinem Browser gespeichert, wir haben darauf keinen Zugriff.')
 							]))
-					])) : $elm$html$Html$text(''),
-				A2(
-				$elm$html$Html$button,
-				_List_fromArray(
-					[
-						$elm$html$Html$Events$onClick($author$project$Messages$ShowForm),
-						$elm$html$Html$Attributes$hidden(model.showForm),
-						$elm$html$Html$Attributes$class('btn btn-warning my-2')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Auswahl ändern')
-					]))
+					])) : $elm$html$Html$text('')
 			]));
 };
 var $author$project$Messages$HideDevWarning = {$: 'HideDevWarning'};
@@ -7413,8 +7625,15 @@ var $author$project$View$view = function (model) {
 		_List_fromArray(
 			[
 				$author$project$Components$Header$header(model),
-				$author$project$Components$Form$form(model),
-				$author$project$Components$Content$content(model),
+				function () {
+				var _v0 = model.page;
+				if (_v0.$ === 'Form') {
+					var form = _v0.a;
+					return $author$project$Components$Form$formView(form);
+				} else {
+					return $author$project$Components$Content$content(model);
+				}
+			}(),
 				$author$project$Components$Footer$footer
 			]));
 };

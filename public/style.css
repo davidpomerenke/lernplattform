@@ -1,5 +1,6 @@
-button.fach:hover,
-button.lehrplantitel:hover {
+button.form_class:hover,
+button.form_subject:hover,
+button.form_title:hover {
   color: rgb(2, 117, 216);
   background-color: rgba(2, 117, 216, 0.05);
 }
