@@ -1,8 +1,12 @@
 # Lernplattform für Deutschland
 
-[![Discord](https://img.shields.io/discord/696395974343655484?color=%23738ADB&label=discord)](https://discord.gg/EUUyrK4)
-
 ![](public/img/logo-mittel.png)
+
+[wir lernen online](https://wirlernenonline.de/) now does everything the `lernplattform` project ever aimed to. 🎈 Congrats to their great solution! 👏 
+
+They are not open source, but they are now wikimedia, and they seem to be open to collaboration! 
+
+The `lernplattform` project will thus no longer be developed or maintained. 
 
 ## Die Idee
 
