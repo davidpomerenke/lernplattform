@@ -1,4 +1,6 @@
- <div align="center"><img src="bilder/logo-mittel.png"></div>
+[wir lernen online](https://wirlernenonline.de/)  (supported by Wikimedia) now does everything the `lernplattform` project ever aimed to, so check them out! 🎈
+
+<div align="center"><img src="bilder/logo-mittel.png"></div>
 
 <h1 align="center">Lernplattform für Deutschland</h1>
 
