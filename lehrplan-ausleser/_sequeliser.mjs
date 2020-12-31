@@ -8,6 +8,7 @@ const format = a => a.replace(/'/g, "''")
 // Ergebnis als SQL formatieren, um es in die Datenbank einzufügen
 const sequelise = einträge =>
   einträge
+    .filter(eintrag => eintrag.fach === 'Deutsch')
     .map(
       eintrag =>
         (
@@ -51,7 +52,7 @@ const sequelise = einträge =>
     .join('\n')
 
 const save = code =>
-  fs.writeFile(code + '.sql', sequelise(data(code)), 'utf8', err => {
+  fs.writeFile(code + '.sql', 'begin ' + sequelise(data(code)) + ' commit', 'utf8', err => {
     if (err) console.log(err)
   })
 

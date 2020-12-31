@@ -316,7 +316,8 @@ const kartenRahmenHtml = (
   const karten = lehrplanDaten
     .filter(
       a => a.link != null && a.fach === fach && a.klassenstufe === klassenstufe
-    )
+  )
+    .sort((a, b) => a.materialtitel.localeCompare(b.materialtitel))
     .map(a => a.link)
     .unique()
     .map(link => kartenHtml(lehrplanDaten.find(a => a.link === link)))

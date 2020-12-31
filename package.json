@@ -21,17 +21,21 @@
     "deutschland"
   ],
   "scripts": {
-    "pg": "yarn heroku pg:psql postgresql-slippery-92508 --app lernplattform-api",
-    "pg:dump": "bash datenbank/dump.sh",
-    "pg:backup": "bash datenbank/backup.sh"
+    "start": "yarn now dev",
+    "pg": "yarn heroku pg:psql postgresql-angular-45256 --app lernplattform-api",
+    "pg:create": "bash datenbank/create.sh",
+    "pg:prepare": "cd lehrplan-ausleser && node _sequeliser.mjs",
+    "pg:upload": "bash lehrplan-ausleser/upload.sh",
+    "pg:backup": "bash datenbank/backup.sh",
+    "pg:dump": "bash datenbank/dump.sh"
   },
   "devDependencies": {
-    "heroku": "^7.39.2",
-    "now-cli": "^0.0.0"
+    "heroku": "^7.47.6",
+    "now": "^21.0.1"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "pg": "^8.0.0",
+    "pg": "^8.5.1",
     "pg-escape": "^0.2.0",
     "sqlutils": "^1.2.0",
     "sync-request": "^6.1.0"

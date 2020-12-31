@@ -1,8 +1,8 @@
 {
   "env": {
-    "PGHOST": "ec2-54-246-89-234.eu-west-1.compute.amazonaws.com",
-    "PGUSER": "uxeykolcfjodyp",
-    "PGDATABASE": "d5i6d9r1qdalbl",
+    "PGHOST": "ec2-52-208-175-161.eu-west-1.compute.amazonaws.com",
+    "PGUSER": "mvoaczqszuaniw",
+    "PGDATABASE": "df0774edooukmh",
     "PGPASSWORD": "@pgpassword",
     "PGPORT": "5432"
   }
